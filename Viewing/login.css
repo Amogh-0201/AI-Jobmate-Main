@@ -1,0 +1,121 @@
+/*overall*/
+body{
+    margin:0;
+    padding: 0;
+    font-family: Roboto, Arial;
+    background-color: whitesmoke;
+    color: rgb(26,26,26);
+}
+/*header*/
+header{
+    background-color: rgb(193, 229, 240);
+    height: 60px;
+    padding-left: 250px;
+    padding-right: 250px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*main login form container section*/
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    padding-bottom: 50px;
+    padding-top: 50px;
+}
+
+/*design login form*/
+.login-form-container{
+     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 450px;           
+    padding: 30px 40px;     
+
+    background-color: white;
+    border-radius: 8px;     
+    border: 1px solid #cac9c9;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);  
+}
+
+/*heading (fill the form) design*/
+.heading{
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: black;
+}
+
+/*single input value pair design*/
+.single-detail-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom:20px;
+}
+.text-part{ /*label*/
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+.enter-value{  /*input*/
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.25s;
+}
+.enter-value:focus{ /*when entering value in the input box*/
+    border-color: #6f69f1;
+    outline: none;
+    box-shadow: 0 0 0 1.5px rgba(79, 70, 229, 0.15);
+}
+
+/*designing login button*/
+.login-button-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.login-button{
+    background-color: rgb(52, 193, 236);
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: 18px;
+    padding: 15px 0px;
+    width: 100%;
+    cursor: pointer;
+}
+.login-button:hover{
+    background-color: rgb(89, 56, 238);
+    transition: background-color 0.3s;
+}
+
+/*last part which redirect to registration and forgot password*/
+.direct-registration-container,
+.forgot-password-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.forgot-password-container{
+    margin-bottom: 8px;
+}
+
+.register-page-link,
+.forgot-password-link{
+    color: #4f46e5;
+    margin-left: 10px;
+}
+.register-page-link:hover,
+.forgot-password-link:hover{
+    color: #1d179e;
+}
