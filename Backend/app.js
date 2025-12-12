@@ -18,6 +18,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, '..', 'Viewing')));
 
 //routes/middlewares
+app.use(express.json());
 app.use('/',authRouter);
 
 
