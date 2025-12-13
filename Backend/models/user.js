@@ -1,5 +1,7 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const validator = require('validator');
+const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 
 const userSchema = new mongoose.Schema({
@@ -28,8 +30,13 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function(){
+    
     const salt = await bcryptjs.genSalt(10);
     this.password = await bcryptjs.hash(this.password, salt);
 });
+
+userSchema.methods.createJWT = function(){
+    return jwt.sign({userId: this._id, name: this.name}, process.env.JWT_SECRET, {expiresIn: '3d'});
+}
 
 module.exports = mongoose.model('User', userSchema);
