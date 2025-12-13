@@ -6,6 +6,7 @@ const express = require('express');
 const connectDb = require('./db/connectDB');
 
 //routers
+const getPagesRouter = require('./routes/getPage');
 const authRouter = require('./routes/auth');
 
 //error handlers
@@ -19,7 +20,8 @@ app.use(express.static(path.join(__dirname, '..', 'Viewing')));
 
 //routes/middlewares
 app.use(express.json());
-app.use('/',authRouter);
+app.use('/',getPagesRouter);
+app.use('/api/v1/auth',authRouter);
 
 
 app.use(notFound);

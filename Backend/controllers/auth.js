@@ -1,15 +1,6 @@
-const path = require('path');
 const User = require('../models/user');
 const {StatusCodes} = require('http-status-codes');
 const {BadRequestError, UnAuthenticatedError} = require('../errors');
-
-const getLoginPage = async(req, res) => {
-    res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'login.html'));
-}
-
-const getRegisterPage = async(req, res) => {
-    res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'register.html'));
-}
 
 const register = async(req, res) => {
     if(req.body.password !== req.body.confirmedPassword){
@@ -40,8 +31,6 @@ const login = async(req, res) => {
 }
 
 module.exports = {
-    getLoginPage,
-    getRegisterPage,
     register,
     login
 }
