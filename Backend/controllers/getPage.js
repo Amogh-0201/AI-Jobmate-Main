@@ -8,7 +8,12 @@ const getRegisterPage = async(req, res) => {
     res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'register.html'));
 }
 
+const getDashboardPage = async(req, res) => {
+    res.status(200).sendFile(path.join(__dirname, '..', '..', 'viewing', 'dashboard.html'));
+}
+
 module.exports = {
     getLoginPage,
-    getRegisterPage
+    getRegisterPage,
+    getDashboardPage
 }

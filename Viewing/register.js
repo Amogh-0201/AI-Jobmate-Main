@@ -23,5 +23,5 @@ async function registerUser(){
 
 registerButton.addEventListener('click', ()=>{
     registerUser();
-    const token = localStorage.getItem('token');
+    window.location.href = '/dashboard';
 });

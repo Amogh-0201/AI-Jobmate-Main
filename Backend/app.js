@@ -8,19 +8,22 @@ const connectDb = require('./db/connectDB');
 //routers
 const getPagesRouter = require('./routes/getPage');
 const authRouter = require('./routes/auth');
+const dashboardRouter = require('./routes/userDashboard');
 
-//error handlers
+//error handlers / middlewares
 const notFound = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/errorhandler');
+const authenticateUser = require('./middlewares/authenticate');
 
 const app = express();
 
 //static files
 app.use(express.static(path.join(__dirname, '..', 'Viewing')));
 
-//routes/middlewares
+//routes
 app.use(express.json());
 app.use('/',getPagesRouter);
+app.use('/api/v1/user', authenticateUser, dashboardRouter);
 app.use('/api/v1/auth',authRouter);
 
 
