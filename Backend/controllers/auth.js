@@ -1,8 +1,7 @@
 const path = require('path');
 const User = require('../models/user');
-const bcryptjs = require('bcryptjs');
 const {StatusCodes} = require('http-status-codes');
-const {BadRequestError} = require('../errors');
+const {BadRequestError, UnAuthenticatedError} = require('../errors');
 
 const getLoginPage = async(req, res) => {
     res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'login.html'));
@@ -22,7 +21,22 @@ const register = async(req, res) => {
 }
 
 const login = async(req, res) => {
-    res.send('login user');
+    const {email, password} = req.body;
+    if(!email || !password){
+        throw new BadRequestError('Please enter email and password');
+    }
+
+    const user = await User.findOne({email: email});
+    if(!user){
+        throw new UnAuthenticatedError('Invalid Credentials');
+    }
+    const correctPasswordEntered = await user.checkPassword(password);
+    if(!correctPasswordEntered){
+        throw new UnAuthenticatedError('Invalid Credentials');
+    }
+
+    const token = user.createJWT();
+    res.status(StatusCodes.OK).json({token});
 }
 
 module.exports = {
