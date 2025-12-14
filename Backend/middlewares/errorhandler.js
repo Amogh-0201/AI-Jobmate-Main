@@ -2,17 +2,17 @@ const {CustomAPIError} = require('../errors');
 const {StatusCodes} = require('http-status-codes');
 
 const errorHandlerMiddleware = async(err, req, res, next)=> {
-    console.log(err);
-    if(err instanceof CustomAPIError){
-        return res.status(err.statusCode).json({msg: err.message});
+    //console.log(err);
+    if(err.name === "ValidationError"){
+        return res.status(StatusCodes.BAD_REQUEST).json({msg: err.message});
     }
 
     if(err.code === 11000){
-        return res.status(StatusCodes.BAD_REQUEST).json({msg: `email ${err.keyValue.email} already exists`});
+        return res.status(StatusCodes.BAD_REQUEST).json({msg: `email ${err.keyValue.email} already exists, please login`});
     }
-
-    if(err.name === "ValidationError"){
-        return res.status(StatusCodes.BAD_REQUEST).json({msg: err.message});
+    
+    if(err instanceof CustomAPIError){
+        return res.status(err.statusCode).json({msg: err.message});
     }
     //res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({msg: "something went wrong please try again later."});
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({err});

@@ -112,3 +112,8 @@ main{
 .login-page-link:hover{
     color: #1d179e;
 }
+
+.error-msg-container{
+    color: red;
+    font-size: 12px;
+}

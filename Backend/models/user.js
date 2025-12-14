@@ -26,10 +26,21 @@ const userSchema = new mongoose.Schema({
         type: String,
         required:[true, 'please enter password'],
         minlength: 6,
+    },
+    confirmedPassword: {
+        type: String,
+        required: [true, 'Confirm password is required'],
+        validate: {
+            validator: function () {
+                return this.password === this.confirmedPassword;
+            },
+            message: 'Passwords do not match'
+        }
     }
 });
 
 userSchema.pre("save", async function(){
+    this.confirmedPassword = undefined;
     const salt = await bcryptjs.genSalt(10);
     this.password = await bcryptjs.hash(this.password, salt);
 });

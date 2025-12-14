@@ -3,9 +3,6 @@ const {StatusCodes} = require('http-status-codes');
 const {BadRequestError, UnAuthenticatedError} = require('../errors');
 
 const register = async(req, res) => {
-    if(req.body.password !== req.body.confirmedPassword){
-        throw new BadRequestError('Different password entered');
-    }
     const user = await User.create(req.body);
     const token = user.createJWT();
     res.status(StatusCodes.CREATED).json({user, token});
