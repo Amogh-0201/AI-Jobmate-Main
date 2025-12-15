@@ -8,7 +8,7 @@ const connectDb = require('./db/connectDB');
 //routers
 const getPagesRouter = require('./routes/getPage');
 const authRouter = require('./routes/auth');
-const dashboardRouter = require('./routes/userDashboard');
+const dashboardRouter = require('./routes/dashboard');
 
 //error handlers / middlewares
 const notFound = require('./middlewares/not-found');
@@ -22,8 +22,8 @@ app.use(express.static(path.join(__dirname, '..', 'Viewing')));
 
 //routes
 app.use(express.json());
-app.use('/',getPagesRouter);
-app.use('/api/v1/user', authenticateUser, dashboardRouter);
+app.use('/', getPagesRouter);
+app.use('/api/v1/dashboard', authenticateUser, dashboardRouter);
 app.use('/api/v1/auth',authRouter);
 
 

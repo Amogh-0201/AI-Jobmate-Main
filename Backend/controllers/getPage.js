@@ -9,7 +9,7 @@ const getRegisterPage = async(req, res) => {
 }
 
 const getDashboardPage = async(req, res) => {
-    res.status(200).sendFile(path.join(__dirname, '..', '..', 'viewing', 'dashboard.html'));
+    res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'dashboard.html'));
 }
 
 module.exports = {

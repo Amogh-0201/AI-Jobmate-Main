@@ -1,5 +1,6 @@
 const express = require('express');
 const {getLoginPage, getRegisterPage, getDashboardPage} = require('../controllers/getPage');
+const authenticateUser = require('../middlewares/authenticate');
 
 const router = express.Router();
 

@@ -13,7 +13,7 @@ const authenticateUser = async(req, res, next) => {
         req.user = payload;
         next();
     }catch(err){
-        throw new UnAuthenticatedError('Authentication Invalid');
+        throw new UnAuthenticatedError('Authentication Invalid, please login');
     }
 }
 

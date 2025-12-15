@@ -11,7 +11,7 @@ async function login(){
             password
         });
 
-        const token = response.token;
+        const token = response.data.token;
         localStorage.setItem('token', token);
 
         emailInput.value = "";
