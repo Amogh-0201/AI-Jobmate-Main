@@ -18,4 +18,4 @@ async function loadDashboardPage(){
     }
 }
 
-//loadDashboardPage();
+loadDashboardPage();
