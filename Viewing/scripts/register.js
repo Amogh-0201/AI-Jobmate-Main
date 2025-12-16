@@ -1,3 +1,7 @@
+//making the eye icon for hiding password invisible
+document.querySelector('.hide-password').classList.add('make-invisible');
+document.querySelector('.hide-confirm-password').classList.add('make-invisible');
+
 const nameInput = document.querySelector('.js-name');
 const emailInput = document.querySelector('.js-email');
 const passwordInput = document.querySelector('.js-password');
@@ -40,4 +44,42 @@ async function registerUser(){
 }
 registerButton.addEventListener('click', ()=>{
     registerUser();
+});
+
+//password visible option
+
+const passwordVisibleIcon = document.querySelector('.show-password-icon-container');
+
+passwordVisibleIcon.addEventListener('click', () => {
+    const type = passwordInput.getAttribute('type') === 'password'
+        ? 'text'
+        : 'password';
+    
+    passwordInput.setAttribute('type', type);
+
+    if(type === 'password'){
+        document.querySelector('.hide-password').classList.add('make-invisible');
+        document.querySelector('.show-password').classList.remove('make-invisible');
+    }else{
+        document.querySelector('.show-password').classList.add('make-invisible');
+        document.querySelector('.hide-password').classList.remove('make-invisible');
+    }
+});
+
+const confirmPasswordVisibleIcon =document.querySelector('.show-confirm-password-icon-container');
+
+confirmPasswordVisibleIcon.addEventListener('click', () => {
+    const type = confirmPasswordInput.getAttribute('type') === 'password'
+        ? 'text'
+        : 'password';
+    
+    confirmPasswordInput.setAttribute('type', type);
+
+    if(type === 'password'){
+        document.querySelector('.hide-confirm-password').classList.add('make-invisible');
+        document.querySelector('.show-confirm-password').classList.remove('make-invisible');
+    }else{
+        document.querySelector('.show-confirm-password').classList.add('make-invisible');
+        document.querySelector('.hide-confirm-password').classList.remove('make-invisible');
+    }
 });

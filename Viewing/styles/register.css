@@ -117,3 +117,24 @@ main{
     color: red;
     font-size: 12px;
 }
+
+/*password visible icon*/
+.show-password-icon-container,
+.show-confirm-password-icon-container{
+    position: absolute;
+    right: 520px;
+}
+.hide-password,
+.hide-confirm-password{
+    cursor: pointer;
+    width: 22px;
+}
+.show-password,
+.show-confirm-password{
+    width: 18px;
+    cursor: pointer;
+}
+
+.make-invisible{
+    display: none;
+}
