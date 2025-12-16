@@ -30,7 +30,7 @@ async function registerUser(){
         emailInput.value = "";
         passwordInput.value = "";
         confirmPasswordInput.value = "";
-        window.location.href = '/dashboard';
+        window.location.href = '/user/dashboard';
     }catch(err){
         errorMsgContainer.innerHTML = err.response.data.msg;
         setTimeout(() => {

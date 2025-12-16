@@ -12,8 +12,13 @@ const getDashboardPage = async(req, res) => {
     res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'dashboard.html'));
 }
 
+const getApplicationsPage = async(req,res) => {
+    res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'applications.html'));
+}
+
 module.exports = {
     getLoginPage,
     getRegisterPage,
-    getDashboardPage
+    getDashboardPage,
+    getApplicationsPage
 }

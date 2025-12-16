@@ -1,0 +1,48 @@
+/*header*/
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #d7eef6;
+    height: 60px;
+    padding-left: 100px;
+    padding-right: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    z-index: 100;
+}
+/*gretting heading part*/
+.greetings-logout-container{
+    display: flex;
+    align-items: center;
+}
+.greetings{
+    font-size: 16px;
+    color: #1f2933;
+}
+.greetings span.name {
+  font-weight: 600;
+}
+.divider {
+  margin: 0 8px;
+  color: #64748b;
+}
+/*logout button*/
+.logout-button {
+  border: none;
+  border-radius: 6px;
+  background-color: #ef4444; /* cleaner red */
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.logout-button:hover {
+  background-color: #b91c1c;
+  transition: background-color 0.2s ease;
+}

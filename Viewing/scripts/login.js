@@ -19,7 +19,7 @@ async function login(){
 
         emailInput.value = "";
         passwordInput.value = "";
-        window.location.href = '/dashboard';
+        window.location.href = '/user/dashboard';
     }catch(err){
         errorMsgContainer.innerHTML = err.response.data.msg;
         setTimeout(() => {
