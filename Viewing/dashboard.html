@@ -4,12 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+
+    <!--linking roboto font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!--linking stylesheet-->
+    <link rel="stylesheet" href="./styles/dashboard.css">
 </head>
 <body>
-    <h2>Welcome to your Dashboard</h2>
+    <header>
+        <div class="logo-container">
+            AI Jobmate Logo
+        </div>
+        <div class="greetings-logout-container">
+            <div class="greetings">
+                Hi, <span class="name">Name</span><span class="divider">|</span>
+            </div>
+            <div class="logout-button-container">
+                <button class="logout-button">logout</button>
+            </div>
+        </div>
+    </header>
 
- 
+    <aside class="sidebar">
+        <nav class="sidebar-menu">
+            <a class="active">Dashboard</a>
+            <a>Applications</a>
+            <a>Saved Jobs</a>
+            <a>Resume AI</a>
+            <a>Profile</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a>Settings</a>
+        </div>
+    </aside>
+
+    <main>
+        <section class="quick-stats-container">
+            <p class="quick-stats-heading">Quick stats</p>
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <p class="stat-title">Applications Sent</p>
+                    <h2 class="stat-value">24</h2>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">Interviews</p>
+                    <h2 class="stat-value">5</h2>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">Offers</p>
+                    <h2 class="stat-value">2</h2>
+                </div>
+                <div class="stat-card">
+                    <p class="stat-title">Saved Jobs</p>
+                    <h2 class="stat-value">12</h2>
+                </div>
+            </div>
+        </section>
+
+        <section class="recent-activity">
+            <h3 class="section-title">Recent Activity</h3>
+
+            <ul class="activity-list">
+                <li class="activity-item">
+                    <span class="activity-icon applied"><i data-lucide="check"></i></span>
+                    <div class="activity-content">
+                        <p>
+                            Applied to <strong>Frontend Developer</strong> at <strong>Google</strong>
+                        </p>
+                        <span class="activity-time">2 hours ago</span>
+                    </div>
+                </li>
+
+                <li class="activity-item">
+                    <span class="activity-icon saved"><i data-lucide="bookmark"></i></span>
+                    <div class="activity-content">
+                        <p>
+                            Saved job <strong>Backend Engineer</strong> at <strong>Amazon</strong>
+                        </p>
+                        <span class="activity-time">Yesterday</span>
+                    </div>
+                </li>
+
+                <li class="activity-item">
+                    <span class="activity-icon ai"><i data-lucide="file-text"></i></span>
+                    <div class="activity-content">
+                        <p>
+                            Used Resume AI for <strong>Data Analyst</strong> role
+                        </p>
+                        <span class="activity-time">2 days ago</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+
+        <section class="ai-suggestions">
+            <h3 class="section-title">AI Suggestions</h3>
+
+            <div class="suggestion-list">
+                <div class="suggestion-card">
+                    <div class="suggestion-text">
+                        <p class="suggestion-title">
+                            Improve resume for better ATS match
+                        </p>
+                        <p class="suggestion-desc">
+                            You've applied to 6 jobs with no interviews yet.
+                        </p>
+                    </div>
+                    <button class="suggestion-btn">Use Resume AI</button>
+                </div>
+
+                <div class="suggestion-card">
+                    <div class="suggestion-text">
+                        <p class="suggestion-title">
+                            Apply to saved jobs
+                        </p>
+                        <p class="suggestion-desc">
+                            You have 4 saved jobs pending.
+                        </p>
+                    </div>
+                    <button class="suggestion-btn">View Saved Jobs</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="./scripts/dashboard.js" type="module"></script>
 </body>
 </html>

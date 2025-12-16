@@ -1,0 +1,241 @@
+/*overall*/
+body{
+    margin:0;
+    padding: 0;
+    font-family: Roboto, Arial;
+    background-color: whitesmoke;
+    color: rgb(26,26,26);
+}
+
+/*header*/
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #d7eef6;
+    height: 60px;
+    padding-left: 100px;
+    padding-right: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    z-index: 100;
+}
+/*gretting heading part*/
+.greetings-logout-container{
+    display: flex;
+    align-items: center;
+}
+.greetings{
+    font-size: 16px;
+    color: #1f2933;
+}
+.greetings span.name {
+  font-weight: 600;
+}
+.divider {
+  margin: 0 8px;
+  color: #64748b;
+}
+/*logout button*/
+.logout-button {
+  border: none;
+  border-radius: 6px;
+  background-color: #ef4444; /* cleaner red */
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.logout-button:hover {
+  background-color: #b91c1c;
+  transition: background-color 0.2s ease;
+}
+
+/*sideBar*/
+.sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 220px;
+  height: calc(100vh - 60px);
+  background-color: #eff5fa;
+  color: #1f2933;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+.sidebar-menu {
+  margin-top: 10px;  
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.sidebar a,
+.sidebar-footer a {
+  padding: 10px 16px;
+  border-radius: 6px;
+  color: #334155;
+  text-decoration: none;
+}
+.sidebar a:hover,
+.sidebar-footer a:hover {
+  background-color: #e2e8f0;
+  transition: all 0.25s;
+}
+.sidebar a.active,
+.sidebar-footer a.active {
+  background-color: #93d2e7;
+  font-weight: 600;
+  color: #2c3848;
+}
+.sidebar-footer {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+/*main*/
+main{
+    margin-left: 220px;
+    margin-top: 60px;
+    padding: 24px;
+}
+/*quick start section*/
+.quick-stats-heading{
+    font-size: 28px;
+    margin-left: 8px;
+    font-weight: 500;
+}
+.quick-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.stat-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.stat-title {
+    font-size: 14px;
+    color: #64748b;
+}
+.stat-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: #0f172a;
+}
+/*recent activity section*/
+.recent-activity {
+  background-color: white;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.section-title {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+}
+.activity-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.activity-item {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+}
+.activity-item:not(:last-child) {
+  border-bottom: 1px solid #e5e7eb;
+}
+.activity-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: white;
+  flex-shrink: 0;
+}
+.activity-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+.activity-icon.applied {
+  background-color: #22c55e;
+}
+.activity-icon.saved {
+  background-color: #3b82f6;
+}
+.activity-icon.ai {
+  background-color: #8b5cf6;
+}
+.activity-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #334155;
+}
+.activity-time {
+  font-size: 12px;
+  color: #64748b;
+}
+/*Ai suggestions*/
+.ai-suggestions {
+  background-color: white;
+  margin-top: 24px;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.suggestion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+}
+.suggestion-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+.suggestion-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+.suggestion-desc {
+  font-size: 13px;
+  color: #64748b;
+  margin: 4px 0 0;
+}
+.suggestion-btn {
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.suggestion-btn:hover {
+  background-color: #1d4ed8;
+  transition: all 0.3s;
+}

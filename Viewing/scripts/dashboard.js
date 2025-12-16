@@ -1,3 +1,6 @@
+//generating page icons
+lucide.createIcons();
+
 async function loadDashboardPage(){
     try{
         const token = localStorage.getItem('token');
@@ -15,4 +18,4 @@ async function loadDashboardPage(){
     }
 }
 
-loadDashboardPage();
+//loadDashboardPage();
