@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <!--linking stylesheet-->
-    <link rel="stylesheet" href="/styles/dashboard.css">
+    <link rel="stylesheet" href="/styles/applications.css">
     <link rel="stylesheet" href="/styles/header.css">
     <link rel="stylesheet" href="/styles/sidebar.css">
 </head>
@@ -23,8 +23,137 @@
         <!--fetching from components folder-->
     </aside>
     <main>
+        <div class="main-header">
+            <div class="title">
+                Applications
+                <div class="subtitle">
+                    Track, manage & review all submissions
+                </div>
+            </div>
+            <button class="add-application-button"><span class="plus-sign">+</span>New Application</button>
+        </div>
+        <div class="filters-row">
+            <!-- Search -->
+            <div class="filter search-filter">
+                <input
+                    type="text"
+                    placeholder="Search by name, ID or email"
+                    class="search-input"
+                />
+                <i data-lucide="search" class="search-icon"></i>
+            </div>
+            <!-- Status -->
+            <div class="filter">
+                <select class="filter-select">
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+            </div>
+            <!-- Date -->
+            <div class="filter">
+                <select class="filter-select">
+                    <option value="all">All Dates</option>
+                    <option value="today">Today</option>
+                    <option value="7days">Last 7 days</option>
+                    <option value="30days">Last 30 days</option>
+                </select>
+            </div>
+            <!-- Sort -->
+            <div class="filter push-right">
+                <select class="filter-select">
+                    <option value="newest">Newest first</option>
+                    <option value="oldest">Oldest first</option>
+                    <option value="status">By status</option>
+                </select>
+            </div>
+        </div>
 
+        <section class="jobs-section">
+            <div class="job-card">
+                <div class="job-card-header">
+                    <div class="job-info">
+                        <h3 class="job-title">Frontend Developer</h3>
+                        <p class="company-name">Google · john.doe@gmail.com</p>
+                    </div>
+                    <span class="job-status pending">Pending</span>
+                </div>
+
+                <div class="job-meta">
+                    <span>Applied on: 12 Dec 2025</span>
+                    <span>Application ID: #A1023</span>
+                </div>
+
+                <div class="job-actions">
+                    <button class="btn view">View</button>
+                    <button class="btn approve">Approve</button>
+                    <button class="btn reject">Reject</button>
+                </div>
+            </div>
+
+            <!-- Duplicate card for demo -->
+            <div class="job-card">
+                <div class="job-card-header">
+                    <div class="job-info">
+                        <h3 class="job-title">Backend Engineer</h3>
+                        <p class="company-name">Amazon · jane@mail.com</p>
+                    </div>
+
+                    <span class="job-status approved">Approved</span>
+                </div>
+
+                <div class="job-meta">
+                    <span>Applied on: 09 Dec 2025</span>
+                    <span>Application ID: #A1011</span>
+                </div>
+
+                <div class="job-actions">
+                    <button class="btn view">View</button>
+                    <button class="btn reject">Remove</button>
+                </div>
+            </div>
+        </section>
     </main>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <aside class="drawer" id="applicationDrawer">
+        <div class="drawer-header">
+            <h2>New Application</h2>
+            <button class="close-drawer">&times;</button>
+        </div>
+
+        <form class="drawer-form">
+            <label>
+                Job Title
+                <input type="text" placeholder="Frontend Developer" />
+            </label>
+
+            <label>
+                Company
+                <input type="text" placeholder="Google" />
+            </label>
+
+            <label>
+                Status
+                <select>
+                    <option>Pending</option>
+                    <option>Approved</option>
+                    <option>Rejected</option>
+                </select>
+            </label>
+
+            <label>
+                Applied Date
+                <input type="date" />
+            </label>
+
+            <button type="submit" class="submit-btn">
+                Save Application
+            </button>
+        </form>
+    </aside>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

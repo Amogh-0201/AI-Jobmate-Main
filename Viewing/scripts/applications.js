@@ -1,3 +1,4 @@
+lucide.createIcons();
 //function to fetch the html of header and sidebar from components
 async function includeHtml(className, file){
     const res = await fetch(file);
@@ -37,3 +38,21 @@ async function loadApplicationsPage(){
 }
 
 loadApplicationsPage();
+
+const openBtn = document.querySelector('.add-application-button');
+const drawer = document.getElementById('applicationDrawer');
+const overlay = document.getElementById('drawerOverlay');
+const closeBtn = document.querySelector('.close-drawer');
+
+openBtn.addEventListener('click', () => {
+  drawer.classList.add('open');
+  overlay.classList.add('show');
+});
+
+closeBtn.addEventListener('click', closeDrawer);
+overlay.addEventListener('click', closeDrawer);
+
+function closeDrawer() {
+  drawer.classList.remove('open');
+  overlay.classList.remove('show');
+}
