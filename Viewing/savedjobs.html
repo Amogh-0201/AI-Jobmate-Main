@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Jobs</title>
+
+    <!--linking roboto font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!--linking stylesheet-->
+    <link rel="stylesheet" href="/styles/savedjobs.css">
+    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/sidebar.css">
+</head>
+<body>
+    <header class="header">
+        <!--fetching from components folder-->
+    </header>
+    <aside class="sidebar">
+        <!--fetching from components folder-->
+    </aside>
+    <main>
+        <div class="main-header">
+            <div class="page-title">
+                Jobs Saved
+                <div class="page-subtitle">jobs you bookmarked to apply later</div>
+            </div>
+            <div class="saved-jobs-add-count-container">
+                <div class="jobs-saved-count">
+                    (<span class="count-value">3</span>)
+                </div>
+                <button class="add-new-saved-job-button"><span class="plus-sign">+</span>Add</button>
+            </div>
+        </div>
+
+        <div class="filters-row">
+            <!-- Search -->
+            <div class="filter search-filter">
+                <input
+                    type="text"
+                    placeholder="Search by name, ID or email"
+                    class="search-input"
+                />
+                <i data-lucide="search" class="search-icon"></i>
+            </div>
+            <!-- Date -->
+            <div class="filter">
+                <select class="filter-select">
+                    <option value="all">All Dates</option>
+                    <option value="today">Today</option>
+                    <option value="7days">Last 7 days</option>
+                    <option value="30days">Last 30 days</option>
+                </select>
+            </div>
+            <!-- Sort -->
+            <div class="filter push-right">
+                <select class="filter-select">
+                    <option value="newest">Newest first</option>
+                    <option value="oldest">Oldest first</option>
+                    <option value="status">By status</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="saved-jobs-list">
+            <!-- Card 1 -->
+            <div class="saved-job-card">
+                <div class="job-main">
+                    <h3 class="job-title">Frontend Developer</h3>
+
+                    <div class="job-meta">
+                        <span class="job-email">hr@google.com</span>
+                        <span class="dot">•</span>
+                        <span class="job-date">Saved on 12 Dec 2025</span>
+                    </div>
+
+                    <div class="job-role">
+                        Role: <strong>React Developer</strong>
+                    </div>
+                </div>
+
+                <div class="job-actions">
+                    <button class="apply-btn">Apply</button>
+                    <button class="remove-btn">Remove</button>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div class="saved-job-card">
+                <div class="job-main">
+                    <h3 class="job-title">Backend Engineer</h3>
+
+                    <div class="job-meta">
+                        <span class="job-email">careers@amazon.com</span>
+                        <span class="dot">•</span>
+                        <span class="job-date">Saved on 9 Dec 2025</span>
+                    </div>
+
+                    <div class="job-role">
+                        Role: <strong>Node.js Developer</strong>
+                    </div>
+                </div>
+
+                <div class="job-actions">
+                    <button class="apply-btn">Apply</button>
+                    <button class="remove-btn">Remove</button>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="saved-job-card">
+                <div class="job-main">
+                    <h3 class="job-title">Software Engineer</h3>
+
+                    <div class="job-meta">
+                        <span class="job-email">jobs@microsoft.com</span>
+                        <span class="dot">•</span>
+                        <span class="job-date">Saved on 5 Dec 2025</span>
+                    </div>
+
+                    <div class="job-role">
+                        Role: <strong>Full Stack Developer</strong>
+                    </div>
+                </div>
+
+                <div class="job-actions">
+                    <button class="apply-btn">Apply</button>
+                    <button class="remove-btn">Remove</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    
+    <aside class="drawer" id="applicationDrawer">
+        <div class="drawer-header">
+            <h2>New Saved Job</h2>
+            <button class="close-drawer">&times;</button>
+        </div>
+
+        <form class="drawer-form">
+            <label>
+                Job Title
+                <input type="text" placeholder="Frontend Developer" />
+            </label>
+
+            <label>
+                Company
+                <input type="text" placeholder="Google" />
+            </label>
+
+            <label>
+                Role
+                <input type="text" placeholder="React developer" />
+            </label>
+
+            <label>
+                Date
+                <input type="date" />
+            </label>
+
+            <button type="submit" class="submit-btn">
+                Save Job
+            </button>
+        </form>
+    </aside>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/scripts/savedjobs.js" type="module"></script>
+</body>
+</html>
