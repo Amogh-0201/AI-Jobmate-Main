@@ -166,15 +166,15 @@ main{
   border-radius: 999px;
   font-weight: 500;
 }
-.job-status.pending {
+.job-status.Pending {
   background: #fef3c7;
   color: #92400e;
 }
-.job-status.approved {
+.job-status.Approved {
   background: #dcfce7;
   color: #166534;
 }
-.job-status.rejected {
+.job-status.Rejected {
   background: #fee2e2;
   color: #991b1b;
 }
@@ -212,6 +212,29 @@ main{
 }
 .btn:hover {
   opacity: 0.9;
+}
+
+.no-applications {
+  grid-column: 1 / -1;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #64748b; /* slate-500 */
+}
+
+.no-applications p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0f172a; /* slate-900 */
+  margin-bottom: 0.4rem;
+}
+
+.no-applications span {
+  font-size: 0.9rem;
+  color: #64748b;
 }
 
 

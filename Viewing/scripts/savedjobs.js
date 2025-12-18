@@ -13,13 +13,13 @@ async function loadSavedjobsPage(){
             headers:{
                 Authorization:`Bearer ${token}`
             }
-        })
-        console.log(response);
-
+        });
         //fetching html(header and sidebar) from components
-
         await includeHtml('.header','/components/header.html');
         await includeHtml('.sidebar','/components/sidebar.html');
+
+        const user = response.data.user;
+        document.querySelector('.name').innerHTML = user.name;
         
         const menuLinks = document.querySelectorAll('.sidebar-menu > a');
         menuLinks.forEach((link) => {

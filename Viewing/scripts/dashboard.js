@@ -1,6 +1,3 @@
-//generating page icons
-lucide.createIcons();
-
 //function to fetch the html of header and sidebar from components
 async function includeHtml(className, file){
     const res = await fetch(file);
@@ -15,13 +12,22 @@ async function loadDashboardPage(){
             headers:{
                 Authorization:`Bearer ${token}`
             }
-        })
-        console.log(response);
-
+        });
         //fetching html(header and sidebar) from components
-
         await includeHtml('.header','/components/header.html');
         await includeHtml('.sidebar','/components/sidebar.html');
+        //generating page icons
+        lucide.createIcons();
+        /*code for logout button action*/
+        const logoutBtn = document.querySelector('.logout-button');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                logout();
+            });
+        }
+        
+        const user = response.data.user;
+        document.querySelector('.name').innerHTML = user.name;
 
         const menuLinks = document.querySelectorAll('.sidebar-menu > a');
         menuLinks.forEach((link) => {
