@@ -1,4 +1,6 @@
 async function createApplicationsPage(){
+    let isEditMode = false;
+    let editingJobId = "";
     //function to fetch the html of header and sidebar from components
     async function includeHtml(className, file){
         const res = await fetch(file);
@@ -88,10 +90,17 @@ async function createApplicationsPage(){
                         <span>Application ID: #A${jobApplication._id.slice(-4)}</span>
                     </div>
 
+                    <div class="job-note">
+                        <span class="note-label">Note:</span>
+                        <p class="note-text">
+                            ${jobApplication.note || 'No notes added yet.'}
+                        </p>
+                    </div>
+
                     <div class="job-actions">
-                        <button class="btn view">View</button>
-                        <button class="btn approve">Approve</button>
-                        <button class="btn reject">Reject</button>
+                        <button class="btn edit" data-job-application-id = ${jobApplication._id}>Edit</button>
+                        <button class="btn addNote" data-job-application-id = ${jobApplication._id}>+Add Note</button>
+                        <button class="btn remove" data-job-application-id = ${jobApplication._id}>Remove</button>
                     </div>
                 </div>
             `;
@@ -105,16 +114,22 @@ async function createApplicationsPage(){
     const closeBtn = document.querySelector('.close-drawer');
 
     openBtn.addEventListener('click', () => {
-    drawer.classList.add('open');
-    overlay.classList.add('show');
+        drawer.classList.add('open');
+        overlay.classList.add('show');
     });
 
-    closeBtn.addEventListener('click', closeDrawer);
-    overlay.addEventListener('click', closeDrawer);
+    closeBtn.addEventListener('click', () => {
+        resetDrawer();
+        closeDrawer();
+    });
+    overlay.addEventListener('click', () => {
+        resetDrawer();
+        closeDrawer();
+    });
 
     function closeDrawer() {
-    drawer.classList.remove('open');
-    overlay.classList.remove('show');
+        drawer.classList.remove('open');
+        overlay.classList.remove('show');
     }
 
     /*code for creating new job application*/
@@ -122,6 +137,7 @@ async function createApplicationsPage(){
     const companyNameInput = document.querySelector('.company-name-input');
     const statusValueInput = document.querySelector('.status-value');
     const appliedDateInput = document.querySelector('.applied-date');
+    const noteInput = document.querySelector('.note');
 
     async function saveJobApplication(){
         try{
@@ -131,15 +147,19 @@ async function createApplicationsPage(){
             const company = companyNameInput.value;
             const status = statusValueInput.value;
             const dateValue = appliedDateInput.value;
+            const noteValue = noteInput.value;
             const payload = {
                 jobTitle,
                 company,
                 status
             };
 
-            // ONLY add date if user selected it
+            // ONLY add date and note if user selected it
             if (dateValue) {
                 payload.date = dateValue;
+            }
+            if(noteValue){
+                payload.note = noteValue;
             }
             const jobApplication = await axios.post('/api/v1/user/jobApplications', payload, 
             {
@@ -154,14 +174,128 @@ async function createApplicationsPage(){
     }
 
     document.querySelector('.submit-btn').addEventListener('click', async() => {
-        await saveJobApplication();
+        if(isEditMode) {
+            await updateJobApplication();
+        }else{
+            await saveJobApplication();
+        }
+        resetDrawer();
         closeDrawer();
-        jobTitleInput.value = "";
-        companyNameInput.value = "";
-        statusValueInput.value = "Pending";
-        appliedDateInput.value = "";
+        
         await loadJobsSection();
     });
+
+    function resetDrawer() {
+        isEditMode = false;
+        editingJobId = null;
+
+        jobTitleInput.value = '';
+        companyNameInput.value = '';
+        statusValueInput.value = 'Pending';
+        appliedDateInput.value = '';
+        noteInput.value = '';
+
+        document.querySelector('.drawer-title').innerText = 'New Application';
+        document.querySelector('.submit-btn').innerText = 'Save Application';
+    }
+
+    //delete a job application
+    async function removeJobApplication(button){
+        const token = localStorage.getItem('token');
+        const res = await axios.delete('/api/v1/user/jobApplications',{ 
+            data: {
+                jobApplicationId : button.dataset.jobApplicationId
+            },             
+            headers: {
+                Authorization:`Bearer ${token}`
+            }
+        });
+        console.log(res.data.msg);
+    }
+
+    //edit a job application
+    async function updateJobApplication() {
+        const token = localStorage.getItem('token');
+
+        const jobTitle = jobTitleInput.value;
+        const company = companyNameInput.value;
+        const status = statusValueInput.value;
+        const dateValue = appliedDateInput.value;
+        const noteValue = noteInput.value;
+
+        const payload = {
+            jobApplicationId : editingJobId,
+            jobTitle,
+            company,
+            status
+        }
+        // ONLY add date and note if user selected it
+        if (dateValue) {
+            payload.date = dateValue;
+        }
+        if(noteValue){
+            payload.note = noteValue;
+        }
+        
+        const res = await axios.patch('/api/v1/user/jobApplications', payload,
+        {            
+            headers: {
+                Authorization:`Bearer ${token}`
+            }
+        });
+        console.log(res.data.msg);
+    }
+
+    //adding event listener for the deletion and editing
+
+    document.querySelector('.jobs-section').addEventListener('click', async(event) => {
+        //for remove job application
+        if(event.target.classList.contains('remove')) {
+            const removeButton = event.target;
+
+            await removeJobApplication(removeButton);
+            await loadJobsSection();
+        }
+        //for edit job application
+        else if(event.target.classList.contains('edit')) {
+            const editButton = event.target;
+            const jobApplicationId = editButton.dataset.jobApplicationId;
+            const token = localStorage.getItem('token');
+
+            //open drawer
+            drawer.classList.add('open');
+            overlay.classList.add('show');
+
+            //get jobApplication info
+            const res = await axios.get(`/api/v1/user/jobApplications/${jobApplicationId}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const job = res.data.jobApplication;
+
+            // fill inputs
+            jobTitleInput.value = job.jobTitle;
+            companyNameInput.value = job.company;
+            statusValueInput.value = job.status;
+            appliedDateInput.value = job.date
+                ? new Date(job.date).toISOString().split('T')[0]
+                : '';
+            noteInput.value = job.note || '';
+
+            // switch mode
+            isEditMode = true;
+            editingJobId = jobApplicationId;
+
+            // update UI
+            document.querySelector('.drawer-title').innerHTML = 'Edit Application';
+            document.querySelector('.submit-btn').innerText = 'Update Application';
+        }
+        else{
+            return;
+        }
+    });
+
 }
 
 createApplicationsPage();

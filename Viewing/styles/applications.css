@@ -185,6 +185,28 @@ main{
   display: flex;
   justify-content: space-between;
 }
+/* Note section */
+.job-note {
+  background: #f9fafb;
+  border-left: 4px solid #3b82f6;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.note-label {
+  font-weight: 600;
+  color: #374151;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.note-text {
+  color: #4b5563;
+  line-height: 1.4;
+  margin: 0;
+}
+
 /* Actions */
 .job-actions {
   display: flex;
@@ -199,14 +221,14 @@ main{
   font-size: 13px;
   cursor: pointer;
 }
-.btn.view {
+.btn.edit {
   background: #e5e7eb;
 }
-.btn.approve {
+.btn.addNote {
   background: #22c55e;
   color: white;
 }
-.btn.reject {
+.btn.remove {
   background: #ef4444;
   color: white;
 }

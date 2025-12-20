@@ -24,6 +24,9 @@ const jobApplicationSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    note: {
+        type: String
     }
 });
 

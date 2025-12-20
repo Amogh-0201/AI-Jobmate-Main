@@ -1,6 +1,7 @@
 const JobApplication = require('../models/job-application');
 const {StatusCodes} =require('http-status-codes');
 
+//save new job application post method handling
 const saveJobApplicationData = async(req, res) => {
     const {userId} = req.user;
     const jobApplicationObject = {userId, ...req.body};
@@ -8,13 +9,48 @@ const saveJobApplicationData = async(req, res) => {
     res.status(StatusCodes.CREATED).json({jobApplication});
 }
 
+//get all jobs linked with the logged in user
 const getAllJobApplications = async(req, res) => {
     const {userId} = req.user;
     const allJobApplications = await JobApplication.find({userId});
     res.status(StatusCodes.OK).json({allJobApplications});
 }
 
+//remove a particular job
+const removeJobApplication = async(req, res) => {
+    const {userId} = req.user;
+    const {jobApplicationId} = req.body;
+    await JobApplication.findOneAndDelete({_id: jobApplicationId, userId: userId});
+    res.status(StatusCodes.OK).json({msg: "data deleted successfully"});
+}
+
+//get a job info for editing
+const getJobApplication = async(req, res) => {
+    const {userId} = req.user;
+    const {jobApplicationId} = req.params;
+    const jobApplication = await JobApplication.findOne({_id:jobApplicationId, userId:userId});
+    res.status(StatusCodes.OK).json({jobApplication});
+}
+
+//update the job after editing
+const updateJobApplication = async(req, res) => {
+    const {userId} = req.user;
+    const {jobApplicationId} = req.body;
+    const {jobTitle, company, status, date, note} = req.body;
+    await JobApplication.findOneAndUpdate({_id:jobApplicationId, userId: userId}, {
+        jobTitle,
+        company,
+        status,
+        date,
+        note
+    });
+    res.status(StatusCodes.OK).json({msg: "job application updated successfully"});
+}
+
 module.exports = {
     saveJobApplicationData,
-    getAllJobApplications
+    getAllJobApplications,
+    removeJobApplication,
+    updateJobApplication,
+    getJobApplication
 }
