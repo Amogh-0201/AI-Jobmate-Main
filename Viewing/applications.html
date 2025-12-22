@@ -113,11 +113,34 @@
                 <input type="text" class="note"/>
             </label>
 
+            <div class="err-msg-section">
+                <!--error message occurs here while adding new application-->
+            </div>
+
             <button class="submit-btn">
                 Save Application
             </button>
         </div>
     </aside>
+
+    <!-- Note Modal Overlay -->
+    <div class="note-modal-overlay hidden" id="noteModalOverlay">
+        <div class="note-modal">
+            <h3>Add / Edit Note</h3>
+
+            <textarea
+                id="noteModalInput"
+                placeholder="Write your note here..."
+                rows="5"
+            ></textarea>
+
+            <div class="note-modal-actions">
+                <button class="btn secondary" id="cancelNoteBtn">Cancel</button>
+                <button class="btn primary" id="saveNoteBtn">Save Note</button>
+            </div>
+        </div>
+    </div>
+
 
 
 

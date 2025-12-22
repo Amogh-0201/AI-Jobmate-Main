@@ -47,10 +47,25 @@ const updateJobApplication = async(req, res) => {
     res.status(StatusCodes.OK).json({msg: "job application updated successfully"});
 }
 
+//update only note for a particular job application
+const updateNote = async (req, res) => {
+    const {userId} = req.user;
+    const {note} = req.body;
+    
+    const job = await JobApplication.findOneAndUpdate(
+        { _id: req.params.jobApplicationId, userId: userId },
+        { note },
+        { new: true }
+    );
+
+    res.status(200).json({ job });
+}
+
 module.exports = {
     saveJobApplicationData,
     getAllJobApplications,
     removeJobApplication,
     updateJobApplication,
-    getJobApplication
+    getJobApplication,
+    updateNote
 }

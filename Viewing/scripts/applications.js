@@ -98,9 +98,9 @@ async function createApplicationsPage(){
                     </div>
 
                     <div class="job-actions">
-                        <button class="btn edit" data-job-application-id = ${jobApplication._id}>Edit</button>
-                        <button class="btn addNote" data-job-application-id = ${jobApplication._id}>+Add Note</button>
-                        <button class="btn remove" data-job-application-id = ${jobApplication._id}>Remove</button>
+                        <button class="btn edit" data-job-application-id = "${jobApplication._id}">Edit</button>
+                        <button class="btn addNote" data-job-application-id = "${jobApplication._id}">+Add Note</button>
+                        <button class="btn remove" data-job-application-id = "${jobApplication._id}" data-note ="${jobApplication.note || ''}">Remove</button>
                     </div>
                 </div>
             `;
@@ -140,49 +140,55 @@ async function createApplicationsPage(){
     const noteInput = document.querySelector('.note');
 
     async function saveJobApplication(){
-        try{
-            const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
 
-            const jobTitle = jobTitleInput.value;
-            const company = companyNameInput.value;
-            const status = statusValueInput.value;
-            const dateValue = appliedDateInput.value;
-            const noteValue = noteInput.value;
-            const payload = {
-                jobTitle,
-                company,
-                status
-            };
+        const jobTitle = jobTitleInput.value;
+        const company = companyNameInput.value;
+        const status = statusValueInput.value;
+        const dateValue = appliedDateInput.value;
+        const noteValue = noteInput.value;
+        const payload = {
+            jobTitle,
+            company,
+            status
+        };
 
-            // ONLY add date and note if user selected it
-            if (dateValue) {
-                payload.date = dateValue;
-            }
-            if(noteValue){
-                payload.note = noteValue;
-            }
-            const jobApplication = await axios.post('/api/v1/user/jobApplications', payload, 
-            {
-                headers: {
-                    Authorization:`Bearer ${token}`
-                }
-            });
-            console.log(jobApplication);
-        }catch(err){
-            console.log(err);
+        // ONLY add date and note if user selected it
+        if (dateValue) {
+            payload.date = dateValue;
         }
+        if(noteValue){
+            payload.note = noteValue;
+        }
+        await axios.post('/api/v1/user/jobApplications', payload, 
+        {
+            headers: {
+                Authorization:`Bearer ${token}`
+            }
+        });
     }
 
     document.querySelector('.submit-btn').addEventListener('click', async() => {
-        if(isEditMode) {
-            await updateJobApplication();
-        }else{
-            await saveJobApplication();
+        try{
+            if(isEditMode) {
+                await updateJobApplication();
+            }else{
+                await saveJobApplication();
+            }
+            resetDrawer();
+            closeDrawer();
+            
+            await loadJobsSection();
         }
-        resetDrawer();
-        closeDrawer();
+        catch(err) {
+            document.querySelector('.err-msg-section').innerText =
+                err.response?.data?.msg || 'Failed to save application';
+            setTimeout(() => {
+                document.querySelector('.err-msg-section').innerText = '';
+            }, 3000);
+            return; // drawer stays open
+        }
         
-        await loadJobsSection();
     });
 
     function resetDrawer() {
@@ -246,7 +252,13 @@ async function createApplicationsPage(){
         console.log(res.data.msg);
     }
 
-    //adding event listener for the deletion and editing
+    //adding event listener for the deletion and editing and add/edit note button
+    const noteModalOverlay = document.getElementById('noteModalOverlay');
+    const noteModalInput = document.getElementById('noteModalInput');
+    const saveNoteBtn = document.getElementById('saveNoteBtn');
+    const cancelNoteBtn = document.getElementById('cancelNoteBtn');
+
+    let activeJobId = null;
 
     document.querySelector('.jobs-section').addEventListener('click', async(event) => {
         //for remove job application
@@ -291,8 +303,49 @@ async function createApplicationsPage(){
             document.querySelector('.drawer-title').innerHTML = 'Edit Application';
             document.querySelector('.submit-btn').innerText = 'Update Application';
         }
+        //add note button
+        else if(event.target.classList.contains('addNote')){
+            activeJobId = event.target.dataset.jobApplicationId;
+            noteModalInput.value = event.target.dataset.note || '';
+            noteModalOverlay.classList.remove('hidden');
+            noteModalInput.focus();
+        }
         else{
             return;
+        }
+    });
+
+    //close note modal
+    function closeNoteModal() {
+        noteModalOverlay.classList.add('hidden');
+        noteModalInput.value = '';
+        activeJobId = null;
+    }
+    cancelNoteBtn.addEventListener('click', closeNoteModal);
+    noteModalOverlay.addEventListener('click', (e) => {
+        if (e.target === noteModalOverlay) {
+            closeNoteModal();
+        }
+    });
+
+    saveNoteBtn.addEventListener('click', async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const note = noteModalInput.value.trim();
+
+            await axios.patch(
+            `/api/v1/user/jobApplications/${activeJobId}/note`,
+            { note },
+            {
+                headers: { Authorization: `Bearer ${token}` }
+            }
+            );
+
+            closeNoteModal();
+            await loadJobsSection(); // refresh cards
+
+        } catch (err) {
+            alert('Failed to save note');
         }
     });
 
