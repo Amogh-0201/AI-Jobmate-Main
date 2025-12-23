@@ -37,23 +37,23 @@
             <div class="filter search-filter">
                 <input
                     type="text"
-                    placeholder="Search by name, ID or email"
+                    placeholder="Search by jobTitle or company name"
                     class="search-input"
                 />
                 <i data-lucide="search" class="search-icon"></i>
             </div>
             <!-- Status -->
             <div class="filter">
-                <select class="filter-select">
+                <select class="filter-select select-status">
                     <option value="all">All Status</option>
-                    <option value="pending">Pending</option>
-                    <option value="approved">Approved</option>
-                    <option value="rejected">Rejected</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Rejected">Rejected</option>
                 </select>
             </div>
             <!-- Date -->
             <div class="filter">
-                <select class="filter-select">
+                <select class="filter-select select-date">
                     <option value="all">All Dates</option>
                     <option value="today">Today</option>
                     <option value="7days">Last 7 days</option>
@@ -62,10 +62,9 @@
             </div>
             <!-- Sort -->
             <div class="filter push-right">
-                <select class="filter-select">
+                <select class="filter-select select-sort">
                     <option value="newest">Newest first</option>
                     <option value="oldest">Oldest first</option>
-                    <option value="status">By status</option>
                 </select>
             </div>
         </div>

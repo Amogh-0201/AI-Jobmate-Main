@@ -1,3 +1,10 @@
+let jobsQueryState = {
+    search_query: '',
+    status: 'all',
+    sort: 'newest',
+    date: 'all'
+}
+
 async function createApplicationsPage(){
     let isEditMode = false;
     let editingJobId = "";
@@ -50,6 +57,37 @@ async function createApplicationsPage(){
     await loadApplicationsPage();
 
     /*code for loading job cards section*/
+
+    //filtering or searching
+
+    const searchInput = document.querySelector('.search-input');
+    const statusSelect = document.querySelector('.select-status');
+    const dateSelect = document.querySelector('.select-date');
+    const sortSelect = document.querySelector('.select-sort');
+
+    let debounceTimer;
+
+    searchInput.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+
+        debounceTimer = setTimeout(async() => {
+            jobsQueryState.search_query = searchInput.value.trim();
+            await loadJobsSection();
+        }, 300);
+    });
+    statusSelect.addEventListener('change', async() => {
+            jobsQueryState.status = statusSelect.value;
+            await loadJobsSection();
+    });
+    dateSelect.addEventListener('change', async() => {
+            jobsQueryState.date = dateSelect.value;
+            await loadJobsSection();
+    });
+    sortSelect.addEventListener('change', async() => {
+            jobsQueryState.sort = sortSelect.value;
+            await loadJobsSection();
+    });
+
     async function loadJobsSection(){
         const token = localStorage.getItem('token');
 
@@ -57,16 +95,21 @@ async function createApplicationsPage(){
         const res = await axios.get('/api/v1/user/jobApplications', {
             headers:{
                 Authorization:`Bearer ${token}`
+            },
+            params: {
+                search_query: jobsQueryState.search_query,
+                status: jobsQueryState.status,
+                sort: jobsQueryState.sort,
+                date: jobsQueryState.date
             }
         });
-        const allJobApplications = res.data.allJobApplications;
+        const allJobApplications = res.data.jobApplications;
         jobCardsSection.innerHTML = "";
         if(allJobApplications.length === 0){
             jobCardsSection.innerHTML = 
             `
                 <div class="no-applications">
-                    <p>No job applications to show yet.</p>
-                    <span>Once you start applying, your applications will appear here.</span>
+                    <p>No job applications</p>
                 </div>
             `;
         }

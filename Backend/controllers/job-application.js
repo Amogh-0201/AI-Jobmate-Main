@@ -9,11 +9,52 @@ const saveJobApplicationData = async(req, res) => {
     res.status(StatusCodes.CREATED).json({jobApplication});
 }
 
-//get all jobs linked with the logged in user
+//get all jobs linked with the logged in user + applying filters
 const getAllJobApplications = async(req, res) => {
     const {userId} = req.user;
-    const allJobApplications = await JobApplication.find({userId});
-    res.status(StatusCodes.OK).json({allJobApplications});
+    const {search_query, status, sort, date} = req.query;
+
+    let queryObject = {userId: userId};
+
+    //for status
+    if (status && status !== 'all') {
+        queryObject.status = status;
+    }
+    //for date
+    if (date) {
+        const now = new Date();
+        let startDate;
+        if (date === 'today') {
+            startDate = new Date(now.setHours(0, 0, 0, 0));
+        }
+        if (date === '7days') {
+            startDate = new Date();
+            startDate.setDate(startDate.getDate() - 7);
+        }
+        if (date === '30days') {
+            startDate = new Date();
+            startDate.setDate(startDate.getDate() - 30);
+        }
+        if (startDate) {
+            queryObject.date = { $gte: startDate };
+        }
+    }
+
+    //for sort
+    let sortObject = { date: -1 };
+    if (sort === 'oldest') {
+        sortObject = { date: 1 };
+    }
+
+    if(search_query){
+        queryObject.$or = [
+            { jobTitle: {$regex: search_query, $options: 'i' } },
+            { company: {$regex: search_query, $options: 'i' } }
+        ];
+    }
+
+    const jobApplications = await JobApplication.find(queryObject).sort(sortObject);
+    res.status(200).json({success: true, jobApplications});
 }
 
 //remove a particular job
