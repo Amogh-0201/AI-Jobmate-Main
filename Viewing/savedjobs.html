@@ -66,70 +66,7 @@
         </div>
 
         <div class="saved-jobs-list">
-            <!-- Card 1 -->
-            <div class="saved-job-card">
-                <div class="job-main">
-                    <h3 class="job-title">Frontend Developer</h3>
-
-                    <div class="job-meta">
-                        <span class="job-email">hr@google.com</span>
-                        <span class="dot">•</span>
-                        <span class="job-date">Saved on 12 Dec 2025</span>
-                    </div>
-
-                    <div class="job-role">
-                        Role: <strong>React Developer</strong>
-                    </div>
-                </div>
-
-                <div class="job-actions">
-                    <button class="apply-btn">Apply</button>
-                    <button class="remove-btn">Remove</button>
-                </div>
-            </div>
-            <!-- Card 2 -->
-            <div class="saved-job-card">
-                <div class="job-main">
-                    <h3 class="job-title">Backend Engineer</h3>
-
-                    <div class="job-meta">
-                        <span class="job-email">careers@amazon.com</span>
-                        <span class="dot">•</span>
-                        <span class="job-date">Saved on 9 Dec 2025</span>
-                    </div>
-
-                    <div class="job-role">
-                        Role: <strong>Node.js Developer</strong>
-                    </div>
-                </div>
-
-                <div class="job-actions">
-                    <button class="apply-btn">Apply</button>
-                    <button class="remove-btn">Remove</button>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="saved-job-card">
-                <div class="job-main">
-                    <h3 class="job-title">Software Engineer</h3>
-
-                    <div class="job-meta">
-                        <span class="job-email">jobs@microsoft.com</span>
-                        <span class="dot">•</span>
-                        <span class="job-date">Saved on 5 Dec 2025</span>
-                    </div>
-
-                    <div class="job-role">
-                        Role: <strong>Full Stack Developer</strong>
-                    </div>
-                </div>
-
-                <div class="job-actions">
-                    <button class="apply-btn">Apply</button>
-                    <button class="remove-btn">Remove</button>
-                </div>
-            </div>
+            
         </div>
     </main>
 
@@ -144,25 +81,25 @@
         <form class="drawer-form">
             <label>
                 Job Title
-                <input type="text" placeholder="Frontend Developer" />
+                <input type="text" placeholder="Frontend Developer" class="job-title-input"/>
             </label>
 
             <label>
                 Company
-                <input type="text" placeholder="Google" />
+                <input type="text" placeholder="Google" class="company-input"/>
             </label>
 
             <label>
                 Role
-                <input type="text" placeholder="React developer" />
+                <input type="text" placeholder="React developer" class="role-input"/>
             </label>
 
             <label>
                 Date
-                <input type="date" />
+                <input type="date" class="date-input"/>
             </label>
 
-            <button type="submit" class="submit-btn">
+            <button class="submit-btn">
                 Save Job
             </button>
         </form>

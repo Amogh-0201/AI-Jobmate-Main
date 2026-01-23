@@ -10,6 +10,7 @@ const getPagesRouter = require('./routes/getPage');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
 const jobApplicationsRouter = require('./routes/job-application');
+const savedJobsRouter = require('./routes/saved-job');
 
 //error handlers / middlewares
 const notFound = require('./middlewares/not-found');
@@ -27,6 +28,7 @@ app.use('/', getPagesRouter);
 app.use('/api/v1/user', authenticateUser, userRouter);
 app.use('/api/v1/auth',authRouter);
 app.use('/api/v1/user/jobApplications', authenticateUser, jobApplicationsRouter);
+app.use('/api/v1/user/savedJobs', authenticateUser, savedJobsRouter);
 
 
 app.use(notFound);
