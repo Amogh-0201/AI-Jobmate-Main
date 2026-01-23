@@ -30,7 +30,7 @@
             </div>
             <div class="saved-jobs-add-count-container">
                 <div class="jobs-saved-count">
-                    (<span class="count-value">3</span>)
+                    (<span class="count-value"></span>)
                 </div>
                 <button class="add-new-saved-job-button"><span class="plus-sign">+</span>Add</button>
             </div>
@@ -66,7 +66,7 @@
         </div>
 
         <div class="saved-jobs-list">
-            
+            <!--all saved jobs will appear here-->
         </div>
     </main>
 
@@ -99,7 +99,11 @@
                 <input type="date" class="date-input"/>
             </label>
 
-            <button class="submit-btn">
+            <div class="err-msg-section">
+                <!--error message occurs here while adding new application-->
+            </div>
+
+            <button type ="button" class="submit-btn">
                 Save Job
             </button>
         </form>

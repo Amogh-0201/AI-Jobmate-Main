@@ -64,8 +64,8 @@ async function loadSavedjobsPage(){
                 </div>
 
                 <div class="job-actions">
-                    <button class="apply-btn">Apply</button>
-                    <button class="remove-btn">Remove</button>
+                    <button class="apply-btn" data-saved-job-id="${savedJob._id}">Apply</button>
+                    <button class="remove-btn" data-saved-job-id="${savedJob._id}">Remove</button>
                 </div>
             </div>
             `
@@ -129,12 +129,77 @@ async function saveJob(token) {
 
 const saveJobButton = document.querySelector('.submit-btn');
 saveJobButton.addEventListener('click', async() => {
+    try{
+        const token = localStorage.getItem('token');
+        await saveJob(token);
+        closeDrawer();
+        jobTitleInput.value = '';
+        companyInput.value = '';
+        roleInput.value = '';
+        dateInput.value = '';
+        loadSavedjobsPage();
+    }catch(err) {
+        document.querySelector('.err-msg-section').innerText =
+            err.response?.data?.msg || 'Failed to save application';
+        setTimeout(() => {
+            document.querySelector('.err-msg-section').innerText = '';
+        }, 3000);
+        return; // drawer stays open
+    }    
+});
+
+//function to delete a saved job i.e. working of the remove button
+async function removeSavedJob(button) {
     const token = localStorage.getItem('token');
-    await saveJob(token);
-    closeDrawer();
-    jobTitleInput.value = "";
-    companyInput.value = "";
-    roleInput.value = "";
-    dateInput.value = "";
-    loadSavedjobsPage();
+    await axios.delete('/api/v1/user/savedJobs',{
+        data: {
+            savedJobId: button.dataset.savedJobId
+        },
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+//funciton to make apply button interactive i.e. save the job to job applications
+async function applyJob(button) {
+    const token = localStorage.getItem('token');
+
+    const savedJobId = button.dataset.savedJobId;
+    const res = await axios.get(`/api/v1/user/savedJobs/${savedJobId}`,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+    const {savedJob} = res.data;
+    const {jobTitle, company} = savedJob;
+    const status = 'Pending';
+    const payload = {
+        jobTitle,
+        company,
+        status
+    };
+    await axios.post('/api/v1/user/jobApplications', payload,{
+        headers: {
+            Authorization:`Bearer ${token}`
+        }
+    });
+}
+
+document.querySelector('.saved-jobs-list').addEventListener('click', async(event) => {
+    //remove a saved job
+    if(event.target.classList.contains('remove-btn')) {
+        const removeButton = event.target;
+        await removeSavedJob(removeButton);
+        await loadSavedjobsPage();
+    }
+
+    //apply for a job
+    if(event.target.classList.contains('apply-btn')) {
+        const applyButton = event.target;
+        await applyJob(applyButton);
+        await removeSavedJob(applyButton);
+        await loadSavedjobsPage();
+    }
 });

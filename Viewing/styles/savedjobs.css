@@ -283,3 +283,8 @@ main{
   border-radius: 10px;
   cursor: pointer;
 }
+
+.err-msg-section{
+  font-size: 12px;
+  color: red;
+}
