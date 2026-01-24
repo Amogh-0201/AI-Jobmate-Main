@@ -4,7 +4,41 @@ const {StatusCodes} = require('http-status-codes');
 //get all saved jobs by a user
 const getAllSavedJobs = async(req, res) => {
     const {userId} = req.user;
-    const savedJobs = await SavedJob.find({userId: userId});
+    const {searchQuery, sort, date} = req.query;
+    const queryObject = {
+        userId: userId
+    };
+    //for date
+    if(date) {
+        const now = new Date();
+        let startDate;
+        if(date === 'today') {
+            startDate = new Date(now.setHours(0, 0, 0, 0));
+        } else if(date === '7days') {
+            startDate = new Date();
+            startDate.setDate(startDate.getDate() - 7);
+        } else if(date === '30days') {
+            startDate = new Date();
+            startDate.setDate(startDate.getDate() - 30);
+        }
+        if(startDate){
+            queryObject.date = { $gte: startDate };
+        }
+    }
+    //for sort
+    let sortObject = {date: -1};
+    if(sort === 'oldest') {
+        sortObject = {date: 1};
+    }
+    //for search query
+    if(searchQuery){
+        queryObject.$or = [
+            { jobTitle: {$regex: searchQuery, $options: 'i' } },
+            { company: {$regex: searchQuery, $options: 'i' } }
+        ];
+    }
+
+    const savedJobs = await SavedJob.find(queryObject).sort(sortObject);
     res.status(StatusCodes.OK).json({savedJobs});
 }
 

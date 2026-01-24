@@ -1,3 +1,9 @@
+let savedJobsQueryState = {
+    searchQuery: '',
+    sort: 'newest',
+    date: 'all'
+};
+
 lucide.createIcons();
 //function to fetch the html of header and sidebar from components
 async function includeHtml(className, file){
@@ -10,11 +16,36 @@ async function getSavedJobs(token) {
     const response = await axios.get('/api/v1/user/savedJobs', {
         headers:{
             Authorization:`Bearer ${token}`
+        },
+        params: {
+            searchQuery: savedJobsQueryState.searchQuery,
+            sort: savedJobsQueryState.sort,
+            date: savedJobsQueryState.date
         }
     });
     return response;
 }
 
+const searchInput = document.querySelector('.search-input');
+const dateSelect = document.querySelector('.select-date');
+const sortSelect = document.querySelector('.select-sort');
+let debounceTimer;
+
+searchInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(async() => {
+        savedJobsQueryState.searchQuery = searchInput.value.trim();
+        await loadSavedjobsPage();
+    }, 300);
+});
+dateSelect.addEventListener('change', async() => {
+    savedJobsQueryState.date = dateSelect.value;
+    await loadSavedjobsPage();
+});
+sortSelect.addEventListener('change', async() => {
+    savedJobsQueryState.sort = sortSelect.value;
+    await loadSavedjobsPage();
+});
 
 async function loadSavedjobsPage(){
     try{
