@@ -20,10 +20,15 @@ const getSavedjobsPage = async(req,res) => {
     res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'savedjobs.html'));
 }
 
+const getResumeAiPage = async(req, res) => {
+    res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'resumeAI.html'));
+}
+
 module.exports = {
     getLoginPage,
     getRegisterPage,
     getDashboardPage,
     getApplicationsPage,
-    getSavedjobsPage
+    getSavedjobsPage,
+    getResumeAiPage
 }

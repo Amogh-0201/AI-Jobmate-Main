@@ -214,6 +214,29 @@ main{
   border-color: #ccc;
 }
 
+.no-saved-jobs {
+  grid-column: 1 / -1;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #64748b; /* slate-500 */
+}
+
+.no-saved-jobs p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0f172a; /* slate-900 */
+  margin-bottom: 0.4rem;
+}
+
+.no-saved-jobs span {
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
 
 /* Overlay */
 .drawer-overlay {

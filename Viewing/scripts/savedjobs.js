@@ -76,6 +76,14 @@ async function loadSavedjobsPage(){
         const savedJobCardsContainer = document.querySelector('.saved-jobs-list');
         document.querySelector('.count-value').innerText = `${savedJobs.length}`;
         savedJobCardsContainer.innerHTML = "";
+        if(savedJobs.length === 0) {
+            savedJobCardsContainer.innerHTML = 
+            `
+                <div class="no-saved-jobs">
+                    <p>No Saved Jobs</p>
+                </div>
+            `;
+        }
         savedJobs.forEach((savedJob) => {
             savedJobCardsContainer.innerHTML += 
             `

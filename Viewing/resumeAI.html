@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume AI</title>
+
+    <!--linking roboto font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!--linking stylesheet-->
+    <link rel="stylesheet" href="/styles/resumeAI.css">
+    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/sidebar.css">
+</head>
+<body>
+    <header class="header">
+        <!--fetching from components folder-->
+    </header>
+    <aside class="sidebar">
+        <!--fetching from components folder-->
+    </aside>
+
+    <main>
+        <div class="container">
+            <!-- Header -->
+            <h1>Resume AI</h1>
+            <p class="subtitle">
+                Enter the job you’re applying for and see how your resume aligns.
+            </p>
+            <!-- Job Input -->
+            <div class="card">
+                <label>Job You Are Applying For</label>
+                <input type="text" placeholder="e.g. Python Developer, Data Scientist" />
+            </div>
+            <!-- Resume Input -->
+            <div class="card">
+                <label>Upload Resume (PDF)</label>
+                <div class="upload-box">
+                    <p>Drag & drop your resume here</p>
+                    <p>or</p>
+                    <input type="file" accept=".pdf" />
+                </div>
+
+                <label>OR Paste Resume Text</label>
+                <textarea placeholder="Paste your resume content here..."></textarea>
+
+                <button class="btn">Analyze Resume</button>
+            </div>
+
+            <!-- AI Result -->
+            <div class="card result-card">
+                <h2>AI Job Suggestions</h2>
+
+                <p><strong>Best Matched Role</strong></p>
+                <h3>Python Developer</h3>
+
+                <strong>Confidence: 78%</strong>
+                <div class="confidence-bar">
+                    <div class="confidence-fill" style="width:78%"></div>
+                </div>
+
+                <p style="margin-top:20px;"><strong>Other Suitable Roles</strong></p>
+
+                <div class="alt-role">
+                    <div class="alt-header">
+                        <span>Data Scientist</span>
+                        <span>64%</span>
+                    </div>
+                    <div class="alt-bar">
+                        <div class="alt-fill" style="width:64%"></div>
+                    </div>
+                </div>
+
+                <div class="alt-role">
+                    <div class="alt-header">
+                        <span>DevOps Engineer</span>
+                        <span>58%</span>
+                    </div>
+                    <div class="alt-bar">
+                        <div class="alt-fill" style="width:58%"></div>
+                    </div>
+                </div>
+
+                <div class="alt-role">
+                    <div class="alt-header">
+                        <span>Automation Tester</span>
+                        <span>52%</span>
+                    </div>
+                    <div class="alt-bar">
+                        <div class="alt-fill" style="width:52%"></div>
+                    </div>
+                </div>
+
+                <div class="alt-role">
+                    <div class="alt-header">
+                        <span>Web Developer</span>
+                        <span>20%</span>
+                    </div>
+                    <div class="alt-bar">
+                        <div class="alt-fill" style="width:20%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Learning Section -->
+            <div class="card skill-card">
+                <h2>Skills to Learn for Your Target Job</h2>
+                <p>To improve your chances for <strong>Python Developer</strong>, focus on:</p>
+
+                <span class="skill-chip">Advanced Python</span>
+                <span class="skill-chip">Data Structures</span>
+                <span class="skill-chip">FastAPI / Django</span>
+                <span class="skill-chip">SQL & Databases</span>
+                <span class="skill-chip">Docker Basics</span>
+                <span class="skill-chip">Git & Version Control</span>
+
+                <p class="note">
+                    * Skill suggestions are generic and will improve as AI evolves.
+                </p>
+            </div>
+
+        </div>
+    </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/scripts/resumeAI.js" type="module"></script>
+</body>
+</html>
