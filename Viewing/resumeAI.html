@@ -39,70 +39,29 @@
             <div class="card">
                 <label>Upload Resume (PDF)</label>
                 <div class="upload-box">
-                    <p>Drag & drop your resume here</p>
-                    <p>or</p>
-                    <input type="file" accept=".pdf" />
+                    <p class="upload-text">Drag & drop your resume here</p>
+                    <input type="file" id="resume-pdf-input" accept=".pdf" />
+
+                    <div class="uploaded-file hide">
+                        <span class="file-name"></span>
+                        <button class="remove-pdf-btn" type="button">✕</button>
+                    </div>
                 </div>
 
-                <label>OR Paste Resume Text</label>
-                <textarea placeholder="Paste your resume content here..."></textarea>
+                <div class="resume-text-header">
+                    <label>OR Paste Resume Text ( if you paste resume text the pdf you uploaded will be ignored. )</label>
+                    <button class="clear-text-btn" type="button">Clear</button>
+                </div>
 
-                <button class="btn">Analyze Resume</button>
+                <textarea class="resume-text-input" placeholder="Paste your resume here..."></textarea>
+
+
+                <button class="btn analyze-resume-btn">Analyze Resume</button>
             </div>
 
             <!-- AI Result -->
-            <div class="card result-card">
-                <h2>AI Job Suggestions</h2>
-
-                <p><strong>Best Matched Role</strong></p>
-                <h3>Python Developer</h3>
-
-                <strong>Confidence: 78%</strong>
-                <div class="confidence-bar">
-                    <div class="confidence-fill" style="width:78%"></div>
-                </div>
-
-                <p style="margin-top:20px;"><strong>Other Suitable Roles</strong></p>
-
-                <div class="alt-role">
-                    <div class="alt-header">
-                        <span>Data Scientist</span>
-                        <span>64%</span>
-                    </div>
-                    <div class="alt-bar">
-                        <div class="alt-fill" style="width:64%"></div>
-                    </div>
-                </div>
-
-                <div class="alt-role">
-                    <div class="alt-header">
-                        <span>DevOps Engineer</span>
-                        <span>58%</span>
-                    </div>
-                    <div class="alt-bar">
-                        <div class="alt-fill" style="width:58%"></div>
-                    </div>
-                </div>
-
-                <div class="alt-role">
-                    <div class="alt-header">
-                        <span>Automation Tester</span>
-                        <span>52%</span>
-                    </div>
-                    <div class="alt-bar">
-                        <div class="alt-fill" style="width:52%"></div>
-                    </div>
-                </div>
-
-                <div class="alt-role">
-                    <div class="alt-header">
-                        <span>Web Developer</span>
-                        <span>20%</span>
-                    </div>
-                    <div class="alt-bar">
-                        <div class="alt-fill" style="width:20%"></div>
-                    </div>
-                </div>
+            <div class="card result-card hide-card">
+                <!--ai suggested job result will appear here-->
             </div>
 
             <!-- Learning Section -->

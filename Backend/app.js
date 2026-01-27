@@ -12,11 +12,13 @@ const userRouter = require('./routes/user');
 const jobApplicationsRouter = require('./routes/job-application');
 const savedJobsRouter = require('./routes/saved-job');
 const jobSuggestionsRouter = require('./routes/predict-job');
+const uploadRouter = require('./routes/upload');
 
 //error handlers / middlewares
 const notFound = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/errorhandler');
 const authenticateUser = require('./middlewares/authenticate');
+const uploadMiddleware = require('./middlewares/uploadMiddleware');
 
 const app = express();
 
@@ -31,6 +33,7 @@ app.use('/api/v1/auth',authRouter);
 app.use('/api/v1/user/jobApplications', authenticateUser, jobApplicationsRouter);
 app.use('/api/v1/user/savedJobs', authenticateUser, savedJobsRouter);
 app.use('/api/v1/model/v1', authenticateUser, jobSuggestionsRouter);
+app.use('/api/v1/resumePdf', uploadMiddleware.single('resume'), uploadRouter);
 
 
 app.use(notFound);

@@ -26,7 +26,7 @@ const getJobSuggestions = async(req, res) => {
         }
     }
 
-    res.status(StatusCodes.CREATED).json(jobSuggestions);
+    res.status(StatusCodes.CREATED).json(jobSuggestions.jobs);
 }
 
 module.exports = {

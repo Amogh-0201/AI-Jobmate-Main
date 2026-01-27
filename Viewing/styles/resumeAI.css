@@ -44,6 +44,50 @@ label {
     margin-bottom: 8px;
 }
 
+.uploaded-file {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f1f5f9;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 0.85rem;
+}
+
+.remove-pdf-btn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
+
+.resume-text-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.clear-text-btn {
+    background: transparent;
+    border: none;
+    color: #ff6b6b;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: none;
+}
+
+.clear-text-btn:hover {
+    text-decoration: underline;
+}
+
+
 input[type="text"],
 textarea {
     width: 100%;
@@ -89,6 +133,10 @@ textarea {
 .result-card {
     border-left: 6px solid #22c55e;
     background: #f0fdf4;
+}
+
+.hide-card {
+    display: none;
 }
 
 .confidence-bar {
