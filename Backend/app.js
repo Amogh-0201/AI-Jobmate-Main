@@ -13,6 +13,7 @@ const jobApplicationsRouter = require('./routes/job-application');
 const savedJobsRouter = require('./routes/saved-job');
 const jobSuggestionsRouter = require('./routes/predict-job');
 const uploadRouter = require('./routes/upload');
+const SkillGapsRouter = require('./routes/skillGap');
 
 //error handlers / middlewares
 const notFound = require('./middlewares/not-found');
@@ -34,6 +35,7 @@ app.use('/api/v1/user/jobApplications', authenticateUser, jobApplicationsRouter)
 app.use('/api/v1/user/savedJobs', authenticateUser, savedJobsRouter);
 app.use('/api/v1/model/v1', authenticateUser, jobSuggestionsRouter);
 app.use('/api/v1/resumePdf', uploadMiddleware.single('resume'), uploadRouter);
+app.use('/api/v1/gemini/skillGaps', authenticateUser, SkillGapsRouter);
 
 
 app.use(notFound);
