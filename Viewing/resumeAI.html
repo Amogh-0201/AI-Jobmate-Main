@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
+    <!--linking Inter font-->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
     <!--linking stylesheet-->
     <link rel="stylesheet" href="/styles/resumeAI.css">
     <link rel="stylesheet" href="/styles/header.css">
@@ -33,7 +36,7 @@
             <!-- Job Input -->
             <div class="card">
                 <label>Job You Are Applying For</label>
-                <input type="text" placeholder="e.g. Python Developer, Data Scientist" />
+                <input type="text" class="job-role-input" placeholder="e.g. Python Developer, Data Scientist" />
             </div>
             <!-- Resume Input -->
             <div class="card">
@@ -64,23 +67,10 @@
                 <!--ai suggested job result will appear here-->
             </div>
 
-            <!-- Learning Section -->
-            <div class="card skill-card">
-                <h2>Skills to Learn for Your Target Job</h2>
-                <p>To improve your chances for <strong>Python Developer</strong>, focus on:</p>
-
-                <span class="skill-chip">Advanced Python</span>
-                <span class="skill-chip">Data Structures</span>
-                <span class="skill-chip">FastAPI / Django</span>
-                <span class="skill-chip">SQL & Databases</span>
-                <span class="skill-chip">Docker Basics</span>
-                <span class="skill-chip">Git & Version Control</span>
-
-                <p class="note">
-                    * Skill suggestions are generic and will improve as AI evolves.
-                </p>
+            <!-- Skill Gap Analysis Section -->
+            <div class="card skill-gap-card hide-card">
+                <!--skill gaps analysis will appear here-->
             </div>
-
         </div>
     </main>
 

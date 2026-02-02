@@ -49,6 +49,7 @@ clearTextBtn.addEventListener('click', () => {
     resumeTextInput.value = '';
     clearTextBtn.style.display = 'none';
     AiSuggestionsContainer.classList.add('hide-card');
+    skillGapsContainer.classList.add('hide-card');
 });
 
 //extract resume text from the pdf
@@ -79,6 +80,7 @@ removePdfBtn.addEventListener('click', () => {
     resumePdfInput.value = '';
     uploadedFileBox.classList.add('hide');
     AiSuggestionsContainer.classList.add('hide-card');
+    skillGapsContainer.classList.add('hide-card');
 });
 
 
@@ -105,17 +107,8 @@ async function extractTextFromResumePdf() { //extracting text from pdf and retur
 
 const analyzeResumeButton = document.querySelector('.analyze-resume-btn');
 
-async function getJobSuggestions() {
+async function getJobSuggestions(resumeText) {
     const token = localStorage.getItem('token');
-    let resumeText = "";
-    if (resumeTextInput.value.trim().length > 0) {
-        resumeText = resumeTextInput.value.trim();
-    } else if (selectedPdfFile) {
-        resumeText = await extractTextFromResumePdf();
-    } else {
-        alert("Please enter resume text or upload a PDF");
-        return;
-    }
     const response = await axios.post('/api/v1/model/v1/predict', 
     {
         resume: resumeText
@@ -150,8 +143,34 @@ function OtherAiSuggestedJobs(AiSuggestedJobs, limit) {
     return html;
 }
 
+const jobRoleInput = document.querySelector('.job-role-input');
+const skillGapsContainer = document.querySelector('.skill-gap-card');
+
+async function getSkillGaps(resumeText, jobRole) {
+    const token = localStorage.getItem('token');
+    const response = await axios.post('/api/v1/gemini/skillGaps', {resumeText, jobRole}, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    const skillGapAnalysis = response.data;
+    return skillGapAnalysis;
+}
+
 analyzeResumeButton.addEventListener('click', async() => {
-    const AiSuggestedJobs = await getJobSuggestions();
+    let resumeText = "";
+    if (resumeTextInput.value.trim().length > 0) {
+        resumeText = resumeTextInput.value.trim();
+    } else if (selectedPdfFile) {
+        resumeText = await extractTextFromResumePdf();
+    } else {
+        alert("Please enter resume text or upload a PDF");
+        return;
+    }
+
+    //ai suggested jobs section
+    const AiSuggestedJobs = await getJobSuggestions(resumeText);
+
     if (!AiSuggestedJobs || AiSuggestedJobs.length === 0) {
         AiSuggestionsContainer.innerHTML = `<p>No suggestions available.</p>`;
         return;
@@ -172,4 +191,75 @@ analyzeResumeButton.addEventListener('click', async() => {
         <p style="margin-top:20px;"><strong>Other Suitable Roles</strong></p>
     `;
     AiSuggestionsContainer.innerHTML += OtherAiSuggestedJobs(AiSuggestedJobs, 5);
+
+    //ai skill gaps analysis section
+    const jobRole = jobRoleInput.value;
+    if(!jobRole) {
+        skillGapsContainer.innerHTML = 
+        `
+        <h2>AI Skill Gap Analysis</h2>
+        <p class="subtitle">
+            Based on your resume, here are the most important skills to focus on next:
+        </p>
+        <div class="skill-gap-item high">
+            <div class="skill-header">
+                <span class="skill-name">NO INTERESTED JOBROLE IS ENTERED</span>
+            </div>
+        </div>
+        `;
+        skillGapsContainer.classList.remove('hide-card');
+    } else if(jobRole) {
+        skillGapsContainer.innerHTML = `
+            <h2>AI Skill Gap Analysis</h2>
+            <p class="subtitle">
+                Based on your resume, here are the most important skills to focus on next:
+            </p>
+            <div id="aiThinking" class="ai-thinking">
+                Analyzing your resume
+                <span id="thinkingDots"></span>
+            </div>
+            <!-- Skill Item -->
+        `;
+        skillGapsContainer.classList.remove('hide-card');
+        let dots = 0;
+        const thinkingInterval = setInterval(() => {
+            dots = (dots + 1) % 4;
+            document.getElementById("thinkingDots").textContent = ".".repeat(dots);
+        }, 500);
+        const skillGapAnalysis = await getSkillGaps(resumeText, jobRole);
+        skillGapAnalysis.skillGaps.forEach((skillGap) => {
+            skillGapsContainer.innerHTML += 
+            `
+            <div class="skill-gap-item ${skillGap.priority}">
+                <div class="skill-header">
+                    <span class="skill-name">${skillGap.skill}</span>
+                    <span class="priority-badge ${skillGap.priority}">${skillGap.priority} Priority</span>
+                </div>
+                <p class="reason">
+                    ${skillGap.reason}
+                </p>
+                <p class="suggestion">
+                    👉 ${skillGap.suggestion}
+                </p>
+            </div>
+            `;
+        });
+        skillGapsContainer.innerHTML += 
+        `
+        <!-- Overall Suggestion -->
+            <div class="overall-suggestion">
+                <h3>Overall AI Recommendation</h3>
+                <p>
+                    ${skillGapAnalysis.overAllSuggestion}
+                </p>
+            </div>
+
+            <p class="note">
+                * These suggestions are AI-generated and will improve as your profile evolves. It also can give different result for repeated inputs.
+            </p>
+        `;
+
+        clearInterval(thinkingInterval);
+        document.querySelector(".ai-thinking").classList.add('hidden');
+    }
 });

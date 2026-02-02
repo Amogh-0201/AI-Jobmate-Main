@@ -18,7 +18,7 @@ const getSkillGaps = async(req, res) => {
         overAllSuggestion: parsedResponse.overall_advice };
 
     const skillGaps = await SkillGaps.create(jsonObejct);
-    res.status(201).json({skillGaps});
+    res.status(201).json({"skillGaps": skillGaps.skillGaps, "overAllSuggestion": skillGaps.overAllSuggestion});
 }
 
 module.exports = {
