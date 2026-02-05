@@ -1,8 +1,8 @@
 const express = require('express');
-const {getUserInfo} = require('../controllers/userDashboard');
+const {getRecentActivities} = require('../controllers/userDashboard');
 
 const router = express.Router();
 
-router.route('/dashboard').get(getUserInfo);
+router.route('/recentActivity').get(getRecentActivities);
 
 module.exports = router;

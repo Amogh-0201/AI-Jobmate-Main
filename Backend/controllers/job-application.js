@@ -1,3 +1,5 @@
+const {saveActivity} = require('../services/save-activity');
+const Activities = require('../models/activities');
 const JobApplication = require('../models/job-application');
 const {StatusCodes} =require('http-status-codes');
 
@@ -6,6 +8,18 @@ const saveJobApplicationData = async(req, res) => {
     const {userId} = req.user;
     const jobApplicationObject = {userId, ...req.body};
     const jobApplication = await JobApplication.create(jobApplicationObject);
+    //saving to activity section
+    const activityObject = {
+        userId: userId,
+        userActivityId: jobApplication._id,
+        type: 'JOB_APPLIED',
+        activity: `Applied to ${req.body.jobTitle} at ${req.body.company}`
+    }
+    if(req.body.date) {
+        activityObject.createdAt = date;
+    }
+    await saveActivity(activityObject);
+
     res.status(StatusCodes.CREATED).json({jobApplication});
 }
 
@@ -61,7 +75,14 @@ const getAllJobApplications = async(req, res) => {
 const removeJobApplication = async(req, res) => {
     const {userId} = req.user;
     const {jobApplicationId} = req.body;
+    const jobApplication = await JobApplication.findOne({_id: jobApplicationId, userId: userId});
     await JobApplication.findOneAndDelete({_id: jobApplicationId, userId: userId});
+    await saveActivity({
+        userId,
+        userActivityId: jobApplicationId,
+        type: 'JOB_APPLIED',
+        activity: `Removed job application of ${jobApplication.jobTitle} at ${jobApplication.company}`
+    })
     res.status(StatusCodes.OK).json({msg: "data deleted successfully"});
 }
 
@@ -75,18 +96,34 @@ const getJobApplication = async(req, res) => {
 
 //update the job after editing
 const updateJobApplication = async(req, res) => {
-    const {userId} = req.user;
-    const {jobApplicationId} = req.body;
-    const {jobTitle, company, status, date, note} = req.body;
-    await JobApplication.findOneAndUpdate({_id:jobApplicationId, userId: userId}, {
+    const { userId } = req.user;
+    const { jobApplicationId, jobTitle, company, status, note, date } = req.body;
+
+    const updateFields = {
         jobTitle,
         company,
         status,
-        date,
         note
-    });
-    res.status(StatusCodes.OK).json({msg: "job application updated successfully"});
-}
+    };
+
+    if (date) {
+        updateFields.date = new Date(date);
+    }
+
+    await JobApplication.findOneAndUpdate(
+        { _id: jobApplicationId, userId },
+        updateFields
+    );
+
+    await saveActivity({
+        userId,
+        userActivityId: jobApplicationId,
+        type: 'JOB_APPLIED',
+        activity: `Job application details updated for ${jobTitle} at ${company}`
+    })
+
+    res.status(StatusCodes.OK).json({ msg: "job application updated successfully" });
+};
 
 //update only note for a particular job application
 const updateNote = async (req, res) => {

@@ -1,5 +1,6 @@
 const SkillGaps = require('../models/skill-gap');
 const {getSkillGapSuggestions} = require('../services/skill-gap-llm.js');
+const {saveActivity} = require('../services/save-activity.js');
 
 const getSkillGaps = async(req, res) => {
     const {userId} = req.user;
@@ -18,6 +19,13 @@ const getSkillGaps = async(req, res) => {
         overAllSuggestion: parsedResponse.overall_advice };
 
     const skillGaps = await SkillGaps.create(jsonObejct);
+    const activityObject = {
+        userId,
+        userActivityId: skillGaps._id,
+        type: 'RESUME_ANALYZED',
+        activity: `Used Resume AI for ${jobRole} role`
+    };
+    await saveActivity(activityObject);
     res.status(201).json({"skillGaps": skillGaps.skillGaps, "overAllSuggestion": skillGaps.overAllSuggestion});
 }
 

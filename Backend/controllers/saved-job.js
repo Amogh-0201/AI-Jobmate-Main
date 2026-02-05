@@ -1,5 +1,6 @@
 const SavedJob = require('../models/saved-job');
 const {StatusCodes} = require('http-status-codes');
+const {saveActivity} = require('../services/save-activity');
 
 //get all saved jobs by a user
 const getAllSavedJobs = async(req, res) => {
@@ -47,6 +48,16 @@ const saveSavedJob = async(req, res) => {
     const {userId} = req.user;
     const savedJobObject = {userId, ...req.body};
     const savedJob = await SavedJob.create(savedJobObject);
+    const activityObject = {
+        userId,
+        userActivityId: savedJob._id,
+        type: 'JOB_SAVED',
+        activity: `Saved job ${savedJob.jobTitle} at ${savedJob.company}`
+    };
+    if(req.body.date) {
+        activityObject.createdAt = req.body.date;
+    }
+    await saveActivity(activityObject);
     res.status(StatusCodes.CREATED).json({savedJob});
 }
 
@@ -54,7 +65,15 @@ const saveSavedJob = async(req, res) => {
 const deleteSavedJob = async(req, res) => {
     const {userId} = req.user;
     const {savedJobId} = req.body;
+    const savedJob = await SavedJob.findOne({userId: userId, _id: savedJobId});
     await SavedJob.findOneAndDelete({userId: userId, _id: savedJobId});
+    const activityObject = {
+        userId,
+        userActivityId: savedJobId,
+        type: 'JOB_SAVED',
+        activity: `Deleted Saved job ${savedJob.jobTitle} at ${savedJob.company}`
+    };
+    await saveActivity(activityObject);
     res.status(StatusCodes.OK).json({"msg": "data deleted successfully"});
 }
 
