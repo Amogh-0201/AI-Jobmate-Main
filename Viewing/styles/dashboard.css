@@ -91,6 +91,10 @@ main{
 .activity-icon.ai {
   background-color: #8b5cf6;
 }
+.activity-icon.removed {
+  background: #fee2e2;
+  color: #dc2626;
+}
 .activity-content p {
   margin: 0;
   font-size: 14px;

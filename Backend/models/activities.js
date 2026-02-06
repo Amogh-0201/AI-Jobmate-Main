@@ -13,7 +13,7 @@ const activitiesSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['JOB_APPLIED','JOB_SAVED','RESUME_ANALYZED'],
+        enum: ['JOB_APPLIED','JOB_SAVED','RESUME_ANALYZED','REMOVED'],
         required: [true, 'type is required']
     },
     activity: {

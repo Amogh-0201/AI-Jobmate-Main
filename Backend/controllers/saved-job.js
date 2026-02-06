@@ -70,7 +70,7 @@ const deleteSavedJob = async(req, res) => {
     const activityObject = {
         userId,
         userActivityId: savedJobId,
-        type: 'JOB_SAVED',
+        type: 'REMOVED',
         activity: `Deleted Saved job ${savedJob.jobTitle} at ${savedJob.company}`
     };
     await saveActivity(activityObject);

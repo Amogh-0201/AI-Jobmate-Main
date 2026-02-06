@@ -1,5 +1,4 @@
 const {saveActivity} = require('../services/save-activity');
-const Activities = require('../models/activities');
 const JobApplication = require('../models/job-application');
 const {StatusCodes} =require('http-status-codes');
 
@@ -80,7 +79,7 @@ const removeJobApplication = async(req, res) => {
     await saveActivity({
         userId,
         userActivityId: jobApplicationId,
-        type: 'JOB_APPLIED',
+        type: 'REMOVED',
         activity: `Removed job application of ${jobApplication.jobTitle} at ${jobApplication.company}`
     })
     res.status(StatusCodes.OK).json({msg: "data deleted successfully"});
