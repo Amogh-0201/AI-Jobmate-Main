@@ -24,11 +24,21 @@ const getResumeAiPage = async(req, res) => {
     res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'resumeAI.html'));
 }
 
+const getProfilePage = async(req,res) => {
+    res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'profile.html'));
+}
+
+const getSettingsPage = async(req, res) => {
+    res.status(200).sendFile(path.join(__dirname, '..', '..', 'Viewing', 'settings.html'));
+}
+
 module.exports = {
     getLoginPage,
     getRegisterPage,
     getDashboardPage,
     getApplicationsPage,
     getSavedjobsPage,
-    getResumeAiPage
+    getResumeAiPage,
+    getProfilePage,
+    getSettingsPage
 }

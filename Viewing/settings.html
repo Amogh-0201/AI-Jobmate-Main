@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Settings</title>
+
+        <!--linking roboto font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <!--linking stylesheet-->
+        <link rel="stylesheet" href="/styles/settings.css">
+        <link rel="stylesheet" href="/styles/header.css">
+        <link rel="stylesheet" href="/styles/sidebar.css">
+    </head>
+    <body>
+        <header class="header">
+            <!--fetching from components folder-->
+        </header>
+        <aside class="sidebar">
+            <!--fetching from components folder-->
+        </aside>
+        <main class="settings-page">
+            <h1 class="page-title">Settings</h1>
+            <p class="page-subtitle">Manage your account preferences and security</p>
+
+            <!-- APPEARANCE -->
+            <section class="settings-card">
+                <h2 class="section-title">Appearance</h2>
+
+                <div class="settings-row">
+                    <div>
+                        <p class="setting-name">Theme</p>
+                        <span class="setting-desc">Switch between light and dark mode</span>
+                    </div>
+
+                    <div class="toggle-group">
+                        <button class="toggle-btn active">Light</button>
+                        <button class="toggle-btn">Dark</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CHANGE PASSWORD -->
+            <section class="settings-card">
+                <h2 class="section-title">Account Security</h2>
+
+                <div class="settings-row">
+                    <div>
+                        <p class="setting-name">Change Password</p>
+                        <span class="setting-desc">Update your account password</span>
+                    </div>
+
+                    <button class="primary-btn">Change</button>
+                </div>
+            </section>
+
+            <!-- EMAIL VERIFICATION -->
+            <section class="settings-card">
+                <h2 class="section-title">Email</h2>
+
+                <div class="settings-row">
+                    <div>
+                        <p class="setting-name">
+                            Email Verification
+                            <span class="verified-badge">Verified</span>
+                        </p>
+                        <span class="setting-desc">Verify your email to unlock all features</span>
+                    </div>
+
+                    <button class="secondary-btn">Resend</button>
+                </div>
+            </section>
+
+            <!-- NOTIFICATIONS -->
+            <section class="settings-card">
+                <h2 class="section-title">Notifications</h2>
+
+                <div class="settings-row">
+                    <div>
+                        <p class="setting-name">Allow Notifications</p>
+                        <span class="setting-desc">Receive job alerts and AI suggestions</span>
+                    </div>
+
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- DELETE ACCOUNT -->
+            <section class="settings-card danger">
+                <h2 class="section-title danger-text">Danger Zone</h2>
+
+                <div class="settings-row">
+                    <div>
+                        <p class="setting-name danger-text">Delete Account</p>
+                        <span class="setting-desc">
+                            This action is permanent and cannot be undone
+                        </span>
+                    </div>
+
+                    <button class="danger-btn">Delete</button>
+                </div>
+            </section>
+        </main>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/lucide@latest"></script>
+        <script src="/scripts/utils/logout.js"></script>
+        <script src="/scripts/settings.js"></script>
+    </body>
+</html>
