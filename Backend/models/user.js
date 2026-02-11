@@ -36,6 +36,16 @@ const userSchema = new mongoose.Schema({
             },
             message: 'Passwords do not match'
         }
+    },
+    joinedDate: {
+        type: Date,
+        default: Date.now
+    },
+    targetRole: {
+        type: String
+    },
+    experienceLevel: {
+        type: String
     }
 });
 

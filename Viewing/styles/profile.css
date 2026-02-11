@@ -10,7 +10,6 @@ body{
 .profile-page {
   margin-left: 220px;
   padding: 90px 40px 40px;
-  min-height: 100vh;
 }
 
 /* page titles */
@@ -59,6 +58,7 @@ body{
 .info-item label {
   font-size: 13px;
   color: #64748b;
+  display: block;
 }
 
 .info-item p {
@@ -66,6 +66,19 @@ body{
   font-size: 15px;
   font-weight: 500;
   color: #1f2933;
+}
+
+.info-item input {
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1f2933;
+  padding: 8px 8px;
+  border-radius: 10px;
+  border: 0.5px solid rgb(94, 165, 228);
+}
+.info-item input:focus {
+  outline: rgb(94, 165, 235);
 }
 
 /* verified badge */
@@ -80,7 +93,7 @@ body{
 }
 
 /* edit button */
-.edit-btn {
+.edit-btn, .save-btn {
   background-color: transparent;
   border: 1px solid #cbd5f5;
   color: #334155;
@@ -90,11 +103,15 @@ body{
   cursor: pointer;
 }
 
-.edit-btn:hover {
+.edit-btn:hover, .save-btn:hover {
   background-color: #e0f2fe;
   border-color: #38bdf8;
   color: #0369a1;
   transition: all 0.2s ease;
+}
+
+.hide {
+  display: none;
 }
 
 /* resume section */

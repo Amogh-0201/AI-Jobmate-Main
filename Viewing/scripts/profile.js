@@ -36,6 +36,24 @@ async function loadProfilePage() {
             }
         });
 
+        //showing user details
+        document.querySelector('.user-name').innerHTML = user.name;
+        document.querySelector('.user-email').innerHTML = 
+        `${user.email}
+        <span class="verified-badge">Verified</span>`;
+        const dateString = giveDate(user.joinedDate);
+        document.querySelector('.user-joined-time').innerHTML = dateString;
+        if(user.targetRole) {
+            document.querySelector('.target-role').innerHTML = user.targetRole;
+        } else {
+            document.querySelector('.target-role').innerHTML = "N.A.";
+        }
+        if(user.experienceLevel) {
+            document.querySelector('.experience-level').innerHTML = user.experienceLevel;
+        } else {
+            document.querySelector('.experience-level').innerHTML = "N.A.";
+        }
+
     } catch(err) {
         console.log(err);
         document.body.innerHTML = `<h3>${err.response.data.msg}</h3>`;
@@ -43,3 +61,77 @@ async function loadProfilePage() {
     }
 }
 loadProfilePage();
+
+function giveDate(mongooseDate) {
+    const date = mongooseDate.split('T')[0];
+    const numMonthObj = {
+        '01': 'January',
+        '02': 'February',
+        '03': 'March',
+        '04': 'April',
+        '05': 'May',
+        '06': 'June',
+        '07': 'July',
+        '08': 'August',
+        '09': 'September',
+        '10': 'October',
+        '11': 'November',
+        '12': 'December'   
+    };
+    const dateParts = date.split('-');
+    const month = dateParts[1];
+    const dateString = `${dateParts[2]} ${numMonthObj[month]} ${dateParts[0]}`;
+    return dateString;
+}
+
+const targetInput = document.querySelector('.input-target');
+const experienceInput = document.querySelector('.input-experience');
+
+document.querySelector('.career-card').addEventListener('click', async(e) => {
+    if(e.target.classList.contains('edit-btn')) {
+        const editButton = e.target;
+        const token = localStorage.getItem('token');
+        const res = await axios.get('/api/v1/user', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const user = res.data.user;
+        if(user.targetRole) {
+            targetInput.value = user.targetRole;
+        }
+        if(user.experienceLevel) {
+            experienceInput.value = user.experienceLevel;
+        }
+        document.querySelector('.target-role').classList.add('hide');
+        document.querySelector('.experience-level').classList.add('hide');
+        targetInput.classList.remove('hide');
+        experienceInput.classList.remove('hide');
+        editButton.innerHTML = "Save";
+        editButton.classList.add('save-btn');
+        editButton.classList.remove('edit-btn');
+        
+    }
+    else if(e.target.classList.contains('save-btn')) {
+        const saveButton = e.target;
+        const token = localStorage.getItem('token');
+        const targetRole = targetInput.value;
+        const experienceLevel = experienceInput.value;
+        const res = await axios.patch('/api/v1/user', {targetRole, experienceLevel}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const updatedUser = res.data.updatedUser;
+        document.querySelector('.target-role').innerHTML = `${updatedUser.targetRole}`;
+        document.querySelector('.experience-level').innerHTML = `${updatedUser.experienceLevel}`;
+
+        document.querySelector('.target-role').classList.remove('hide');
+        document.querySelector('.experience-level').classList.remove('hide');
+        targetInput.classList.add('hide');
+        experienceInput.classList.add('hide');
+        saveButton.innerHTML = "Edit";
+        saveButton.classList.add('edit-btn');
+        saveButton.classList.remove('save-btn');
+    }
+});

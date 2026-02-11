@@ -33,26 +33,25 @@
                 <div class="info-grid">
                     <div class="info-item">
                         <label>Name</label>
-                        <p>Amogh Das Barman</p>
+                        <p class="user-name"><!--user name will be fetched during runtime--></p>
                     </div>
 
                     <div class="info-item">
                         <label>Email</label>
-                        <p>
-                            amogh@email.com
-                            <span class="verified-badge">Verified</span>
+                        <p class="user-email">
+                            <!--user email will be fetched during runtime-->
                         </p>
                     </div>
 
                     <div class="info-item">
                         <label>Joined</label>
-                        <p>January 2026</p>
+                        <p class="user-joined-time"><!--user joined date will be fetched during runtime--></p>
                     </div>
                 </div>
             </section>
 
             <!-- CAREER FOCUS -->
-            <section class="profile-card">
+            <section class="profile-card career-card">
                 <div class="card-header">
                     <h2 class="section-title">Career Focus</h2>
                     <button class="edit-btn">Edit</button>
@@ -61,27 +60,15 @@
                 <div class="info-grid">
                     <div class="info-item">
                         <label>Target Role</label>
-                        <p>Frontend Developer</p>
+                        <p class="target-role"><!--user target role--></p>
+                        <input type="text" class="input-target hide">
                     </div>
 
                     <div class="info-item">
                         <label>Experience Level</label>
-                        <p>Fresher</p>
+                        <p class="experience-level"><!--user experience level--></p>
+                        <input type="text" class="input-experience hide">
                     </div>
-                </div>
-            </section>
-
-            <!-- RESUME -->
-            <section class="profile-card">
-                <h2 class="section-title">Resume</h2>
-
-                <div class="resume-box">
-                    <div class="resume-info">
-                        <p class="resume-name">resume_v3.pdf</p>
-                        <span class="resume-status">Last updated 5 days ago</span>
-                    </div>
-
-                    <button class="resume-btn">Replace Resume</button>
                 </div>
             </section>
         </main>
