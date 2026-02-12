@@ -5,6 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Settings</title>
 
+        <script>
+            (function () {
+                const theme = localStorage.getItem('theme');
+                if (theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+                }
+            })();
+        </script>
+
         <!--linking roboto font-->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,8 +46,8 @@
                     </div>
 
                     <div class="toggle-group">
-                        <button class="toggle-btn active">Light</button>
-                        <button class="toggle-btn">Dark</button>
+                        <button class="toggle-btn light-btn">Light</button>
+                        <button class="toggle-btn dark-btn">Dark</button>
                     </div>
                 </div>
             </section>

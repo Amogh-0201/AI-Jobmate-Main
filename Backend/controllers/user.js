@@ -25,7 +25,17 @@ const updateUserInfo = async(req, res) => {
     res.status(200).json({updatedUser});
 }
 
+const updateTheme = async(req, res) => {
+    const {userId} = req.user;
+    const {theme} = req.body;
+    await User.findOneAndUpdate({_id: userId}, {
+        $set: {theme}
+    });
+    res.status(200).json({msg: 'Theme updated'});
+}
+
 module.exports = {
     sendUserInfo,
-    updateUserInfo
+    updateUserInfo,
+    updateTheme
 }

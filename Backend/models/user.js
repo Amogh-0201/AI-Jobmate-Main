@@ -46,6 +46,11 @@ const userSchema = new mongoose.Schema({
     },
     experienceLevel: {
         type: String
+    },
+    theme: {
+        type: String,
+        enum: ['light', 'dark'],
+        default: 'light'
     }
 });
 

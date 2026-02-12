@@ -1,10 +1,68 @@
+:root {
+  /* Backgrounds */
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-soft: #f8fafc;
+
+  /* Text */
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --text-muted: #334155;
+
+  /* Borders */
+  --border-color: #e5e7eb;
+
+  /* Accent */
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+
+  /* Activity colors */
+  --success: #22c55e;
+  --info: #3b82f6;
+  --purple: #8b5cf6;
+  --danger-bg: #fee2e2;
+  --danger-text: #dc2626;
+
+  /* Shadow */
+  --shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+[data-theme="dark"] {
+  --bg-main: #0f172a;
+  --bg-card: #1e293b;
+  --bg-soft: #1e293b;
+
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #cbd5e1;
+
+  --border-color: #334155;
+
+  --accent: #6366f1;
+  --accent-hover: #818cf8;
+
+  --success: #22c55e;
+  --info: #3b82f6;
+  --purple: #a78bfa;
+  --danger-bg: #7f1d1d;
+  --danger-text: #fecaca;
+
+  --shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+* {
+  transition: background-color 0.25s ease, 
+              color 0.25s ease, 
+              border-color 0.25s ease;
+}
+
 /*overall*/
 body{
     margin:0;
     padding: 0;
     font-family: Roboto, Arial;
-    background-color: #f8fafc;;
-    color: rgb(26,26,26);
+    background-color: var(--bg-main);
+    color: var(--text-primary);
 }
 
 /*main*/
@@ -26,32 +84,32 @@ main{
     margin-bottom: 24px;
 }
 .stat-card {
-    background-color: white;
+    background-color: var(--bg-card);
     border-radius: 10px;
     padding: 16px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    box-shadow: var(--shadow);
 }
 .stat-title {
     font-size: 14px;
-    color: #64748b;
+    color: var(--text-secondary);
 }
 .stat-value {
     font-size: 28px;
     font-weight: 600;
-    color: #0f172a;
+    color: var(--text-primary);
 }
 /*recent activity section*/
 .recent-activity {
-  background-color: white;
+  background-color: var(--bg-card);
   border-radius: 10px;
   padding: 16px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow);
 }
 .section-title {
   margin-bottom: 12px;
   font-size: 16px;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--text-primary);
 }
 .activity-list {
   list-style: none;
@@ -64,7 +122,7 @@ main{
   padding: 10px 0;
 }
 .activity-item:not(:last-child) {
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border-color);
 }
 .activity-icon {
   width: 32px;
@@ -83,34 +141,34 @@ main{
   stroke-width: 2;
 }
 .activity-icon.applied {
-  background-color: #22c55e;
+  background-color: var(--success);
 }
 .activity-icon.saved {
-  background-color: #3b82f6;
+  background-color: var(--info);
 }
 .activity-icon.ai {
-  background-color: #8b5cf6;
+  background-color: var(--purple);
 }
 .activity-icon.removed {
-  background: #fee2e2;
-  color: #dc2626;
+  background: var(--danger-bg);
+  color: var(--danger-text);
 }
 .activity-content p {
   margin: 0;
   font-size: 14px;
-  color: #334155;
+  color: var(--text-muted);
 }
 .activity-time {
   font-size: 12px;
-  color: #64748b;
+  color: var(--text-secondary);
 }
 /*Ai suggestions*/
 .ai-suggestions {
-  background-color: white;
+  background-color: var(--bg-card);
   margin-top: 24px;
   border-radius: 10px;
   padding: 16px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow);
 }
 .suggestion-list {
   display: flex;
@@ -122,24 +180,24 @@ main{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f8fafc;
+  background-color: var(--bg-soft);
   border-radius: 8px;
   padding: 12px 14px;
 }
 .suggestion-title {
   font-size: 14px;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--text-primary);
   margin: 0;
 }
 .suggestion-desc {
   font-size: 13px;
-  color: #64748b;
+  color: var(--text-secondary);
   margin: 4px 0 0;
 }
 .suggestion-btn {
   border: none;
-  background-color: #2563eb;
+  background-color: var(--accent);
   color: white;
   font-size: 13px;
   padding: 6px 12px;
@@ -147,6 +205,6 @@ main{
   cursor: pointer;
 }
 .suggestion-btn:hover {
-  background-color: #1d4ed8;
+  background-color: var(--accent-hover);
   transition: all 0.3s;
 }

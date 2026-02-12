@@ -60,6 +60,15 @@ async function loadSavedjobsPage(){
         //fetching html(header and sidebar) from components
         await includeHtml('.header','/components/header.html');
         await includeHtml('.sidebar','/components/sidebar.html');
+        let theme = localStorage.getItem('theme');
+        
+        //theme handling
+        if(!theme) {
+            theme =  user.theme || 'light';
+            document.documentElement.setAttribute("data-theme", theme);
+            localStorage.setItem("theme", theme);
+        }
+
         const user = response.data.user;
         document.querySelector('.name').innerHTML = user.name;      
         const menuLinks = document.querySelectorAll('.sidebar-menu > a');

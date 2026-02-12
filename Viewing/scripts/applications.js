@@ -1,3 +1,8 @@
+let theme = localStorage.getItem('theme');
+if(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+}
+
 let jobsQueryState = {
     search_query: '',
     status: 'all',
@@ -27,6 +32,14 @@ async function createApplicationsPage(){
             await includeHtml('.header','/components/header.html');
             await includeHtml('.sidebar','/components/sidebar.html');
             lucide.createIcons();
+
+            //theme handling
+            if(!theme) {
+                theme =  user.theme || 'light';
+                document.documentElement.setAttribute("data-theme", theme);
+                localStorage.setItem("theme", theme);
+            }
+
             /*code for logout button action*/
             const logoutBtn = document.querySelector('.logout-button');
             if (logoutBtn) {

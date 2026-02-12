@@ -1,18 +1,41 @@
+:root {
+  --header-bg: #d7eef6;
+  --text-primary: #1f2933;
+  --text-secondary: #64748b;
+  --border-light: rgba(0,0,0,0.05);
+  --shadow-light: rgba(0,0,0,0.1);
+}
+
+[data-theme="dark"] {
+  --header-bg: #0c1324;          /* deep slate blue */
+  --text-primary: #e2e8f0;       
+  --text-secondary: #94a3b8;
+  --border-light: rgba(255,255,255,0.08);
+  --shadow-light: rgba(0,0,0,0.6);
+}
+
+* {
+  transition: background-color 0.25s ease, 
+              color 0.25s ease, 
+              border-color 0.25s ease;
+}
+
 /*header*/
 header{
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background-color: #d7eef6;
+    background-color: var(--header-bg);
+    color: var(--text-primary);
     height: 60px;
     padding-left: 100px;
     padding-right: 50px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.1);
-    border-bottom: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 1px 8px var(--shadow-light);
+    border-bottom: 1px solid var(--border-light);
     z-index: 100;
 }
 /*gretting heading part*/
@@ -22,27 +45,29 @@ header{
 }
 .greetings{
     font-size: 16px;
-    color: #1f2933;
+    color: var(--text-primary);
 }
 .greetings span.name {
   font-weight: 600;
 }
 .divider {
   margin: 0 8px;
-  color: #64748b;
+  color: var(--text-secondary);
 }
 /*logout button*/
 .logout-button {
   border: none;
   border-radius: 6px;
-  background-color: #ef4444; /* cleaner red */
+  background-color: #ef4444;
   color: white;
   font-size: 14px;
   font-weight: 500;
   padding: 6px 12px;
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
+
 .logout-button:hover {
-  background-color: #b91c1c;
-  transition: background-color 0.2s ease;
+  background-color: #dc2626;
+  transform: translateY(-1px);
 }

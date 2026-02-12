@@ -1,3 +1,9 @@
+* {
+  transition: background-color 0.25s ease, 
+              color 0.25s ease, 
+              border-color 0.25s ease;
+}
+
 /*overall*/
 body{
     margin:0;
@@ -286,4 +292,165 @@ textarea {
 
 .hidden {
     display: none;
+}
+
+/* ========================= */
+/*        DARK THEME         */
+/* ========================= */
+
+[data-theme="dark"] body {
+  background-color: #0f172a;
+  color: #e2e8f0;
+}
+
+/* Headings */
+[data-theme="dark"] h1 {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .subtitle {
+  color: #94a3b8;
+}
+
+/* Cards */
+[data-theme="dark"] .card {
+  background: #1e293b;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Inputs */
+[data-theme="dark"] input[type="text"],
+[data-theme="dark"] textarea {
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+}
+
+[data-theme="dark"] input[type="text"]::placeholder,
+[data-theme="dark"] textarea::placeholder {
+  color: #64748b;
+}
+
+[data-theme="dark"] input[type="text"]:focus,
+[data-theme="dark"] textarea:focus {
+  border-color: #6366f1;
+  outline: none;
+}
+
+/* Upload Box */
+[data-theme="dark"] .upload-box {
+  background: #172554;
+  border: 2px dashed #4338ca;
+  color: #c7d2fe;
+}
+
+[data-theme="dark"] .uploaded-file {
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #e2e8f0;
+}
+
+/* Buttons */
+[data-theme="dark"] .btn {
+  background: #6366f1;
+}
+
+[data-theme="dark"] .btn:hover {
+  background: #4f46e5;
+}
+
+/* Result Card */
+[data-theme="dark"] .result-card {
+  background: #052e16;
+  border-left: 6px solid #22c55e;
+}
+
+[data-theme="dark"] .confidence-bar {
+  background: #14532d;
+}
+
+[data-theme="dark"] .confidence-fill {
+  background: #22c55e;
+}
+
+/* Alternative roles */
+[data-theme="dark"] .alt-header {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .alt-bar {
+  background: #334155;
+}
+
+[data-theme="dark"] .alt-fill {
+  background: #818cf8;
+}
+
+/* Skill Gap Card */
+[data-theme="dark"] .skill-gap-card {
+  background: linear-gradient(135deg, #0c4a6e, #1e293b);
+  border-left: 6px solid #0ea5e9;
+}
+
+[data-theme="dark"] .skill-gap-card .subtitle {
+  color: #cbd5e1;
+}
+
+/* Individual Skill Items */
+[data-theme="dark"] .skill-gap-item {
+  background: #1e293b;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+
+[data-theme="dark"] .skill-name {
+  color: #f1f5f9;
+}
+
+[data-theme="dark"] .reason {
+  color: #cbd5e1;
+}
+
+[data-theme="dark"] .suggestion {
+  background: #082f49;
+  color: #7dd3fc;
+}
+
+/* Priority Badges */
+[data-theme="dark"] .priority-badge.High {
+  background: #7f1d1d;
+  color: #fecaca;
+}
+
+[data-theme="dark"] .priority-badge.Medium {
+  background: #78350f;
+  color: #fde68a;
+}
+
+[data-theme="dark"] .priority-badge.Low {
+  background: #14532d;
+  color: #bbf7d0;
+}
+
+/* Overall Suggestion */
+[data-theme="dark"] .overall-suggestion {
+  background: linear-gradient(135deg, #064e3b, #14532d);
+  border-left: 5px solid #22c55e;
+}
+
+[data-theme="dark"] .overall-suggestion h3 {
+  color: #bbf7d0;
+}
+
+[data-theme="dark"] .overall-suggestion p {
+  color: #d1fae5;
+}
+
+/* Notes */
+[data-theme="dark"] .note {
+  color: #94a3b8;
+}
+
+/* AI Thinking Text */
+[data-theme="dark"] .ai-thinking {
+  color: #38bdf8;
 }

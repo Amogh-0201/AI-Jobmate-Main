@@ -1,3 +1,26 @@
+:root {
+  --sidebar-bg: #eff5fa;
+  --text-primary: #1f2933;
+  --hover-bg: #e2e8f0;
+  --active-bg: #93d2e7;
+  --active-text: #2c3848;
+}
+
+[data-theme="dark"] {
+  --sidebar-bg: #0e1522;         /* slightly softer than pure black */
+  --text-primary: #e2e8f0;       
+  --hover-bg: #1f2937;
+  --active-bg: #1e3a5f;          /* muted navy */
+  --active-text: #ffffff;
+}
+
+* {
+  transition: background-color 0.25s ease, 
+              color 0.25s ease, 
+              border-color 0.25s ease;
+}
+
+
 /*sideBar*/
 .sidebar {
   position: fixed;
@@ -5,8 +28,8 @@
   left: 0;
   width: 220px;
   height: calc(100vh - 60px);
-  background-color: #eff5fa;
-  color: #1f2933;
+  background-color: var(--sidebar-bg);
+  color: var(--text-primary);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -22,20 +45,20 @@
 .sidebar-footer a {
   padding: 10px 16px;
   border-radius: 6px;
-  color: #334155;
+  color: var(--text-primary);
   text-decoration: none;
   cursor: pointer;
+  transition: background-color 0.2s ease;
 }
 .sidebar a:hover,
 .sidebar-footer a:hover {
-  background-color: #e2e8f0;
-  transition: all 0.25s;
+  background-color: var(--hover-bg);
 }
 .sidebar a.active,
 .sidebar-footer a.active {
-  background-color: #93d2e7;
+  background-color: var(--active-bg);
   font-weight: 600;
-  color: #2c3848;
+  color: var(--active-text);
 }
 .sidebar-footer {
   margin-bottom: 40px;
