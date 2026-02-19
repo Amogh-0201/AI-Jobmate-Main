@@ -1,6 +1,4 @@
 //making the eye icon for hiding password invisible
-document.querySelector('.hide-password').classList.add('make-invisible');
-document.querySelector('.hide-confirm-password').classList.add('make-invisible');
 
 const nameInput = document.querySelector('.js-name');
 const emailInput = document.querySelector('.js-email');
@@ -48,38 +46,21 @@ registerButton.addEventListener('click', ()=>{
 
 //password visible option
 
-const passwordVisibleIcon = document.querySelector('.show-password-icon-container');
+const passwordIconContainers = document.querySelectorAll('.show-password-icon-container');
 
-passwordVisibleIcon.addEventListener('click', () => {
-    const type = passwordInput.getAttribute('type') === 'password'
-        ? 'text'
-        : 'password';
-    
-    passwordInput.setAttribute('type', type);
+passwordIconContainers.forEach(container => {
 
-    if(type === 'password'){
-        document.querySelector('.hide-password').classList.add('make-invisible');
-        document.querySelector('.show-password').classList.remove('make-invisible');
-    }else{
-        document.querySelector('.show-password').classList.add('make-invisible');
-        document.querySelector('.hide-password').classList.remove('make-invisible');
-    }
-});
+    const input = container.parentElement.querySelector('input');
+    const showIcon = container.querySelector('.show-password');
+    const hideIcon = container.querySelector('.hide-password');
 
-const confirmPasswordVisibleIcon =document.querySelector('.show-confirm-password-icon-container');
+    container.addEventListener('click', () => {
 
-confirmPasswordVisibleIcon.addEventListener('click', () => {
-    const type = confirmPasswordInput.getAttribute('type') === 'password'
-        ? 'text'
-        : 'password';
-    
-    confirmPasswordInput.setAttribute('type', type);
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
 
-    if(type === 'password'){
-        document.querySelector('.hide-confirm-password').classList.add('make-invisible');
-        document.querySelector('.show-confirm-password').classList.remove('make-invisible');
-    }else{
-        document.querySelector('.show-confirm-password').classList.add('make-invisible');
-        document.querySelector('.hide-confirm-password').classList.remove('make-invisible');
-    }
+        showIcon.classList.toggle('make-invisible');
+        hideIcon.classList.toggle('make-invisible');
+    });
+
 });

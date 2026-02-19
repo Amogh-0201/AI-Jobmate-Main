@@ -2,81 +2,125 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register to AI Jobmate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!--linking Roboto Font from google-->
+    <!-- Roboto Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    <!--linking styleshit-->
     <link rel="stylesheet" href="./styles/register.css">
 </head>
+
 <body>
+<div class="page-wrapper">
+
     <header>
         <div class="logo-container">
-            AI Jobmate Logo
-        </div>
-        <div class="ai-jobmate-heading">
             AI Jobmate
         </div>
+        <div class="ai-jobmate-heading">
+            Intelligent Career Companion
+        </div>
     </header>
+
     <main>
         <div class="register-form-container">
+
             <div class="heading">
-                Please fill the form to Register
-            </div>
-            <div class="user-detail-container">
-                <div class="single-detail-container">
-                    <div class="text-part">
-                        Full Name:
-                    </div>
-                    <input type="text" class="enter-value js-name">
-                </div>
-                <div class="single-detail-container">
-                    <div class="text-part">
-                        Email:
-                    </div>
-                    <input type="text" class="enter-value js-email">
-                </div>
-                <div class="single-detail-container">
-                    <div class="text-part">
-                        Password:
-                    </div>
-                    <input type="password" class="enter-value js-password">
-                    <span class="show-password-icon-container">
-                        <img src="./icons/visiblePassword.png" class="show-password" alt="">
-                        <img src="./icons/hiddenPassword.ico" class="hide-password" alt="">
-                    </span>
-                </div>
-                <div class="single-detail-container">
-                    <div class="text-part">
-                        Confirm Password:
-                    </div>
-                    <input type="password" class="enter-value js-confirm-password">
-                    <span class="show-confirm-password-icon-container">
-                        <img src="./icons/visiblePassword.png" class="show-confirm-password" alt="">
-                        <img src="./icons/hiddenPassword.ico" class="hide-confirm-password" alt="">
-                    </span>
-                </div>
+                Create Account
             </div>
 
-            <div class="error-msg-container">
-                
+            <div class="user-detail-container">
+
+                <!-- Name -->
+                <div class="single-detail-container column-layout">
+                    <div class="text-part">Full Name</div>
+                    <input type="text" class="enter-value js-name" placeholder="Enter your full name">
+                </div>
+
+                <!-- Email -->
+                <div class="single-detail-container column-layout">
+                    <div class="text-part">Email Address</div>
+                    <input type="email" class="enter-value js-email" placeholder="Enter your email">
+                </div>
+
+                <!-- Password -->
+                <div class="single-detail-container column-layout password-wrapper">
+                    <div class="text-part">Password</div>
+
+                    <div class="password-input-container">
+                        <input type="password" class="enter-value js-password" placeholder="Create password">
+
+                        <span class="show-password-icon-container">
+                            <svg class="show-password" viewBox="0 0 24 24" fill="none">
+                                <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"
+                                      stroke="currentColor" stroke-width="2"/>
+                                <circle cx="12" cy="12" r="3"
+                                        stroke="currentColor" stroke-width="2"/>
+                            </svg>
+
+                            <svg class="hide-password make-invisible" viewBox="0 0 24 24" fill="none">
+                                <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"
+                                      stroke="currentColor" stroke-width="2"/>
+                                <circle cx="12" cy="12" r="3"
+                                        stroke="currentColor" stroke-width="2"/>
+                                <line x1="3" y1="3" x2="21" y2="21"
+                                      stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="single-detail-container column-layout password-wrapper">
+                    <div class="text-part">Confirm Password</div>
+
+                    <div class="password-input-container">
+                        <input type="password" class="enter-value js-confirm-password" placeholder="Re-enter password">
+
+                        <span class="show-password-icon-container">
+                            <svg class="show-password" viewBox="0 0 24 24" fill="none">
+                                <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"
+                                      stroke="currentColor" stroke-width="2"/>
+                                <circle cx="12" cy="12" r="3"
+                                        stroke="currentColor" stroke-width="2"/>
+                            </svg>
+
+                            <svg class="hide-password make-invisible" viewBox="0 0 24 24" fill="none">
+                                <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"
+                                      stroke="currentColor" stroke-width="2"/>
+                                <circle cx="12" cy="12" r="3"
+                                        stroke="currentColor" stroke-width="2"/>
+                                <line x1="3" y1="3" x2="21" y2="21"
+                                      stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
             </div>
+
+            <div class="error-msg-container"></div>
 
             <div class="register-button-container">
-                <button class="register-button js-register-button">Register</button>
+                <button class="register-button js-register-button">
+                    Create Account
+                </button>
             </div>
 
             <div class="direct-login-container">
-                already have an account? <a href="/login" class="login-page-link">login</a>
+                Already have an account?
+                <a href="/login" class="login-page-link">Login</a>
             </div>
+
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./scripts/register.js" type="module"></script>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="./scripts/register.js" type="module"></script>
 </body>
 </html>

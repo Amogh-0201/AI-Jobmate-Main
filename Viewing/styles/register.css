@@ -1,140 +1,186 @@
-/*overall*/
+/* GLOBAL */
 body{
     margin:0;
-    padding: 0;
+    padding:0;
     font-family: Roboto, Arial;
-    background-color: #f8fafc;
-    color: rgb(26,26,26);
-}
-/*header*/
-header{
-    background-color: rgb(193, 229, 240);
-    height: 60px;
-    padding-left: 250px;
-    padding-right: 250px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #f1f5f9;
 }
 
-/*main register form container section*/
-main{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    padding-bottom: 50px;
-    padding-top: 50px;
-}
-
-/*design register form*/
-.register-form-container{
-     display: flex;
+.page-wrapper{
+    min-height: 100vh;
+    display:flex;
     flex-direction: column;
-    justify-content: space-between;
-
-    width: 450px;           
-    padding: 30px 40px;     
-
-    background-color: white;
-    border-radius: 8px;     
-    border: 1px solid #cac9c9;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);  
 }
 
-/*heading (fill the form) design*/
+/* HEADER */
+header{
+    height:70px;
+    padding:0 60px;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    background: rgba(15,23,42,0.8);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.logo-container{
+    font-weight:700;
+    font-size:20px;
+    letter-spacing:1px;
+}
+
+.ai-jobmate-heading{
+    font-size:14px;
+    color:#94a3b8;
+}
+
+/* MAIN */
+main{
+    flex:1;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px 20px;
+}
+
+/* CARD */
+.register-form-container{
+    width:420px;
+    padding:40px;
+    border-radius:18px;
+    background: rgba(30,41,59,0.85);
+    backdrop-filter: blur(18px);
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    display:flex;
+    flex-direction: column;
+}
+
 .heading{
-    margin-bottom: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 25px;
-    color: black;
+    text-align:center;
+    font-size:26px;
+    font-weight:600;
+    margin-bottom:30px;
 }
 
-/*single input value pair design*/
+/* INPUT STRUCTURE */
+.column-layout{
+    flex-direction:column !important;
+    align-items:flex-start !important;
+}
+
 .single-detail-container{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     margin-bottom:20px;
 }
-.text-part{ /*label*/
-    font-size: 14px;
-    margin-bottom: 6px;
-}
-.enter-value{  /*input*/
-    padding: 12px 14px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 15px;
-    transition: border-color 0.25s;
-}
-.enter-value:focus{ /*when entering value in the input box*/
-    border-color: #6f69f1;
-    outline: none;
-    box-shadow: 0 0 0 1.5px rgba(79, 70, 229, 0.15);
+
+.text-part{
+    font-size:14px;
+    margin-bottom:6px;
+    color:#cbd5e1;
 }
 
-/*designing register button*/
-.register-button-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.register-button{
-    background-color: rgb(52, 193, 236);
-    border: none;
-    border-radius: 30px;
-    color: white;
-    font-size: 18px;
-    padding: 15px 0px;
-    width: 100%;
-    cursor: pointer;
-}
-.register-button:hover{
-    background-color: rgb(89, 56, 238);
-    transition: background-color 0.3s;
+.enter-value{
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.08);
+    background:#0f172a;
+    color:white;
+    font-size:14px;
+    transition: all 0.25s;
 }
 
-/*last part which redirect to login*/
-.direct-login-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.login-page-link{
-    color: #4f46e5;
-    margin-left: 10px;
-}
-.login-page-link:hover{
-    color: #1d179e;
+.enter-value:focus{
+    outline:none;
+    border-color:#6366f1;
+    box-shadow: 0 0 0 2px rgba(99,102,241,0.25);
 }
 
-.error-msg-container{
-    color: red;
-    font-size: 12px;
+/* PASSWORD ICON */
+.password-input-container{
+    position:relative;
+    width:100%;
 }
 
-/*password visible icon*/
-.show-password-icon-container,
-.show-confirm-password-icon-container{
-    position: absolute;
-    right: 520px;
+.show-password-icon-container{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    display:flex;
+    align-items:center;
+    cursor:pointer;
 }
-.hide-password,
-.hide-confirm-password{
-    cursor: pointer;
-    width: 22px;
-}
+
 .show-password,
-.show-confirm-password{
-    width: 18px;
-    cursor: pointer;
+.hide-password{
+    width:20px;
+    height:20px;
+    stroke:#cbd5e1;
+    fill:none;
+    stroke-width:2;
+    transition:0.2s ease;
 }
 
+.show-password:hover,
+.hide-password:hover{
+    stroke:#818cf8;
+}
+
+/* BUTTON */
+.register-button-container{
+    margin-top:20px;
+    margin-bottom:20px;
+}
+
+.register-button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color:white;
+    transition: all 0.3s;
+}
+
+.register-button:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(79,70,229,0.4);
+}
+
+/* LINKS */
+.direct-login-container{
+    text-align:center;
+    font-size:14px;
+    color:#94a3b8;
+}
+
+.login-page-link{
+    color:#818cf8;
+    margin-left:6px;
+    text-decoration:none;
+}
+
+.login-page-link:hover{
+    color:white;
+}
+
+/* ERROR */
+.error-msg-container{
+    color:#f87171;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+/* HIDE */
 .make-invisible{
-    display: none;
+    display:none;
 }

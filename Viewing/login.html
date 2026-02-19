@@ -1,70 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login to AI Jobmate</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login to AI Jobmate</title>
 
-    <!--linking Roboto Font from google-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <!--linking Roboto Font from google-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    <!--linking styleshit-->
-    <link rel="stylesheet" href="./styles/login.css">
-</head>
-<body>
-    <header>
-        <div class="logo-container">
-            AI Jobmate Logo
-        </div>
-        <div class="ai-jobmate-heading">
-            AI Jobmate
-        </div>
-    </header>
-    <main>
-        <div class="login-form-container">
-            <div class="heading">
-                Login User
-            </div>
-            <div class="user-detail-container">
-                <div class="single-detail-container">
-                    <div class="text-part">
-                        User Email:
-                    </div>
-                    <input type="text" class="enter-value js-email-input">
+        <!--linking styleshit-->
+        <link rel="stylesheet" href="./styles/login.css">
+    </head>
+    <body>
+        <div class="page-wrapper">
+            <header>
+                <div class="logo-container">
+                    AI Jobmate
                 </div>
-                <div class="single-detail-container">
-                    <div class="text-part">
-                        Password:
-                    </div>
-                    <input type="password" class="enter-value js-password-input">
-                    <span class="show-password-icon-container">
-                        <img src="./icons/visiblePassword.png" class="show-password" alt="">
-                        <img src="./icons/hiddenPassword.ico" class="hide-password" alt="">
-                    </span>
+                <div class="ai-jobmate-heading">
+                    Intelligent Career Companion
                 </div>
-            </div>
+            </header>
 
-            <div class="error-msg-container">
-                
-            </div>
+            <main>
+                <div class="login-form-container">
 
-            <div class="login-button-container">
-                <button class="login-button">Login</button>
-            </div>
+                    <div class="heading">
+                        Welcome Back
+                    </div>
 
-            <div class="forgot-password-container">
-                Forgot Password? <a href="" class="forgot-password-link">click here</a>
-            </div>
+                    <div class="user-detail-container">
 
-            <div class="direct-registration-container">
-                don't have an account? <a href="/register" class="register-page-link">register</a>
-            </div>
+                        <div class="single-detail-container column-layout">
+                            <div class="text-part">
+                                Email Address
+                            </div>
+                            <input type="text" class="enter-value js-email-input" placeholder="Enter your email">
+                        </div>
+
+                        <div class="single-detail-container column-layout password-wrapper">
+                            <div class="text-part">
+                                Password
+                            </div>
+
+                            <div class="password-input-container">
+                                <input type="password" class="enter-value js-password-input" placeholder="Enter your password">
+
+                                <span class="show-password-icon-container">
+                                    <!-- Show password -->
+                                    <svg class="show-password" viewBox="0 0 24 24" fill="none">
+                                        <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"
+                                            stroke="currentColor"
+                                            stroke-width="2"/>
+                                        <circle cx="12" cy="12" r="3"
+                                                stroke="currentColor"
+                                                stroke-width="2"/>
+                                    </svg>
+
+                                    <!-- Hide password -->
+                                    <svg class="hide-password make-invisible" viewBox="0 0 24 24" fill="none">
+                                        <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"
+                                            stroke="currentColor"
+                                            stroke-width="2"/>
+                                        <circle cx="12" cy="12" r="3"
+                                                stroke="currentColor"
+                                                stroke-width="2"/>
+                                        <line x1="3" y1="3" x2="21" y2="21"
+                                            stroke="currentColor"
+                                            stroke-width="2"/>
+                                    </svg>
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="error-msg-container"></div>
+
+                    <div class="login-button-container">
+                        <button class="login-button">Login</button>
+                    </div>
+
+                    <div class="forgot-password-container">
+                        Forgot Password?
+                        <a href="" class="forgot-password-link">click here</a>
+                    </div>
+
+                    <div class="direct-registration-container">
+                        Don't have an account?
+                        <a href="/register" class="register-page-link">Register</a>
+                    </div>
+
+                </div>
+            </main>
         </div>
-    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./scripts/login.js" type="module"></script>
-</body>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="./scripts/login.js" type="module"></script>
+    </body>
 </html>

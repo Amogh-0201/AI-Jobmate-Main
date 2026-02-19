@@ -57,6 +57,7 @@ async function loadDashboardPage(){
                 Authorization:`Bearer ${token}`
             }
         });
+        const user = response.data.user;
         //fetching html(header and sidebar) from components
         await includeHtml('.header','/components/header.html');
         await includeHtml('.sidebar','/components/sidebar.html');
@@ -75,8 +76,6 @@ async function loadDashboardPage(){
                 logout();
             });
         }
-
-        const user = response.data.user;
         document.querySelector('.name').innerHTML = user.name;
         const menuLinks = document.querySelectorAll('.sidebar-menu > a');
         menuLinks.forEach((link) => {

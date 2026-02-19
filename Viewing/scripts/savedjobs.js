@@ -56,6 +56,7 @@ async function loadSavedjobsPage(){
                 Authorization:`Bearer ${token}`
             }
         });
+        const user = response.data.user;
 
         //fetching html(header and sidebar) from components
         await includeHtml('.header','/components/header.html');
@@ -69,7 +70,6 @@ async function loadSavedjobsPage(){
             localStorage.setItem("theme", theme);
         }
 
-        const user = response.data.user;
         document.querySelector('.name').innerHTML = user.name;      
         const menuLinks = document.querySelectorAll('.sidebar-menu > a');
         menuLinks.forEach((link) => {

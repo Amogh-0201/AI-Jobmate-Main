@@ -1,14 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home page</title>
-</head>
-<body>
-    <h1>Home page</h1>
-    <a href="/login">Login page</a>
-    <a href="/register">Register page</a>
-    <a href="/user/dashboard">Dashboard page</a>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AI Jobmate</title>
+
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <!--stylesheet linking-->
+        <link rel="stylesheet" href="/styles/index.css">
+    </head>
+    <body>
+        <div class="container">
+
+            <!-- NAVBAR -->
+            <div class="navbar">
+                <div class="logo">AI Jobmate</div>
+                <div class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#features">Features</a>
+                    <a href="#how">How It Works</a>
+                    <a href="/login" class="btn btn-outline">Login</a>
+                    <a href="/register" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+
+            <!-- HERO -->
+            <section class="hero">
+                <h1>Your AI-Powered Job Application Companion</h1>
+                <p>
+                    Track job applications, improve your resume, and discover skill gaps —
+                    all in one intelligent platform designed to help you get hired smarter.
+                </p>
+                <div class="hero-buttons">
+                    <a href="/register" class="btn btn-primary">Get Started</a>
+                    <a href="/login" class="btn btn-outline">Login</a>
+                    <a href="#" class="btn btn-outline">View Demo</a>
+                </div>
+            </section>
+
+            <!-- ABOUT -->
+            <section class="section">
+                <h2>What is AI Jobmate?</h2>
+                <p>
+                    AI Jobmate is a smart career assistant that helps job seekers organize
+                    applications, analyze resumes, identify missing skills, and track progress —
+                    all powered by intelligent automation.
+                </p>
+            </section>
+
+            <!-- FEATURES -->
+            <section id="features" class="section">
+                <h2>Core Features</h2>
+
+                <div class="features">
+                    <div class="feature-card">
+                        <h3>AI Resume Analyzer</h3>
+                        <p>Get intelligent resume feedback and improvement suggestions tailored to your target role.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>Application Tracker</h3>
+                        <p>Keep all job applications organized with status tracking and filtering options.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>Skill Gap Analysis</h3>
+                        <p>Discover what skills you're missing and receive guidance to improve your career path.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <h3>Saved Jobs</h3>
+                        <p>
+                            Save job details you want to apply in near future, move saved jobs to the job applications if applied.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- HOW IT WORKS -->
+            <section id="how" class="section">
+                <h2>How It Works</h2>
+
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Create an Account</h3>
+                        <p>Sign up and set up your career profile in minutes.</p>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Upload & Track</h3>
+                        <p>Upload your resume and manage all job applications in one place.</p>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Let AI Guide You</h3>
+                        <p>Receive insights and suggestions to improve your success rate.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <div class="cta">
+                <h2>Start Your Smarter Job Search Today</h2>
+                <a href="/register" class="btn btn-primary">Register Free</a>
+            </div>
+
+            <!-- FOOTER -->
+            <footer>
+                © 2026 AI Jobmate | Built to simplify your career journey
+            </footer>
+
+        </div>
+    </body>
 </html>
