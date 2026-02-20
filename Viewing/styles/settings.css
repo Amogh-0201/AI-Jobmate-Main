@@ -14,6 +14,7 @@
 
   --danger: #ef4444;
   --danger-dark: #b91c1c;
+  --success: rgb(6, 127, 6);
   --danger-soft: #fff5f5;
   --danger-border: #fee2e2;
 
@@ -36,6 +37,7 @@
 
   --danger: #ef4444;
   --danger-dark: #7f1d1d;
+  --success: rgb(17, 217, 17);
   --danger-soft: #2a1a1a;
   --danger-border: #7f1d1d;
 
@@ -207,4 +209,93 @@ input:checked + .slider {
 
 input:checked + .slider:before {
   transform: translateX(20px);
+}
+
+/* MODAL OVERLAY */
+.modal-overlay-verify,
+.modal-overlay-change {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+/* MODAL BOX */
+.modal-box {
+  width: 380px;
+  background: var(--bg-card);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.modal-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 8px 0 16px;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-soft);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.modal-input:focus {
+  border-color: var(--accent);
+}
+
+.modal-error {
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: 6px;
+  min-height: 16px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+/* spacing between stacked inputs in new password modal */
+#new-password-modal .modal-input + .modal-input {
+  margin-top: 10px;
+}
+
+.password-updation-successful {
+  color: var(--success);
+  font-size: 12px;
+  margin-top: 6px;
+  min-height: 16px;
 }

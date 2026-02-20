@@ -62,7 +62,7 @@
                         <span class="setting-desc">Update your account password</span>
                     </div>
 
-                    <button class="primary-btn">Change</button>
+                    <button class="primary-btn change-password-btn">Change</button>
                 </div>
             </section>
 
@@ -116,6 +116,59 @@
                 </div>
             </section>
         </main>
+
+
+        <!-- CHANGE PASSWORD MODAL -->
+        <div class="modal-overlay-verify hidden">
+            <div class="modal-box">
+                <h3 class="modal-title">Verify Current Password</h3>
+                <p class="modal-desc">For security reasons, please enter your current password.</p>
+
+                <input 
+                    type="password" 
+                    class="modal-input current-password-input" 
+                    placeholder="Enter current password"
+                />
+
+                <p class="modal-error"></p>
+
+                <div class="modal-actions">
+                    <button class="secondary-btn cancel-modal">Cancel</button>
+                    <button class="primary-btn verify-password-btn">Verify</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW PASSWORD MODAL -->
+        <div class="modal-overlay-change hidden" id="new-password-modal">
+            <div class="modal-box">
+                <h3 class="modal-title">Set New Password</h3>
+                <p class="modal-desc">
+                    Enter your new password and confirm it below.
+                </p>
+
+                <input 
+                    type="password" 
+                    class="modal-input new-password-input" 
+                    placeholder="Enter new password"
+                />
+
+                <input 
+                    type="password" 
+                    class="modal-input confirm-password-input" 
+                    placeholder="Confirm new password"
+                    style="margin-top:10px;"
+                />
+
+                <p class="password-updation-successful"></p>
+                <p class="modal-error new-password-error"></p>
+
+                <div class="modal-actions">
+                    <button class="secondary-btn back-to-verify-btn">Back</button>
+                    <button class="primary-btn update-password-btn">Update</button>
+                </div>
+            </div>
+        </div>
 
 
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

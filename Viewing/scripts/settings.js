@@ -73,3 +73,87 @@ document.querySelector('.toggle-group').addEventListener('click', async(event) =
         });
     }
 });
+
+//change password
+const changePasswordBtn = document.querySelector('.change-password-btn');
+const modalOverlayVerify = document.querySelector('.modal-overlay-verify');
+const cancelModalBtn = document.querySelector('.cancel-modal');
+const verifyPasswordBtn = document.querySelector('.verify-password-btn');
+const currentPasswordInput = document.querySelector('.current-password-input');
+const modalError = document.querySelector('.modal-error');
+
+const modalOverlayChange = document.querySelector('.modal-overlay-change');
+const newModalError = document.querySelector('.new-password-error');
+const backVerifyBtn = document.querySelector('.back-to-verify-btn');
+const updatePasswordBtn = document.querySelector('.update-password-btn');
+const newPasswordInput = document.querySelector('.new-password-input');
+const confirmPasswordInput = document.querySelector('.confirm-password-input');
+const successShow = document.querySelector('.password-updation-successful');
+
+changePasswordBtn.addEventListener('click', () => {
+    modalOverlayVerify.classList.remove('hidden');
+    currentPasswordInput.value = '';
+    modalError.textContent = '';
+});
+cancelModalBtn.addEventListener('click', () => {
+    modalOverlayVerify.classList.add('hidden');
+});
+
+verifyPasswordBtn.addEventListener('click', async() => {
+    try{
+        const token = localStorage.getItem('token');
+        const password = currentPasswordInput.value;
+        const res = await axios.post('/api/v1/auth/verifyPassword', {password}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        if(res.data.msg === "Password Verification Successful") {
+            modalOverlayVerify.classList.add('hidden');
+            modalOverlayChange.classList.remove('hidden');
+            newPasswordInput.value = '';
+            confirmPasswordInput.value = '';
+            newModalError.textContent = '';
+        }
+    } catch(err) {
+        modalError.textContent = err.response?.data?.msg || "something went wrong";
+        setTimeout(() => {
+            modalError.textContent = '';
+        }, 3000);
+    }
+});
+
+backVerifyBtn.addEventListener('click', () => {
+    modalOverlayChange.classList.add('hidden');
+    modalOverlayVerify.classList.remove('hidden');
+    currentPasswordInput.value = '';
+    modalError.textContent = '';
+});
+
+updatePasswordBtn.addEventListener('click', async() => {
+    try {
+        const token = localStorage.getItem('token');
+        const newPassword = newPasswordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        const res = await axios.patch('/api/v1/auth/changePassword', {newPassword, confirmPassword}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        if(res.data.msg === "password changed successfully") {
+            successShow.textContent = res.data.msg + '. Redirecting to Login Page...';
+            setTimeout(() => {
+                modalOverlayChange.classList.add('hidden');
+                newPasswordInput.value = '';
+                confirmPasswordInput.value = '';
+                newModalError.textContent = '';
+                window.location.href = '/login';
+            }, 3000);
+        }
+    } catch(err) {
+        newModalError.textContent = err.response?.data?.msg || "something went wrong";
+        setTimeout(()=>{
+            newModalError.textContent = '';
+        }, 3000);
+    }
+});
