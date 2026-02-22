@@ -1,9 +1,41 @@
 const User = require('../models/user');
+const UserOtp = require('../models/userOtp');
+const crypto = require('crypto');
 const {StatusCodes} = require('http-status-codes');
 const {BadRequestError, UnAuthenticatedError} = require('../errors');
+const sendEmail = require('../services/sendEmail');
+
+const sendOtp = async(req, res) => {
+    try{
+        const otp = crypto.randomInt(100000, 999999).toString();
+        const {email} = req.body;
+        const options = {email, otp};
+        await UserOtp.create({...req.body, otp});
+        await sendEmail(options);
+        res.status(201).json({success: true, msg: 'mail sent successfully'});
+    } catch(err) {
+        res.status(500).json({msg: err.message});
+    }
+}
 
 const register = async(req, res) => {
-    const user = await User.create(req.body);
+    const {otp, ...userData} = req.body;
+    const {name, email} = userData;
+
+    const otpUser = await UserOtp.findOne({name, email}).sort({expiresAt: -1});
+    if(!otpUser) {
+        throw new BadRequestError('OTP expired!!');
+    }
+    if (otpUser.expiresAt < Date.now()) {
+        throw new BadRequestError("OTP expired");
+    }
+    const rightOtpEntered = await otpUser.checkOtp(otp);
+    if(!rightOtpEntered) {
+        throw new BadRequestError('invalid OTP entered!!');
+    }
+    await UserOtp.deleteMany({email});
+
+    const user = await User.create(userData);
     const token = user.createJWT();
     res.status(StatusCodes.CREATED).json({user, token});
 }
@@ -55,5 +87,6 @@ module.exports = {
     register,
     login,
     verifyPassword,
-    changePassword
+    changePassword,
+    sendOtp
 }

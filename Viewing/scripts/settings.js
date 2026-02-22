@@ -135,6 +135,10 @@ updatePasswordBtn.addEventListener('click', async() => {
         const token = localStorage.getItem('token');
         const newPassword = newPasswordInput.value;
         const confirmPassword = confirmPasswordInput.value;
+        if(!newPassword) {
+            modalError.textContent = "Password is required";
+            return;
+        }
         const res = await axios.patch('/api/v1/auth/changePassword', {newPassword, confirmPassword}, {
             headers: {
                 Authorization: `Bearer ${token}`
