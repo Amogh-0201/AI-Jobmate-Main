@@ -30,8 +30,8 @@ async function login(){
     }
 }
 
-document.querySelector('.login-button').addEventListener('click', ()=>{
-    login();
+document.querySelector('.login-button').addEventListener('click', async()=>{
+    await login();
 });
 
 
@@ -52,5 +52,108 @@ passwordVisibleIcon.addEventListener('click', () => {
     }else{
         document.querySelector('.show-password').classList.add('make-invisible');
         document.querySelector('.hide-password').classList.remove('make-invisible');
+    }
+});
+
+
+// ===============================
+// FORGOT PASSWORD OVERLAY LOGIC
+// ===============================
+
+const forgotOverlay = document.querySelector('.forgot-overlay');
+const forgotLink = document.querySelector('.forgot-password-link');
+const closeForgotOverlay = document.querySelector('.close-forgot-overlay');
+
+const stepEmail = document.querySelector('.forgot-step-email');
+const stepOtp = document.querySelector('.forgot-step-otp');
+const stepReset = document.querySelector('.forgot-step-reset');
+
+const forgotErrorMsgContainer = document.querySelector('.forgot-error-msg');
+const forgotEmailInput = document.querySelector('.js-forgot-email');
+const otpInput = document.querySelector('.js-forgot-otp');
+const newPasswordInput = document.querySelector('.js-new-password');
+const newConfirmPasswordInput = document.querySelector('.js-confirm-new-password');
+
+// Open overlay
+forgotLink.addEventListener('click', (e)=>{
+    e.preventDefault();
+    forgotOverlay.style.display = "flex";
+});
+
+// Close overlay
+closeForgotOverlay.addEventListener('click', ()=>{
+    forgotOverlay.style.display = "none";
+    forgotEmailInput.value = "";
+    otpInput.value = "";
+    newPasswordInput.value = "";
+    newConfirmPasswordInput.value = "";
+});
+
+
+document.querySelector('.js-send-otp-btn').addEventListener('click', async()=>{
+    try {
+        stepEmail.classList.add('make-invisible');
+        stepOtp.classList.remove('make-invisible');
+
+        const email = forgotEmailInput.value;
+        await axios.post('/api/v1/auth/forgotPassword/sendOtp', {email});
+
+    } catch(err) {
+        forgotErrorMsgContainer.textContent = err.response?.data?.msg || 'something went wrong!';
+        setTimeout(() => {
+            forgotErrorMsgContainer.textContent = "";
+        }, 3000);
+    }
+});
+
+
+document.querySelector('.js-verify-otp-btn').addEventListener('click', async()=>{
+    try {
+        const email = forgotEmailInput.value;
+        const otp = otpInput.value;
+        await axios.post('/api/v1/auth/forgotPassword', {email, otp});
+
+        stepOtp.classList.add('make-invisible');
+        stepReset.classList.remove('make-invisible');
+    } catch(err) {
+        forgotErrorMsgContainer.textContent = err.response?.data?.msg || 'something went wrong!';
+        setTimeout(() => {
+            forgotErrorMsgContainer.textContent = "";
+        }, 3000);
+    }
+});
+
+
+document.querySelector('.js-reset-password-btn').addEventListener('click', async()=>{
+    try {
+        const email = forgotEmailInput.value;
+        const newPassword = newPasswordInput.value;
+        const newConfirmPassword = newConfirmPasswordInput.value;
+        if(newPassword !== newConfirmPassword) {
+            forgotErrorMsgContainer.textContent = "Please make sure that both passwords are same";
+            newPasswordInput.value = "";
+            newConfirmPasswordInput.value = "";
+            setTimeout(() => {
+                forgotErrorMsgContainer.textContent = "";
+            }, 3000);
+            return;
+        }
+        const res = await axios.patch('/api/v1/auth/forgotPassword', {email, newPassword});
+
+        alert(res.data.msg);
+        forgotOverlay.classList.add('make-invisible');
+
+        // reset back to first step
+        stepReset.classList.add('make-invisible');
+        forgotEmailInput.value = "";
+        otpInput.value = "";
+        newPasswordInput.value = "";
+        newConfirmPasswordInput.value = "";
+        forgotOverlay.style.display = "none";
+    } catch(err) {
+        forgotErrorMsgContainer.textContent = err.response?.data?.msg || 'something went wrong!';
+        setTimeout(() => {
+            forgotErrorMsgContainer.textContent = "";
+        }, 3000);
     }
 });

@@ -97,6 +97,57 @@
             </main>
         </div>
 
+
+        <!-- FORGOT PASSWORD OVERLAY -->
+        <div class="forgot-overlay make-invisible">
+
+            <div class="forgot-card">
+
+                <div class="forgot-header">
+                    <div class="forgot-title">Reset Password</div>
+                    <div class="close-forgot-overlay">&times;</div>
+                </div>
+
+                <!-- STEP 1 : EMAIL -->
+                <div class="forgot-step forgot-step-email">
+                    <div class="forgot-description">
+                        Enter your registered email address.
+                    </div>
+
+                    <input type="text" class="forgot-input js-forgot-email" placeholder="Enter your email">
+
+                    <button class="forgot-btn js-send-otp-btn">Send OTP</button>
+                </div>
+
+                <!-- STEP 2 : OTP -->
+                <div class="forgot-step forgot-step-otp make-invisible">
+                    <div class="forgot-description">
+                        Enter the OTP sent to your email.
+                    </div>
+
+                    <input type="text" class="forgot-input js-forgot-otp" placeholder="Enter OTP">
+
+                    <button class="forgot-btn js-verify-otp-btn">Verify OTP</button>
+                </div>
+
+                <!-- STEP 3 : RESET PASSWORD -->
+                <div class="forgot-step forgot-step-reset make-invisible">
+                    <div class="forgot-description">
+                        Enter your new password.
+                    </div>
+
+                    <input type="password" class="forgot-input js-new-password" placeholder="New Password">
+                    <input type="password" class="forgot-input js-confirm-new-password" placeholder="Confirm Password">
+
+                    <button class="forgot-btn js-reset-password-btn">Reset Password</button>
+                </div>
+
+                <div class="forgot-error-msg"></div>
+
+            </div>
+
+        </div>
+
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="./scripts/login.js" type="module"></script>
     </body>
