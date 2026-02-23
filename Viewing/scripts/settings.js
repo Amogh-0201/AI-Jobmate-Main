@@ -161,3 +161,78 @@ updatePasswordBtn.addEventListener('click', async() => {
         }, 3000);
     }
 });
+
+//Delete account feature
+const otpOverlay = document.querySelector('.otp-overlay');
+const deleteBtn = document.querySelector('.danger-btn');
+const cancelBtn = document.querySelector('.cancel-btn');
+const verifyOtpBtn = document.querySelector('.verify-otp-btn');
+const resendOtpBtn = document.querySelector('.resend-otp');
+const otpSuccessContainer = document.querySelector('.otp-success');
+const otpErrorContainer = document.querySelector('.otp-error');
+const otpInput = document.querySelector('.otp-input');
+
+async function sendOtp() {
+    try {
+        const token = localStorage.getItem('token');
+        otpOverlay.classList.remove('hidden');
+        const res = await axios.post('/api/v1/user/sendOtp', {confirmedPassword: 'random'}, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const msg = res.data.msg;
+        otpSuccessContainer.innerHTML = msg;
+        otpSuccessContainer.classList.remove('hidden');
+        setTimeout(() => {
+            otpSuccessContainer.innerHTML = "";
+            otpSuccessContainer.classList.add('hidden');
+        }, 3000);
+    } catch(err) {
+        otpErrorContainer.textContent = err.response?.data?.msg || `something went wrong`;
+        setTimeout(() => {
+            otpErrorContainer.innerHTML = "";
+        }, 3000);
+    }
+}
+
+deleteBtn.addEventListener('click', async() => {
+    await sendOtp();
+});
+
+verifyOtpBtn.addEventListener('click', async() => {
+    try {
+        const token = localStorage.getItem('token');
+        const otp = otpInput.value;
+        const res = await axios.delete('/api/v1/user', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+            data: {otp}
+        });
+        const msg = res.data.msg;
+        
+        otpSuccessContainer.classList.remove('hidden');
+        otpSuccessContainer.innerHTML = msg + ". Redirecting to login page...";
+
+        setTimeout(() => {
+            localStorage.removeItem('token'); // clear token
+            window.location.href = '/login.html'; // redirect
+        }, 3000);
+
+    } catch(err) {
+        otpErrorContainer.textContent = err.response?.data?.msg || `something went wrong`;
+        setTimeout(() => {
+            otpErrorContainer.innerHTML = "";
+        }, 3000);
+    }
+});
+
+cancelBtn.addEventListener('click', () => {
+    otpOverlay.classList.add('hidden');
+    otpInput.value = '';
+});
+
+resendOtpBtn.addEventListener('click', async() => {
+    await sendOtp();
+});

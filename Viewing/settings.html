@@ -79,24 +79,7 @@
                         <span class="setting-desc">Verify your email to unlock all features</span>
                     </div>
 
-                    <button class="secondary-btn">Resend</button>
-                </div>
-            </section>
-
-            <!-- NOTIFICATIONS -->
-            <section class="settings-card">
-                <h2 class="section-title">Notifications</h2>
-
-                <div class="settings-row">
-                    <div>
-                        <p class="setting-name">Allow Notifications</p>
-                        <span class="setting-desc">Receive job alerts and AI suggestions</span>
-                    </div>
-
-                    <label class="switch">
-                        <input type="checkbox" checked>
-                        <span class="slider"></span>
-                    </label>
+                    <button class="verified-btn">Verified</button>
                 </div>
             </section>
 
@@ -167,6 +150,27 @@
                     <button class="secondary-btn back-to-verify-btn">Back</button>
                     <button class="primary-btn update-password-btn">Update</button>
                 </div>
+            </div>
+        </div>
+
+        <!-- OTP OVERLAY -->
+        <div class="otp-overlay hidden">
+            <div class="otp-modal">
+                <div class="otp-heading">Verify Your Email to Delete your Account</div>
+                <div class="otp-subtext">
+                    We sent a 6-digit OTP to your email.
+                </div>
+
+                <div class="otp-success hidden"></div>
+
+                <input type="text" maxlength="6" class="otp-input" placeholder="Enter OTP">
+
+                <div class="otp-error"></div>
+
+                <button class="verify-otp-btn">Verify OTP</button>
+
+                <div class="resend-otp">Resend OTP</div>
+                <button class="cancel-btn">Cancel</button>
             </div>
         </div>
 

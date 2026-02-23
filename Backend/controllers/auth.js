@@ -50,6 +50,9 @@ const login = async(req, res) => {
     if(!user){
         throw new UnAuthenticatedError('Invalid Credentials');
     }
+    user.otp = undefined;
+    user.otpExpires = undefined;
+    user.save({validateBeforeSave: false});
     const correctPasswordEntered = await user.checkPassword(password);
     if(!correctPasswordEntered){
         throw new UnAuthenticatedError('Invalid Credentials');
