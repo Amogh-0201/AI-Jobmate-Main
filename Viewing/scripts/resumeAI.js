@@ -26,6 +26,14 @@ async function loadResumeAiPage() {
             document.documentElement.setAttribute("data-theme", theme);
             localStorage.setItem("theme", theme);
         }
+
+        /*code for logout button action*/
+        const logoutBtn = document.querySelector('.logout-button');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                logout();
+            });
+        }
         
         document.querySelector('.name').innerHTML = user.name;
         const menuLinks = document.querySelectorAll('.sidebar-menu > a');

@@ -272,3 +272,39 @@ main{
 .hidden {
     display: none;
 }
+
+/* ========================= */
+/* MOBILE RESPONSIVENESS */
+/* ========================= */
+
+@media (max-width: 600px) {
+
+    header {
+        padding: 0 20px;
+    }
+
+    .ai-jobmate-heading {
+        display: none; /* keep mobile clean */
+    }
+
+    .register-form-container {
+        width: 100%;
+        padding: 30px 20px;
+        border-radius: 14px;
+    }
+
+    .otp-modal {
+        width: 90%;
+        padding: 25px 20px;
+    }
+
+    .heading {
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        background: #0f172a;
+    }
+}

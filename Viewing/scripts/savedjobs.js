@@ -79,6 +79,14 @@ async function loadSavedjobsPage(){
             }
         });
 
+        /*code for logout button action*/
+        const logoutBtn = document.querySelector('.logout-button');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', () => {
+                logout();
+            });
+        }
+
         //showing the saved jobs
         const res = await getSavedJobs(token);
         const savedJobs = res.data.savedJobs;
