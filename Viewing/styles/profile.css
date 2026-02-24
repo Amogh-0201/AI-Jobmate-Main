@@ -38,6 +38,12 @@
               border-color 0.25s ease;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 /*overall*/
 body{
     margin:0;
@@ -119,7 +125,8 @@ body{
   background-color: var(--bg-soft);
 }
 .info-item input:focus {
-  outline: rgb(94, 165, 235);
+  outline: none;
+  border-color: var(--accent);
 }
 
 /* verified badge */
@@ -155,3 +162,79 @@ body{
   display: none;
 }
 
+
+/* ========================= */
+/*        RESPONSIVE         */
+/* ========================= */
+
+.user-email {
+  word-break: break-word;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+
+  .profile-page {
+    margin-left: 200px;
+    padding: 90px 30px 30px;
+  }
+
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  .profile-page {
+    margin-left: 0;
+    padding: 80px 16px 30px;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+
+  .profile-card {
+    padding: 18px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .edit-btn,
+  .save-btn {
+    width: 100%;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-item input {
+    width: 100%;
+  }
+
+}
+
+/* Small Phones */
+@media (max-width: 480px) {
+
+  .profile-page {
+    padding: 80px 14px 24px;
+  }
+
+  .profile-card {
+    padding: 14px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .page-subtitle {
+    font-size: 13px;
+  }
+
+}

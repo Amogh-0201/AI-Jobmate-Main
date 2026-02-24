@@ -18,7 +18,24 @@ main{
     margin-left: 220px;
     margin-top: 60px;
     padding: 24px;
-    padding-top: 60px;
+    padding-top: 40px;
+    min-height: calc(100vh - 60px);
+    transition: margin-left 0.3s ease;
+}
+
+/* Tablet */
+@media (max-width: 1024px){
+    main{
+        padding: 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px){
+    main{
+        margin-left: 0;
+        padding: 16px;
+    }
 }
 /*main header*/
 .main-header{
@@ -27,9 +44,26 @@ main{
     align-items: center;
     background-color: white;
     padding: 20px 24px;
-    padding-right: 40px;
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    flex-wrap: wrap;
+    gap: 12px;
+}
+@media (max-width: 600px){
+    .main-header{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .saved-jobs-add-count-container{
+        width: 100%;
+        justify-content: space-between;
+        font-size: 20px;
+    }
+
+    .add-new-saved-job-button{
+        margin-left: 0;
+    }
 }
 .page-title{
     font-size: 26px;
@@ -92,6 +126,24 @@ main{
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
   margin-top: 24px;
 }
+.filters-row {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px){
+    .filters-row{
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter{
+        width: 100%;
+    }
+
+    .filter-select{
+        width: 100%;
+    }
+}
 /* Individual filter */
 .filter {
   position: relative;
@@ -103,9 +155,12 @@ main{
 /* Search */
 .search-filter {
   flex: 1;
+  min-width: 0;
 }
 .search-input {
-  width: 90%;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   padding: 10px 14px 10px 36px;
   border-radius: 999px;
   border: 1px solid #ddd;
@@ -243,6 +298,28 @@ main{
   color: #64748b;
 }
 
+@media (max-width: 768px){
+    .saved-job-card{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .job-actions{
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .apply-btn,
+    .remove-btn{
+        width: 100%;
+    }
+
+    .job-meta{
+        flex-wrap: wrap;
+    }
+}
+
 
 /* Overlay */
 .drawer-overlay {
@@ -257,6 +334,7 @@ main{
 /* Drawer */
 .drawer {
   position: fixed;
+  margin-top: 60px;
   top: 0;
   right: 0;
   height: 100vh;
@@ -267,6 +345,19 @@ main{
   z-index: 100;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+}
+@media (max-width: 768px){
+    .drawer{
+        width: 100%;
+        max-width: 100%;
+    }
+}
+.drawer-header button{
+    flex-shrink: 0;
+}
+.drawer-form{
+    overflow-y: auto;
 }
 /* Active state */
 .drawer.open {
@@ -316,6 +407,9 @@ main{
 .err-msg-section{
   font-size: 12px;
   color: red;
+}
+html, body{
+    overflow-x: hidden;
 }
 
 /* ========================= */

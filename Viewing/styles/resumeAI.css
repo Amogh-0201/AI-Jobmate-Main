@@ -166,6 +166,8 @@ textarea {
 .alt-header {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px;
     font-size: 14px;
     font-weight: 600;
     color: #374151;
@@ -209,6 +211,8 @@ textarea {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
     margin-bottom: 8px;
 }
 
@@ -454,3 +458,109 @@ textarea {
 [data-theme="dark"] .ai-thinking {
   color: #38bdf8;
 }
+
+
+/* ========================= */
+/*        RESPONSIVE         */
+/* ========================= */
+.skill-name,
+.reason,
+.suggestion,
+.alt-header span {
+  word-break: break-word;
+}
+
+textarea {
+  max-height: 300px;
+}
+
+.upload-box input {
+  width: 100%;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  main {
+    margin-left: 200px;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  main {
+    margin-left: 0;
+    padding: 16px;
+    padding-top: 80px;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .card {
+    padding: 18px;
+  }
+
+  input[type="text"],
+  textarea {
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+
+  .resume-text-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .upload-box {
+    padding: 18px;
+  }
+
+  .uploaded-file {
+    font-size: 0.8rem;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+
+  main {
+    padding: 14px;
+    padding-top: 80px;
+  }
+
+  .card {
+    padding: 14px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .confidence-bar,
+  .alt-bar {
+    height: 6px;
+  }
+
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+

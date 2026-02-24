@@ -70,6 +70,23 @@ main{
     margin-left: 220px;
     margin-top: 60px;
     padding: 24px;
+    min-height: calc(100vh - 60px);
+    transition: margin-left 0.3s ease;
+}
+
+/* Tablet */
+@media (max-width: 1024px){
+    main{
+        padding: 20px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px){
+    main{
+        margin-left: 0;
+        padding: 16px;
+    }
 }
 /*quick start section*/
 .quick-stats-heading{
@@ -98,6 +115,21 @@ main{
     font-weight: 600;
     color: var(--text-primary);
 }
+
+@media (max-width: 768px){
+    .quick-stats-heading{
+        font-size: 22px;
+    }
+
+    .stat-value{
+        font-size: 22px;
+    }
+
+    .stat-card{
+        padding: 14px;
+    }
+}
+
 /*recent activity section*/
 .recent-activity {
   background-color: var(--bg-card);
@@ -162,6 +194,26 @@ main{
   font-size: 12px;
   color: var(--text-secondary);
 }
+.activity-content{
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-content p{
+    word-break: break-word;
+}
+
+@media (max-width: 480px){
+    .activity-item{
+        gap: 8px;
+    }
+
+    .activity-icon{
+        width: 28px;
+        height: 28px;
+    }
+}
+
 /*Ai suggestions*/
 .ai-suggestions {
   background-color: var(--bg-card);
@@ -207,4 +259,28 @@ main{
 .suggestion-btn:hover {
   background-color: var(--accent-hover);
   transition: all 0.3s;
+}
+
+@media (max-width: 768px){
+    .suggestion-card{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .suggestion-btn{
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.quick-stats-container,
+.recent-activity,
+.ai-suggestions{
+    max-width: 1200px;
+    margin-right: auto;
+}
+
+html, body{
+    overflow-x: hidden;
 }

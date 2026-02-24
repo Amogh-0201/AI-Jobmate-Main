@@ -50,6 +50,11 @@
               border-color 0.25s ease;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 /*overall*/
 body{
@@ -200,7 +205,8 @@ body{
 
 /* MODAL BOX */
 .modal-box {
-  width: 380px;
+  width: 90%;
+  max-width: 380px;
   background: var(--bg-card);
   padding: 24px;
   border-radius: 12px;
@@ -283,7 +289,8 @@ body{
 }
 
 .otp-modal {
-    width: 380px;
+    width: 90%;
+    max-width: 380px;
     padding: 30px;
     border-radius: 16px;
     background: rgba(30,41,59,0.95);
@@ -372,4 +379,103 @@ body{
 
 .hidden {
     display: none;
+}
+
+
+/* ========================= */
+/*        RESPONSIVE         */
+/* ========================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .settings-page {
+    margin-left: 200px;
+    padding: 90px 30px 30px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  .settings-page {
+    margin-left: 0;
+    padding: 80px 16px 30px;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+
+  .settings-card {
+    padding: 18px;
+  }
+
+  /* Stack settings row vertically */
+  .settings-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  /* Full width buttons */
+  .primary-btn,
+  .danger-btn,
+  .verified-btn {
+    width: 100%;
+  }
+
+  .toggle-group {
+    width: 100%;
+  }
+
+  .toggle-btn {
+    flex: 1;
+    width: 100%;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+
+  .settings-page {
+    padding: 80px 14px 24px;
+  }
+
+  .settings-card {
+    padding: 14px;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .page-subtitle {
+    font-size: 13px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .modal-box {
+    padding: 18px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .modal-actions button {
+    width: 100%;
+  }
+
+  .otp-modal {
+    padding: 20px;
+  }
+
+  .otp-input {
+    font-size: 14px;
+    padding: 12px;
+  }
+
 }

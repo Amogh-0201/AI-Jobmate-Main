@@ -178,6 +178,15 @@ async function loadDashboardPage(){
             });
         });
 
+        const menuToggle = document.querySelector(".menu-toggle");
+        const sidebar = document.querySelector(".sidebar");
+
+        if(menuToggle && sidebar){
+            menuToggle.addEventListener("click", () => {
+                sidebar.classList.toggle("active");
+            });
+        }
+
         //generating page icons
         lucide.createIcons();
     }catch(err){

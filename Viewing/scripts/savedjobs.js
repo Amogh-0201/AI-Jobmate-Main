@@ -118,6 +118,14 @@ async function loadSavedjobsPage(){
             </div>
             `
         });
+        const menuToggle = document.querySelector(".menu-toggle");
+        const sidebar = document.querySelector(".sidebar");
+
+        if(menuToggle && sidebar){
+            menuToggle.addEventListener("click", () => {
+                sidebar.classList.toggle("active");
+            });
+        }
 
     }catch(err){
         console.log(err);

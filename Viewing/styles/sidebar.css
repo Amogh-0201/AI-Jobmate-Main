@@ -65,3 +65,22 @@
   display: flex;
   flex-direction: column;
 }
+
+/* MOBILE STYLES */
+@media (max-width: 768px){
+
+  .menu-toggle{
+    display: block;
+  }
+
+  .sidebar{
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+  }
+
+  .sidebar.active{
+    transform: translateX(0);
+  }
+
+}

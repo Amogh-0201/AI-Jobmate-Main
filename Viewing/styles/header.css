@@ -29,15 +29,31 @@ header{
     background-color: var(--header-bg);
     color: var(--text-primary);
     height: 60px;
-    padding-left: 100px;
-    padding-right: 50px;
+    padding: 0 20px;   /* changed */
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 1px 8px var(--shadow-light);
     border-bottom: 1px solid var(--border-light);
-    z-index: 100;
+    z-index: 1000;
 }
+/*logo*/
+
+.logo-container{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight:700;
+    font-size:20px;
+    letter-spacing:1px;
+    pointer-events: none; /* prevents click overlap */
+}
+
+.ai-jobmate-heading{
+    font-size:14px;
+    color:var(--text-primary);
+}
+
 /*gretting heading part*/
 .greetings-logout-container{
     display: flex;
@@ -70,4 +86,14 @@ header{
 .logout-button:hover {
   background-color: #dc2626;
   transform: translateY(-1px);
+}
+
+/*hamburger option*/
+.menu-toggle{
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-primary);
 }

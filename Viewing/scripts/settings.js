@@ -37,6 +37,15 @@ async function loadSettingsPage() {
         document.querySelector('.name').innerHTML = user.name;
         document.querySelector('.settings').classList.add('active');
 
+        const menuToggle = document.querySelector(".menu-toggle");
+        const sidebar = document.querySelector(".sidebar");
+
+        if(menuToggle && sidebar){
+            menuToggle.addEventListener("click", () => {
+                sidebar.classList.toggle("active");
+            });
+        }
+
     } catch(err) {
         console.log(err);
         document.body.innerHTML = `<h3>${err.response.data.msg}</h3>`;
