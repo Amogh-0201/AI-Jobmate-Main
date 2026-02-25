@@ -2,6 +2,12 @@ require('dotenv').config();
 const path = require('path');
 const express = require('express');
 
+//extra security packages
+const helmet = require('helmet');
+const cors = require('cors');
+const xss = require('xss-clean');
+const rateLimit = require('express-rate-limit');
+
 //connect to database
 const connectDb = require('./db/connectDB');
 
@@ -27,8 +33,20 @@ const app = express();
 //static files
 app.use(express.static(path.join(__dirname, '..', 'Viewing')));
 
+
+app.set('trust proxy', 1);
 //routes
+app.use(rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+	limit: 100, // Limit each IP to 100 requests per `window`(here 15 mins)
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+	ipv6Subnet: 56, // Set to 60 or 64 to be less aggressive, or 52 or 48 to be more aggressive
+}));
 app.use(express.json());
+app.use(helmet());
+app.use(cors());
+app.use(xss());
 app.use('/', getPagesRouter);
 app.use('/api/v1/user', authenticateUser, userRouter);
 app.use('/api/v1/auth',authRouter);
