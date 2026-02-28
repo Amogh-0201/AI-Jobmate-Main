@@ -1,3 +1,5 @@
+const url = "http://localhost:3000";
+
 //making the eye icon for hiding password invisible
 document.querySelector('.hide-password').classList.add('make-invisible');
 
@@ -9,7 +11,7 @@ async function login(){
     const email = emailInput.value;
     const password = passwordInput.value;
     try{
-        const response = await axios.post('/api/v1/auth/login',{
+        const response = await axios.post(`${url}/api/v1/auth/login`,{
             email,
             password
         });
@@ -19,9 +21,9 @@ async function login(){
 
         emailInput.value = "";
         passwordInput.value = "";
-        window.location.href = '/user/dashboard';
+        window.location.href = '../dashboard';
     }catch(err){
-        errorMsgContainer.innerHTML = err.response.data.msg;
+        errorMsgContainer.innerHTML = err.response?.data?.msg || "server connection failed";
         setTimeout(() => {
             errorMsgContainer.innerHTML = "";
         }, 3000);
@@ -96,7 +98,7 @@ document.querySelector('.js-send-otp-btn').addEventListener('click', async()=>{
         stepOtp.classList.remove('make-invisible');
 
         const email = forgotEmailInput.value;
-        await axios.post('/api/v1/auth/forgotPassword/sendOtp', {email});
+        await axios.post(`${url}/api/v1/auth/forgotPassword/sendOtp`, {email});
 
     } catch(err) {
         forgotErrorMsgContainer.textContent = err.response?.data?.msg || 'something went wrong!';
@@ -111,7 +113,7 @@ document.querySelector('.js-verify-otp-btn').addEventListener('click', async()=>
     try {
         const email = forgotEmailInput.value;
         const otp = otpInput.value;
-        await axios.post('/api/v1/auth/forgotPassword', {email, otp});
+        await axios.post(`${url}/api/v1/auth/forgotPassword`, {email, otp});
 
         stepOtp.classList.add('make-invisible');
         stepReset.classList.remove('make-invisible');
@@ -138,7 +140,7 @@ document.querySelector('.js-reset-password-btn').addEventListener('click', async
             }, 3000);
             return;
         }
-        const res = await axios.patch('/api/v1/auth/forgotPassword', {email, newPassword});
+        const res = await axios.patch(`${url}/api/v1/auth/forgotPassword`, {email, newPassword});
 
         alert(res.data.msg);
         forgotOverlay.classList.add('make-invisible');

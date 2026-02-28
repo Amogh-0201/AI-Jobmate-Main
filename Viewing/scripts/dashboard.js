@@ -1,3 +1,5 @@
+const url = "http://localhost:3000";
+
 //function to fetch the html of header and sidebar from components
 async function includeHtml(className, file){
     const res = await fetch(file);
@@ -6,7 +8,7 @@ async function includeHtml(className, file){
 
 async function getJobApplications() {
     const token = localStorage.getItem('token');
-    const res = await axios.get('/api/v1/user/jobApplications', {
+    const res = await axios.get(`${url}/api/v1/user/jobApplications`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -16,7 +18,7 @@ async function getJobApplications() {
 
 async function getSavedJobs() {
     const token = localStorage.getItem('token');
-    const res = await axios.get('/api/v1/user/savedJobs', {
+    const res = await axios.get(`${url}/api/v1/user/savedJobs`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -39,7 +41,7 @@ const activityToColor = {
 };
 
 async function getRecentActivities(token) {
-    const response = await axios.get('/api/v1/dashboard/recentActivity', {
+    const response = await axios.get(`${url}/api/v1/dashboard/recentActivity`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -51,16 +53,19 @@ async function getRecentActivities(token) {
 async function loadDashboardPage(){
     try{
         const token = localStorage.getItem('token');
+        if(!token) {
+            window.location.href = "../login"
+        }
 
-        const response = await axios.get('/api/v1/user', {
+        const response = await axios.get(`${url}/api/v1/user`, {
             headers:{
                 Authorization:`Bearer ${token}`
             }
         });
         const user = response.data.user;
         //fetching html(header and sidebar) from components
-        await includeHtml('.header','/components/header.html');
-        await includeHtml('.sidebar','/components/sidebar.html');
+        await includeHtml('.header','../components/header.html');
+        await includeHtml('.sidebar','../components/sidebar.html');
         let theme = localStorage.getItem('theme');
         //theme handling
         if(!theme) {
@@ -132,7 +137,7 @@ async function loadDashboardPage(){
 
         //showing suggestions
         const suggestionsContainer = document.querySelector('.suggestion-list');
-        const res = await axios.post('/api/v1/dashboard/suggestions', {
+        const res = await axios.post(`${url}/api/v1/dashboard/suggestions`, {
             pending: pendingJobApplications,
             offers: offers
         }, {
@@ -167,13 +172,13 @@ async function loadDashboardPage(){
             suggestionButton.addEventListener('click', (event) => {
                 const suggestionId = event.target.dataset.suggestionId;
                 if(suggestionId === 'Job_Application') {
-                    window.location.href = "/user/applications";
+                    window.location.href = "../applications";
                 } else if(suggestionId === 'Saved_Job') {
-                    window.location.href = "/user/savedjobs";
+                    window.location.href = "../savedjobs";
                 } else if(suggestionId === 'Resume_AI') {
-                    window.location.href = "/user/resumeAI";
+                    window.location.href = "../resumeAI";
                 } else {
-                    window.location.href = "/user/dashboard";
+                    window.location.href = "../dashboard";
                 }
             });
         });
@@ -192,7 +197,7 @@ async function loadDashboardPage(){
     }catch(err){
         console.log(err);
         document.body.innerHTML = `<h3>${err.response.data.msg}</h3>`;
-        window.location.href = '/login';
+        window.location.href = '../login';
     }
 }
 

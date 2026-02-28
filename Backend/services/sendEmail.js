@@ -20,7 +20,7 @@ const sendEmail = async(options) => {
             <h2 style="margin-bottom: 10px;">Welcome to AI Jobmate 🚀</h2>
             
             <p style="font-size: 14px; color: #475569;">
-                Use the verification code below to complete your registration:
+                Verify the OTP Below:
             </p>
 
             <div style="

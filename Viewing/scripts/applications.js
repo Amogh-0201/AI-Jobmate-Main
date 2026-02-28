@@ -1,3 +1,5 @@
+url = "http://localhost:3000";
+
 let theme = localStorage.getItem('theme');
 if(theme) {
     document.documentElement.setAttribute("data-theme", theme);
@@ -22,16 +24,19 @@ async function createApplicationsPage(){
     async function loadApplicationsPage(){
         try{
             const token = localStorage.getItem('token');
+            if(!token) {
+                window.location.href = "../login";
+            }
 
-            const response = await axios.get('/api/v1/user', {
+            const response = await axios.get(`${url}/api/v1/user`, {
                 headers:{
                     Authorization:`Bearer ${token}`
                 }
             });
             const user = response.data.user;
             //fetching html(header and sidebar) from components
-            await includeHtml('.header','/components/header.html');
-            await includeHtml('.sidebar','/components/sidebar.html');
+            await includeHtml('.header','../components/header.html');
+            await includeHtml('.sidebar','../components/sidebar.html');
             lucide.createIcons();
 
             //theme handling
@@ -63,7 +68,7 @@ async function createApplicationsPage(){
         }catch(err){
             console.log(err);
             document.body.innerHTML = `<h3>${err.response.data.msg}</h3>`;
-            window.location.href = '/login';
+            window.location.href = '../login';
         }
     }
 
@@ -105,7 +110,7 @@ async function createApplicationsPage(){
         const token = localStorage.getItem('token');
 
         const jobCardsSection = document.querySelector('.jobs-section'); 
-        const res = await axios.get('/api/v1/user/jobApplications', {
+        const res = await axios.get(`${url}/api/v1/user/jobApplications`, {
             headers:{
                 Authorization:`Bearer ${token}`
             },
@@ -216,7 +221,7 @@ async function createApplicationsPage(){
         if(noteValue){
             payload.note = noteValue;
         }
-        await axios.post('/api/v1/user/jobApplications', payload, 
+        await axios.post(`${url}/api/v1/user/jobApplications`, payload, 
         {
             headers: {
                 Authorization:`Bearer ${token}`
@@ -264,7 +269,7 @@ async function createApplicationsPage(){
     //delete a job application
     async function removeJobApplication(button){
         const token = localStorage.getItem('token');
-        const res = await axios.delete('/api/v1/user/jobApplications',{ 
+        const res = await axios.delete(`${url}/api/v1/user/jobApplications`,{ 
             data: {
                 jobApplicationId : button.dataset.jobApplicationId
             },             
@@ -299,7 +304,7 @@ async function createApplicationsPage(){
             payload.note = noteValue;
         }
         
-        const res = await axios.patch('/api/v1/user/jobApplications', payload,
+        const res = await axios.patch(`${url}/api/v1/user/jobApplications`, payload,
         {            
             headers: {
                 Authorization:`Bearer ${token}`
@@ -335,7 +340,7 @@ async function createApplicationsPage(){
             overlay.classList.add('show');
 
             //get jobApplication info
-            const res = await axios.get(`/api/v1/user/jobApplications/${jobApplicationId}`,{
+            const res = await axios.get(`${url}/api/v1/user/jobApplications/${jobApplicationId}`,{
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -390,7 +395,7 @@ async function createApplicationsPage(){
             const note = noteModalInput.value.trim();
 
             await axios.patch(
-            `/api/v1/user/jobApplications/${activeJobId}/note`,
+            `${url}/api/v1/user/jobApplications/${activeJobId}/note`,
             { note },
             {
                 headers: { Authorization: `Bearer ${token}` }

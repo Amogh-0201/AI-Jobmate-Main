@@ -1,3 +1,4 @@
+const url = "http://localhost:3000";
 //making the eye icon for hiding password invisible
 
 const nameInput = document.querySelector('.js-name');
@@ -19,7 +20,7 @@ async function sendOtp() {
     
     try{
         document.querySelector('.otp-overlay').classList.remove('hidden');
-        const response = await axios.post('/api/v1/auth/sendOtp',{
+        const response = await axios.post(`${url}/api/v1/auth/sendOtp`,{
             name,
             email,
             password,
@@ -55,7 +56,7 @@ async function registerUser(){
     const otp = otpInput.value;
     
     try{
-        const response = await axios.post('/api/v1/auth/register',{
+        const response = await axios.post(`${url}/api/v1/auth/register`,{
             name,
             email,
             password,
@@ -71,9 +72,9 @@ async function registerUser(){
         passwordInput.value = "";
         confirmPasswordInput.value = "";
         document.querySelector('.otp-overlay').classList.add('hidden');
-        window.location.href = '/user/dashboard';
+        window.location.href = '../dashboard';
     }catch(err){
-        otpErrorContainer.innerHTML = err.response.data.msg;
+        otpErrorContainer.innerHTML = err.response?.data?.msg || "cannot connect to the server";
         setTimeout(() => {
             otpErrorContainer.innerHTML = "";
         }, 3000);

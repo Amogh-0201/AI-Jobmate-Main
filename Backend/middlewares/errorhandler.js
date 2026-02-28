@@ -2,7 +2,7 @@ const {CustomAPIError} = require('../errors');
 const {StatusCodes} = require('http-status-codes');
 
 const errorHandlerMiddleware = async(err, req, res, next)=> {
-    //console.log(err);
+    console.log(err);
     if(err.name === "ValidationError"){
         return res.status(StatusCodes.BAD_REQUEST).json({msg: err.message});
     }

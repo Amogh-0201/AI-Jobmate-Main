@@ -5,8 +5,10 @@ const express = require('express');
 //connect to database
 const connectDb = require('./db/connectDB');
 
+//extra security packages
+const cors = require('cors');
+
 //routers
-const getPagesRouter = require('./routes/getPage');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
 const userDashboardRouter = require('./routes/userDashboard');
@@ -24,12 +26,12 @@ const uploadMiddleware = require('./middlewares/uploadMiddleware');
 
 const app = express();
 
-//static files
-app.use(express.static(path.join(__dirname, '..', 'Viewing')));
-
 //routes
 app.use(express.json());
-app.use('/', getPagesRouter);
+app.use(cors({
+    origin: "http://127.0.0.1:5500",
+    credentials: true
+}))
 app.use('/api/v1/user', authenticateUser, userRouter);
 app.use('/api/v1/auth',authRouter);
 app.use('/api/v1/dashboard/', authenticateUser, userDashboardRouter);
