@@ -1,18 +1,12 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
 require('dotenv').config();
 
-const sendEmail = async(options) => {
-    try{
-        const transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS
-            }
-        });
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-        const mailOptions = {
-            from: `"AI Jobmate" <${process.env.EMAIL_USER}>`,
+const sendEmail = async (options) => {
+    try {
+        await resend.emails.send({
+            from: "AI Jobmate <onboarding@resend.dev>", 
             to: options.email,
             subject: "Verify Your Email – AI Jobmate OTP Code",
             html: `
@@ -24,10 +18,7 @@ const sendEmail = async(options) => {
                     Verify the OTP Below:
                 </p>
 
-                <div style="
-                    margin: 30px 0;
-                    text-align: center;
-                ">
+                <div style="margin: 30px 0; text-align: center;">
                     <span style="
                         display: inline-block;
                         padding: 15px 30px;
@@ -36,8 +27,7 @@ const sendEmail = async(options) => {
                         letter-spacing: 8px;
                         background: #6366f1;
                         color: white;
-                        border-radius: 8px;
-                    ">
+                        border-radius: 8px;">
                         ${options.otp}
                     </span>
                 </div>
@@ -57,13 +47,12 @@ const sendEmail = async(options) => {
                 </p>
             </div>
             `
-        };
+        });
 
-        await transporter.sendMail(mailOptions);
-    } catch(err) {
-        console.log(err);
+    } catch (err) {
+        console.error("Email error:", err);
+        throw err;
     }
-    
-}
+};
 
 module.exports = sendEmail;
