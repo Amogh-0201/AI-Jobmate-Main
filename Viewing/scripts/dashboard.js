@@ -1,4 +1,4 @@
-const url = "http://localhost:3000";
+const url = "https://ai-jobmate-backend.onrender.com";
 
 //function to fetch the html of header and sidebar from components
 async function includeHtml(className, file){

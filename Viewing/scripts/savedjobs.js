@@ -1,4 +1,4 @@
-const url = "http://localhost:3000";
+const url = "https://ai-jobmate-backend.onrender.com";
 
 let savedJobsQueryState = {
     searchQuery: '',

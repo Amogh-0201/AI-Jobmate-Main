@@ -6,7 +6,16 @@ const express = require('express');
 const connectDb = require('./db/connectDB');
 
 //extra security packages
+const helmet = require('helmet');
+const { filterXSS } = require('xss');
+const rateLimit = require('express-rate-limit');
 const cors = require('cors');
+
+const xssMiddleware = (req, res, next) => {
+  if (req.body) req.body = JSON.parse(filterXSS(JSON.stringify(req.body)));
+  if (req.query) req.query = JSON.parse(filterXSS(JSON.stringify(req.query)));
+  next();
+};
 
 //routers
 const authRouter = require('./routes/auth');
@@ -25,13 +34,25 @@ const authenticateUser = require('./middlewares/authenticate');
 const uploadMiddleware = require('./middlewares/uploadMiddleware');
 
 const app = express();
+app.set("trust proxy", 1)
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per window
+    message: "Too many requests from this IP, please try again after 15 minutes"
+});
 
 //routes
-app.use(express.json());
 app.use(cors({
-    origin: "http://127.0.0.1:5500",
+    origin: process.env.FRONTEND_URL || "http://127.0.0.1:5500",
     credentials: true
-}))
+}));
+
+app.use(helmet());
+app.use(express.json());
+app.use(xssMiddleware);
+app.use(limiter);
+
 app.use('/api/v1/user', authenticateUser, userRouter);
 app.use('/api/v1/auth',authRouter);
 app.use('/api/v1/dashboard/', authenticateUser, userDashboardRouter);

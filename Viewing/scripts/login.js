@@ -1,4 +1,4 @@
-const url = "http://localhost:3000";
+const url = "https://ai-jobmate-backend.onrender.com";
 
 //making the eye icon for hiding password invisible
 document.querySelector('.hide-password').classList.add('make-invisible');
