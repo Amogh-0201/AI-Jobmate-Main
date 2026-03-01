@@ -1,3 +1,5 @@
+const url = "http://localhost:3000";
+
 //function to fetch the header and sidebar of the page
 async function includeHtml(className, file) {
     const res = await fetch(file);
@@ -7,16 +9,19 @@ async function includeHtml(className, file) {
 async function loadSettingsPage() {
     try{
         const token = localStorage.getItem('token');
+        if(!token) {
+            window.location.href = "../login";
+        }
 
-        const response = await axios.get('/api/v1/user', {
+        const response = await axios.get(`${url}/api/v1/user`, {
             headers:{
                 Authorization:`Bearer ${token}`
             }
         });
         const user = response.data.user;
         //fetching html(header and sidebar) from components
-        await includeHtml('.header','/components/header.html');
-        await includeHtml('.sidebar','/components/sidebar.html');
+        await includeHtml('.header','../components/header.html');
+        await includeHtml('.sidebar','../components/sidebar.html');
 
         //theme handling
         const theme = localStorage.getItem('theme') || user.theme || 'light';
@@ -49,7 +54,7 @@ async function loadSettingsPage() {
     } catch(err) {
         console.log(err);
         document.body.innerHTML = `<h3>${err.response.data.msg}</h3>`;
-        window.location.href = '/login';
+        window.location.href = '../login';
     }
 }
 loadSettingsPage();
@@ -63,7 +68,7 @@ document.querySelector('.toggle-group').addEventListener('click', async(event) =
         const theme = 'light';
         localStorage.setItem('theme', theme);
         document.documentElement.setAttribute("data-theme", theme);
-        await axios.patch('/api/v1/user/theme', {theme}, {
+        await axios.patch(`${token}/api/v1/user/theme`, {theme}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -75,7 +80,7 @@ document.querySelector('.toggle-group').addEventListener('click', async(event) =
         const theme = 'dark';
         localStorage.setItem('theme', theme);
         document.documentElement.setAttribute("data-theme", theme);
-        await axios.patch('/api/v1/user/theme', {theme}, {
+        await axios.patch(`${url}/api/v1/user/theme`, {theme}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -112,7 +117,7 @@ verifyPasswordBtn.addEventListener('click', async() => {
     try{
         const token = localStorage.getItem('token');
         const password = currentPasswordInput.value;
-        const res = await axios.post('/api/v1/auth/verifyPassword', {password}, {
+        const res = await axios.post(`${url}/api/v1/auth/verifyPassword`, {password}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -148,7 +153,7 @@ updatePasswordBtn.addEventListener('click', async() => {
             modalError.textContent = "Password is required";
             return;
         }
-        const res = await axios.patch('/api/v1/auth/changePassword', {newPassword, confirmPassword}, {
+        const res = await axios.patch(`${url}/api/v1/auth/changePassword`, {newPassword, confirmPassword}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -160,7 +165,7 @@ updatePasswordBtn.addEventListener('click', async() => {
                 newPasswordInput.value = '';
                 confirmPasswordInput.value = '';
                 newModalError.textContent = '';
-                window.location.href = '/login';
+                window.location.href = '../login';
             }, 3000);
         }
     } catch(err) {
@@ -185,7 +190,7 @@ async function sendOtp() {
     try {
         const token = localStorage.getItem('token');
         otpOverlay.classList.remove('hidden');
-        const res = await axios.post('/api/v1/user/sendOtp', {confirmedPassword: 'random'}, {
+        const res = await axios.post(`${url}/api/v1/user/sendOtp`, {confirmedPassword: 'random'}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -213,7 +218,7 @@ verifyOtpBtn.addEventListener('click', async() => {
     try {
         const token = localStorage.getItem('token');
         const otp = otpInput.value;
-        const res = await axios.delete('/api/v1/user', {
+        const res = await axios.delete(`${url}/api/v1/user`, {
             headers: {
                 Authorization: `Bearer ${token}`
             },
@@ -226,7 +231,7 @@ verifyOtpBtn.addEventListener('click', async() => {
 
         setTimeout(() => {
             localStorage.removeItem('token'); // clear token
-            window.location.href = '/login.html'; // redirect
+            window.location.href = '../login'; // redirect
         }, 3000);
 
     } catch(err) {

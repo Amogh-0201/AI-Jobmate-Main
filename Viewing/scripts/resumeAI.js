@@ -1,3 +1,5 @@
+const url = "http://localhost:3000";
+
 //function to fetch the html of header and sidebar from components
 async function includeHtml(className, file){
     const res = await fetch(file);
@@ -7,8 +9,11 @@ async function includeHtml(className, file){
 async function loadResumeAiPage() {
     try{
         const token = localStorage.getItem('token');
+        if(!token) {
+            window.location.href = "../login";
+        }
 
-        const response = await axios.get('/api/v1/user', {
+        const response = await axios.get(`${url}/api/v1/user`, {
             headers:{
                 Authorization:`Bearer ${token}`
             }
@@ -16,8 +21,8 @@ async function loadResumeAiPage() {
         const user = response.data.user;
 
         //fetching html(header and sidebar) from components
-        await includeHtml('.header','/components/header.html');
-        await includeHtml('.sidebar','/components/sidebar.html');
+        await includeHtml('.header','../components/header.html');
+        await includeHtml('.sidebar','../components/sidebar.html');
         let theme = localStorage.getItem('theme');
         
         //theme handling
@@ -55,7 +60,7 @@ async function loadResumeAiPage() {
     }catch(err) {
         console.log(err);
         document.body.innerHTML = `<h3>${err.response.data.msg}</h3>`;
-        window.location.href = '/login';
+        window.location.href = '../login';
     }
 }
 
@@ -118,7 +123,7 @@ async function extractTextFromResumePdf() { //extracting text from pdf and retur
     const formData = new FormData();
     formData.append('resume', selectedPdfFile);
     
-    const response = await axios.post('/api/v1/resumePdf/extract', formData, {
+    const response = await axios.post(`${url}/api/v1/resumePdf/extract`, formData, {
         headers: {
             "Content-Type": "multipart/form-data"
         }
@@ -134,7 +139,7 @@ const analyzeResumeButton = document.querySelector('.analyze-resume-btn');
 
 async function getJobSuggestions(resumeText) {
     const token = localStorage.getItem('token');
-    const response = await axios.post('/api/v1/model/v1/predict', 
+    const response = await axios.post(`${url}/api/v1/model/v1/predict`, 
     {
         resume: resumeText
     }, 
@@ -173,7 +178,7 @@ const skillGapsContainer = document.querySelector('.skill-gap-card');
 
 async function getSkillGaps(resumeText, jobRole) {
     const token = localStorage.getItem('token');
-    const response = await axios.post('/api/v1/gemini/skillGaps', {resumeText, jobRole}, {
+    const response = await axios.post(`${url}/api/v1/gemini/skillGaps`, {resumeText, jobRole}, {
         headers: {
             Authorization: `Bearer ${token}`
         }

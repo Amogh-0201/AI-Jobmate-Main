@@ -1,3 +1,5 @@
+const url = "http://localhost:3000";
+
 let savedJobsQueryState = {
     searchQuery: '',
     sort: 'newest',
@@ -13,7 +15,7 @@ async function includeHtml(className, file){
 
 //function to get the all saved jobs
 async function getSavedJobs(token) {
-    const response = await axios.get('/api/v1/user/savedJobs', {
+    const response = await axios.get(`${url}/api/v1/user/savedJobs`, {
         headers:{
             Authorization:`Bearer ${token}`
         },
@@ -50,8 +52,11 @@ sortSelect.addEventListener('change', async() => {
 async function loadSavedjobsPage(){
     try{
         const token = localStorage.getItem('token');
+        if(!token) {
+            window.location.href = "../login";
+        }
 
-        const response = await axios.get('/api/v1/user', {
+        const response = await axios.get(`${url}/api/v1/user`, {
             headers:{
                 Authorization:`Bearer ${token}`
             }
@@ -59,8 +64,8 @@ async function loadSavedjobsPage(){
         const user = response.data.user;
 
         //fetching html(header and sidebar) from components
-        await includeHtml('.header','/components/header.html');
-        await includeHtml('.sidebar','/components/sidebar.html');
+        await includeHtml('.header','../components/header.html');
+        await includeHtml('.sidebar','../components/sidebar.html');
         let theme = localStorage.getItem('theme');
         
         //theme handling
@@ -138,7 +143,7 @@ async function loadSavedjobsPage(){
     }catch(err){
         console.log(err);
         document.body.innerHTML = `<h3>${err.response.data.msg}</h3>`;
-        window.location.href = '/login';
+        window.location.href = '../login';
     }
 }
 
@@ -183,7 +188,7 @@ async function saveJob(token) {
         payload.date = dateValue;
     }
 
-    await axios.post('/api/v1/user/savedJobs', payload, 
+    await axios.post(`${url}/api/v1/user/savedJobs`, payload, 
     {
         headers: {
             Authorization: `Bearer ${token}`
@@ -215,7 +220,7 @@ saveJobButton.addEventListener('click', async() => {
 //function to delete a saved job i.e. working of the remove button
 async function removeSavedJob(button) {
     const token = localStorage.getItem('token');
-    await axios.delete('/api/v1/user/savedJobs',{
+    await axios.delete(`${url}/api/v1/user/savedJobs`,{
         data: {
             savedJobId: button.dataset.savedJobId
         },
@@ -230,7 +235,7 @@ async function applyJob(button) {
     const token = localStorage.getItem('token');
 
     const savedJobId = button.dataset.savedJobId;
-    const res = await axios.get(`/api/v1/user/savedJobs/${savedJobId}`,{
+    const res = await axios.get(`${url}/api/v1/user/savedJobs/${savedJobId}`,{
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -244,7 +249,7 @@ async function applyJob(button) {
         company,
         status
     };
-    await axios.post('/api/v1/user/jobApplications', payload,{
+    await axios.post(`${url}/api/v1/user/jobApplications`, payload,{
         headers: {
             Authorization:`Bearer ${token}`
         }

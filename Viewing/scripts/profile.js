@@ -1,3 +1,5 @@
+const url = "http://localhost:3000";
+
 //function to fetch the header and sidebar of the page
 async function includeHtml(className, file) {
     const res = await fetch(file);
@@ -7,16 +9,19 @@ async function includeHtml(className, file) {
 async function loadProfilePage() {
     try{
         const token = localStorage.getItem('token');
+        if(!token) {
+            window.location.href = "../login";
+        }
 
-        const response = await axios.get('/api/v1/user', {
+        const response = await axios.get(`${url}/api/v1/user`, {
             headers:{
                 Authorization:`Bearer ${token}`
             }
         });
         const user = response.data.user;
         //fetching html(header and sidebar) from components
-        await includeHtml('.header','/components/header.html');
-        await includeHtml('.sidebar','/components/sidebar.html');
+        await includeHtml('.header','../components/header.html');
+        await includeHtml('.sidebar','../components/sidebar.html');
         let theme = localStorage.getItem('theme');
         //theme handling
         if(!theme) {
@@ -73,7 +78,7 @@ async function loadProfilePage() {
     } catch(err) {
         console.log(err);
         document.body.innerHTML = `<h3>${err.response.data.msg}</h3>`;
-        window.location.href = '/login';
+        window.location.href = '../login';
     }
 }
 loadProfilePage();
@@ -107,7 +112,7 @@ document.querySelector('.career-card').addEventListener('click', async(e) => {
     if(e.target.classList.contains('edit-btn')) {
         const editButton = e.target;
         const token = localStorage.getItem('token');
-        const res = await axios.get('/api/v1/user', {
+        const res = await axios.get(`${url}/api/v1/user`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -133,7 +138,7 @@ document.querySelector('.career-card').addEventListener('click', async(e) => {
         const token = localStorage.getItem('token');
         const targetRole = targetInput.value;
         const experienceLevel = experienceInput.value;
-        const res = await axios.patch('/api/v1/user', {targetRole, experienceLevel}, {
+        const res = await axios.patch(`${url}/api/v1/user`, {targetRole, experienceLevel}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
