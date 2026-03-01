@@ -57,6 +57,10 @@ passwordVisibleIcon.addEventListener('click', () => {
     }
 });
 
+document.querySelector(".logo-container").addEventListener("click", ()=> {
+    window.location.href = "../"
+});
+
 
 // ===============================
 // FORGOT PASSWORD OVERLAY LOGIC

@@ -48,6 +48,10 @@ async function sendOtp() {
     }
 }
 
+document.querySelector(".logo-container").addEventListener("click", ()=> {
+    window.location.href = "../"
+});
+
 async function registerUser(){
     const name = nameInput.value;
     const email = emailInput.value;
