@@ -236,3 +236,11 @@ Possible improvements include:
 #### Amogh Das Barman
 
 #### If you found this project interesting, consider giving the repository a ⭐.
+
+## 🔗 Connect With Me
+
+- LinkedIn: https://linkedin.com/in/amogh-das-barman-1970113a8
+
+- GitHub: https://github.com/Amogh-0201
+
+- Live Project: https://ai-jobmate.vercel.app/
