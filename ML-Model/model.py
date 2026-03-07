@@ -18,6 +18,10 @@ class ResumeRequest(BaseModel):
 
 API_KEY = os.getenv('ML_API_KEY')
 
+@app.get("/health")
+def health():
+    return {"status": "running"}
+
 
 @app.post("/predict")
 def predict_jobs(data: ResumeRequest, x_api_key: str = Header(...)):
