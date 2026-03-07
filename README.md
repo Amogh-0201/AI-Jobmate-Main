@@ -4,6 +4,9 @@ Full-Stack Job Application Manager with AI Resume Analysis
 
 #### 🔗 Live Website: https://ai-jobmate.vercel.app/
 
+<img width="600" alt="AI-Jobmate Home Page" src="https://github.com/user-attachments/assets/87bf1696-5460-4b1d-93a1-fd9ea447f240" />
+
+
 AI Jobmate is a full-stack web application designed to help job seekers organize and manage their job applications in one place while also receiving AI-powered resume analysis.
 
 Users can add job applications, update and save their job application status, store jobs they want to apply to later, and analyze resumes using a machine learning model.
@@ -166,6 +169,9 @@ FastAPI + Scikit-learn
 * MongoDB
 
 * JWT Authentication
+
+* axios
+
 
 ### Machine Learning Service
 
