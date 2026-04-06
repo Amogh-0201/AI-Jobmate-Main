@@ -18,9 +18,9 @@ class ResumeRequest(BaseModel):
 
 API_KEY = os.getenv('ML_API_KEY')
 
-@app.get("/health")
-def health():
-    return {"status": "running"}
+#@app.get("/health")
+#def health():
+#    return {"status": "running"}
 
 
 @app.post("/predict")
