@@ -19,7 +19,6 @@ async function sendOtp() {
     const confirmedPassword = confirmPasswordInput.value;
     
     try{
-        document.querySelector('.otp-overlay').classList.remove('hidden');
         const response = await axios.post(`${url}/api/v1/auth/sendOtp`,{
             name,
             email,
@@ -28,6 +27,7 @@ async function sendOtp() {
         });
 
         const msg = response.data.msg;
+        document.querySelector('.otp-overlay').classList.remove('hidden');
         const otpSuccess = document.querySelector('.otp-success');
 
         otpSuccess.innerHTML = msg;
