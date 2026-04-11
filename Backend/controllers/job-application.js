@@ -1,6 +1,7 @@
 const {saveActivity} = require('../services/save-activity');
 const JobApplication = require('../models/job-application');
 const {StatusCodes} =require('http-status-codes');
+const cache = require('../config/cache');
 
 //save new job application post method handling
 const saveJobApplicationData = async(req, res) => {
@@ -15,9 +16,16 @@ const saveJobApplicationData = async(req, res) => {
         activity: `Applied to ${req.body.jobTitle} at ${req.body.company}`
     }
     if(req.body.date) {
-        activityObject.createdAt = date;
+        activityObject.createdAt = req.body.date;
     }
     await saveActivity(activityObject);
+    
+    //clear cache for the user after adding a new job application
+    cache.keys().forEach(key => {
+        if (key.startsWith(`jobApplications: ${userId}:`)) {
+            cache.del(key);
+        }
+    });
 
     res.status(StatusCodes.CREATED).json({jobApplication});
 }
@@ -26,6 +34,15 @@ const saveJobApplicationData = async(req, res) => {
 const getAllJobApplications = async(req, res) => {
     const {userId} = req.user;
     const {search_query, status, sort, date} = req.query;
+
+    //unique cache key
+    const cacheKey =  `jobApplications: ${userId}:${search_query || ''}:${status || ''}:${sort || ''}:${date || ''}`;
+
+    //check if data is in cache
+    const cachedData = cache.get(cacheKey);
+    if(cachedData){
+        return res.status(200).json({success: true, jobApplications: cachedData});
+    }
 
     let queryObject = {userId: userId};
 
@@ -67,6 +84,10 @@ const getAllJobApplications = async(req, res) => {
     }
 
     const jobApplications = await JobApplication.find(queryObject).sort(sortObject);
+
+    //store the data in cache for future requests
+    cache.set(cacheKey, jobApplications);
+
     res.status(200).json({success: true, jobApplications});
 }
 
@@ -82,6 +103,14 @@ const removeJobApplication = async(req, res) => {
         type: 'REMOVED',
         activity: `Removed job application of ${jobApplication.jobTitle} at ${jobApplication.company}`
     })
+
+    //clear cache for the user after adding a new job application
+    cache.keys().forEach(key => {
+        if (key.startsWith(`jobApplications: ${userId}:`)) {
+            cache.del(key);
+        }
+    });
+
     res.status(StatusCodes.OK).json({msg: "data deleted successfully"});
 }
 
@@ -121,6 +150,13 @@ const updateJobApplication = async(req, res) => {
         activity: `Job application details updated for ${jobTitle} at ${company}`
     })
 
+    //clear cache for the user after adding a new job application
+    cache.keys().forEach(key => {
+        if (key.startsWith(`jobApplications: ${userId}:`)) {
+            cache.del(key);
+        }
+    });
+
     res.status(StatusCodes.OK).json({ msg: "job application updated successfully" });
 };
 
@@ -134,6 +170,13 @@ const updateNote = async (req, res) => {
         { note },
         { new: true }
     );
+
+    //clear cache for the user after adding a new job application
+    cache.keys().forEach(key => {
+        if (key.startsWith(`jobApplications: ${userId}:`)) {
+            cache.del(key);
+        }
+    });
 
     res.status(200).json({ job });
 }

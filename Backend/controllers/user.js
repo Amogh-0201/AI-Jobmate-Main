@@ -4,13 +4,27 @@ const sendEmail = require('../services/sendEmail');
 const {StatusCodes} = require('http-status-codes');
 const {UnAuthenticatedError, BadRequestError} = require('../errors');
 const bcryptjs = require('bcryptjs');
+const cache = require('../config/cache');
 
 const sendUserInfo = async(req, res) => {
     const {userId} = req.user;
+
+    //unique cache key
+    const cacheKey = `userInfo: ${userId}`;
+    //check cache first
+    const cachedData = cache.get(cacheKey);
+    if(cachedData){
+        return res.status(200).json({user: cachedData});
+    }
+
     const user = await User.findOne({_id: userId});
     if(!user){
         throw new UnAuthenticatedError('user not found please login and try again');
     }
+
+    //store data in cache
+    cache.set(cacheKey, user);
+
     res.status(200).json({user});
 }
 
@@ -25,6 +39,10 @@ const updateUserInfo = async(req, res) => {
         updatedFields.experienceLevel = experienceLevel;
     }
     const updatedUser = await User.findByIdAndUpdate({_id: userId}, {$set: updatedFields}, {new: true});
+
+    //delete cache for user info after update
+    cache.del(`userInfo: ${userId}`);
+
     res.status(200).json({updatedUser});
 }
 
@@ -34,6 +52,10 @@ const updateTheme = async(req, res) => {
     await User.findOneAndUpdate({_id: userId}, {
         $set: {theme}
     });
+
+    //delete cache for user info after update
+    cache.del(`userInfo: ${userId}`);
+    
     res.status(200).json({msg: 'Theme updated'});
 }
 

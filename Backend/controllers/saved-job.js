@@ -1,11 +1,22 @@
 const SavedJob = require('../models/saved-job');
 const {StatusCodes} = require('http-status-codes');
 const {saveActivity} = require('../services/save-activity');
+const cache = require('../config/cache');
 
 //get all saved jobs by a user
 const getAllSavedJobs = async(req, res) => {
     const {userId} = req.user;
     const {searchQuery, sort, date} = req.query;
+
+    //unique cache key
+    const cacheKey =  `savedJobs: ${userId}:${searchQuery || ''}:${sort || ''}:${date || ''}`;
+
+    //check if data is in cache
+    const cachedData = cache.get(cacheKey);
+    if(cachedData){
+        return res.status(200).json({success: true, savedJobs: cachedData});
+    }
+
     const queryObject = {
         userId: userId
     };
@@ -40,6 +51,10 @@ const getAllSavedJobs = async(req, res) => {
     }
 
     const savedJobs = await SavedJob.find(queryObject).sort(sortObject);
+
+    //store data in cache
+    cache.set(cacheKey, savedJobs);
+
     res.status(StatusCodes.OK).json({savedJobs});
 }
 
@@ -58,6 +73,14 @@ const saveSavedJob = async(req, res) => {
         activityObject.createdAt = req.body.date;
     }
     await saveActivity(activityObject);
+
+    //clear cache for the user after adding a new saved job
+    cache.keys().forEach(key => {
+        if (key.startsWith(`savedJobs: ${userId}:`)) {
+            cache.del(key);
+        }
+    });
+
     res.status(StatusCodes.CREATED).json({savedJob});
 }
 
@@ -74,6 +97,14 @@ const deleteSavedJob = async(req, res) => {
         activity: `Deleted Saved job ${savedJob.jobTitle} at ${savedJob.company}`
     };
     await saveActivity(activityObject);
+
+    //clear cache for the user after adding a new saved job
+    cache.keys().forEach(key => {
+        if (key.startsWith(`savedJobs: ${userId}:`)) {
+            cache.del(key);
+        }
+    });
+
     res.status(StatusCodes.OK).json({"msg": "data deleted successfully"});
 }
 

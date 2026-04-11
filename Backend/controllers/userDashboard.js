@@ -3,11 +3,24 @@ const JobApplication = require('../models/job-application');
 const JobSuggestions = require('../models/model_job_suggestions');
 const SavedJobs = require('../models/saved-job');
 const SkillGaps = require('../models/skill-gap');
+const cache = require('../config/cache');
 
 const getRecentActivities = async(req, res) => {
     const {userId} = req.user;
+
+    //unique cache key
+    const cacheKey = `recentActivities: ${userId}`;
+    //check cache first
+    const cachedData = cache.get(cacheKey);
+    if(cachedData){
+        console.log('cache hit for recent activities');
+        return res.status(200).json({success: true, recentActivities: cachedData});
+    }
+
     const recentActivities = await Activities.find({userId: userId}).sort({createdAt:-1}).limit(3);
-    res.status(200).json({successs: true, recentActivities});
+    //store data in cache
+    cache.set(cacheKey, recentActivities);
+    res.status(200).json({success: true, recentActivities});
 }
 
 const getSuggestions = async(req, res) => {
@@ -17,6 +30,14 @@ const getSuggestions = async(req, res) => {
     const jobSuggestionsCount = await JobSuggestions.countDocuments({userId});
     const savedJobsCount = await SavedJobs.countDocuments({userId});
     const skillGapsCount = await SkillGaps.countDocuments({userId});
+
+    //unique cache key
+    const cacheKey =  `dashboardSuggestions: ${userId} :${pending || ''}:${offers || ''}:${jobApplicationsCount || ''}:${jobSuggestionsCount || ''}:${savedJobsCount || ''}:${skillGapsCount || ''}`;
+    //check if data is in cache
+    const cachedData = cache.get(cacheKey);
+    if(cachedData){
+        return res.status(200).json({success: true, suggestions: cachedData});
+    }
     
     let suggestions = [];
     if(jobSuggestionsCount == 0 && skillGapsCount == 0) {
@@ -95,6 +116,9 @@ const getSuggestions = async(req, res) => {
             action: 'RESUME_AI'
         });
     }
+
+    //save the suggestions in cache for future requests
+    cache.set(cacheKey, suggestions);
 
     res.status(201).json({suggestions});
 }
