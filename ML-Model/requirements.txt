@@ -1,6 +1,8 @@
 fastapi
 uvicorn
-scikit-learn
+pydantic
+python-dotenv
 joblib
 numpy
-python-dotenv
+tensorflow
+sentence-transformers
