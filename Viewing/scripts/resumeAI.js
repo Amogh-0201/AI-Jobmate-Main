@@ -157,6 +157,8 @@ const AiSuggestionsContainer = document.querySelector('.result-card');
 function OtherAiSuggestedJobs(AiSuggestedJobs, limit) {
     let html = ``;
     for(let i = 1; i < limit; i++) {
+        const confidence = parseFloat(AiSuggestedJobs[i].confidence);
+        if(confidence === 0) break;
         html += 
         `
             <div class="alt-role">
