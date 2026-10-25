@@ -1,246 +1,112 @@
-# 🤖 AI Jobmate
+# AI Jobmate
 
-Full-Stack Job Application Manager with AI Resume Analysis
+AI Jobmate is a full-stack job application tracker with an AI-assisted resume analysis feature. It helps job seekers keep track of applications and saved opportunities, get suggested job roles from a resume, and review skills to develop for a chosen role.
 
-#### 🔗 Live Website: https://ai-jobmate.vercel.app/
+**Live application:** [ai-jobmate.vercel.app](https://ai-jobmate.vercel.app/)
 
-<img width="600" alt="AI-Jobmate Home Page" src="https://github.com/user-attachments/assets/87bf1696-5460-4b1d-93a1-fd9ea447f240" />
+<img width="600" alt="AI Jobmate home page" src="https://github.com/user-attachments/assets/87bf1696-5460-4b1d-93a1-fd9ea447f240" />
 
+## Features
 
-AI Jobmate is a full-stack web application designed to help job seekers organize and manage their job applications in one place while also receiving AI-powered resume analysis.
+### Accounts
 
-Users can add job applications, update and save their job application status, store jobs they want to apply to later, and analyze resumes using a machine learning model.
+- Register and log in with email and password
+- Verify registration and password recovery using email OTPs
+- Update profile and account settings
 
-### ⚠️ This repository is a presentation repository.
-The actual implementation is deployed across three separate private repositories:
+### Job application tracking
 
-1) Frontend
+- Create, edit, and remove job application records
+- Track application status, date, and notes
+- Search and filter applications, including by status and date
+- View dashboard activity and job-search summaries
 
-2) Backend
+### Saved jobs
 
-3) Machine Learning Service
+- Save potential opportunities separately from active applications
+- Search, sort, and remove saved jobs
 
-This repo exists to showcase the project architecture, features, and live deployment.
+### Resume AI
 
-## 🚀 Features
-### 🔐 Authentication System
+- Analyze a resume by pasting text or uploading a PDF
+- Get up to five suggested job roles with model confidence scores
+- Enter a target role to receive AI-generated skill-gap suggestions and overall advice
+- Keep recent job-role suggestion history in the account
 
-* User registration and login
+PDF resumes are parsed by the backend to extract text before analysis. The role classifier and skill-gap analysis are separate components: role predictions come from the ML service, while skill-gap advice is generated using Google's Gemini API.
 
-* Secure password hashing
+## Resume role prediction model
 
-* JWT-based authentication
+The current classifier is different from the earlier scikit-learn logistic-regression model described in older project documentation.
 
-* Email OTP verification during signup
+The current ML service:
 
-### 📩 Email OTP Verification
+1. Encodes resume text with a Sentence Transformers model based on **`BAAI/bge-base-en-v1.5`**.
+2. Passes the resulting 768-dimensional embedding to a Keras neural-network classifier.
+3. Returns the top role predictions and their confidence scores.
 
-During registration, users must verify their email address using a One-Time Password (OTP).
+The classifier predicts among **24 job-role categories**. The training notebook in [`docs/resume_scanner_2_0.ipynb`](docs/resume_scanner_2_0.ipynb) records a dataset of 3,900 resume examples and a held-out test accuracy of **88.46%**. This is the notebook's evaluation result, not a guarantee of accuracy for every resume or a measurement of the live service. Performance varies by role, so predictions should be treated as suggestions rather than definitive career recommendations.
 
-The OTP system is implemented using:
+The model artifacts and FastAPI service are in [`ML-Model/`](ML-Model). The service loads the sentence encoder, Keras classifier, and label encoder at startup and exposes a `/predict` endpoint.
 
-* Brevo Email API
+## Architecture
 
-Several approaches for OTP delivery were tested during development before the final working implementation was achieved.
+```text
+Browser (HTML, CSS, JavaScript)
+            |
+            v
+Backend API (Node.js, Express)
+  |         |             |
+  |         |             +--> Gemini API for skill-gap suggestions
+  |         +------------------> FastAPI resume-role prediction service
+  +----------------------------> MongoDB for accounts and application data
+```
 
-### 💼 Job Application Manager
+- **Frontend:** Static HTML, CSS, and JavaScript pages in [`Viewing/`](Viewing/), configured for Vercel.
+- **Backend:** Express API in [`Backend/`](Backend/) for authentication, user data, job tracking, PDF text extraction, and communication with the AI services.
+- **Resume classifier:** FastAPI service in [`ML-Model/`](ML-Model/), packaged with Docker.
+- **Skill-gap analysis:** Gemini API integration in the backend.
+- **Email:** Brevo API integration for OTP email.
 
-The main goal of AI Jobmate is to provide a central place where users can manage their job applications.
+## Technology
 
-Users can:
+| Area | Technologies |
+| --- | --- |
+| Frontend | HTML, CSS, JavaScript, Axios |
+| Backend | Node.js, Express, MongoDB/Mongoose, JWT |
+| Resume role prediction | Python, FastAPI, Sentence Transformers, TensorFlow/Keras, scikit-learn label encoding |
+| Skill-gap analysis | Google Gemini API |
+| Email verification | Brevo API |
+| ML service packaging | Docker |
 
-* Add new job applications
+## Repository layout
 
-* Edit job details anytime
+```text
+Backend/       Express API, routes, controllers, MongoDB models, and integrations
+Viewing/       Frontend pages, scripts, styles, and Vercel configuration
+ML-Model/      FastAPI prediction service and model artifacts
+docs/          Resume-classifier training notebook
+```
 
-* Change and save their job application status
+## Current limitations
 
-* Keep track of their job search progress
+- Job applications and their statuses are managed manually; the app does not automatically import applications or retrieve employer responses.
+- Resume role predictions depend on the training data and can be incorrect or have low confidence.
+- Skill-gap suggestions are generated by an LLM and may vary between requests; review them as suggestions, not authoritative guidance.
+- The frontend currently points to a hosted backend API, and the backend expects its database and external service credentials to be configured in its deployment environment.
 
-* Can add notes to specific application
+## Possible future improvements
 
-Statuses users can set:
+- Integrate with job platforms where suitable APIs are available
+- Expand and improve the resume training data and per-role evaluation
+- Add resume scoring and interview preparation tools
+- Improve dashboard analytics and loading performance
 
-* Pending
+## Live project and author
 
-* Approved
+- **Application:** https://ai-jobmate.vercel.app/
+- **Author:** Amogh Das Barman
+- **LinkedIn:** https://linkedin.com/in/amogh-das-barman-1970113a8
+- **GitHub:** https://github.com/Amogh-0201
 
-* Rejected
-
-This allows users to manage their entire job search workflow from one dashboard.
-
-### ⭐ Saved Jobs
-
-Users can also maintain a list of jobs they want to apply to later.
-
-Features include:
-
-* Save interesting job opportunities
-
-* Organize potential job applications
-
-* Move jobs from Saved Jobs to the Job Application Manager once they apply
-
-This helps users separate future opportunities from active job applications.
-
-### 🤖 AI Resume Analysis
-
-AI Jobmate includes an AI-powered resume analysis system.
-
-Users can:
-
-* Upload their resume
-
-* Send it to the ML service
-
-* Receive analysis results generated by a machine learning model(for matched jobroles)
-
-* Gemini is used for the skill gap analysis
-
-The model helps user to find suitable Job Role and also new skills to learn.
-#### N.P - the job suggestion model is made by using basic scikit learn logistic regression and also trained on an average training set found at kaggle, so the output confidence can be sometime very low and can predict some wrong values
-
-### ⚠️ Current Limitation
-
-AI Jobmate currently does not integrate directly with job platforms.
-
-Because of this limitation:
-
-* Job applications cannot be automatically detected
-
-* Company responses cannot be automatically retrieved
-
-* Users must manually change and save their job application status
-
-The platform currently acts as a personal job application manager.
-
-#### Automation may be possible in future versions if job platform APIs become accessible.
-
-## 🏗 System Architecture
-
-User
-
- │
- 
-Frontend (Vercel)
-
-HTML / CSS / JavaScript
-
- │
- 
-Backend API(Render Free tier)
-
-Node.js + Express
-
- │
- 
- ├ Authentication
- 
- ├ OTP Email Service (Brevo)
- 
- ├ Job Application Manager
- 
- └ Resume Processing
- 
- │
- 
-Machine Learning Service(Hugging Face)
-
-FastAPI + Scikit-learn
-
-(Dockerized)
-
-## 🛠 Tech Stack
-
-### Frontend
-
-* HTML
-
-* CSS
-
-* JavaScript
-
-### Backend
-
-* Node.js
-
-* Express.js
-
-* MongoDB
-
-* JWT Authentication
-
-* axios
-
-
-### Machine Learning Service
-
-* Python
-
-* Scikit-learn
-
-* FastAPI
-
-* Docker
-
-### Email Service
-
-* Brevo
-
-## 🌍 Live Deployment
-
-* Main Application
-
-https://ai-jobmate.vercel.app/
-
-## 📚 What I Learned From This Project
-
-Building AI Jobmate helped me gain practical experience with:
-
-* Full stack web development
-
-* REST API design with Node.js and Express
-
-* Email OTP verification systems
-
-* JWT authentication
-
-* Building ML APIs using FastAPI
-
-* Deploying ML services with Docker
-
-* Communication between backend and ML microservices
-
-* Deploying frontend and backend separately
-
-## 🔮 Future Improvements
-
-Possible improvements include:
-
-* Automated job tracking
-
-* Integration with job platforms
-
-* Resume scoring system
-
-* Better Job recommendation system(using more powerful model, trained on better dataset)
-
-* AI interview preparation
-
-* Improved analytics dashboard
-
-* Caching system to make the loading fast and more user friendly(also the backend deployed in render free tier takes almost 50 seconds to start the server after long inactivity)
-
-* ## 👨‍💻 Author
-
-#### Amogh Das Barman
-
-#### If you found this project interesting, consider giving the repository a ⭐.
-
-## 🔗 Connect With Me
-
-- LinkedIn: https://linkedin.com/in/amogh-das-barman-1970113a8
-
-- GitHub: https://github.com/Amogh-0201
-
-- Live Project: https://ai-jobmate.vercel.app/
+If you find the project useful or interesting, consider giving the repository a star.
